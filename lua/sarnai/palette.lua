@@ -43,23 +43,23 @@ return {
 	},
 	olgoo = {
 		-- Backgrounds
-		base    = "#E6ECE8", -- **Övör Tal** (Өвөр Тал) - "Sunny Meadow"
-		surface = "#DAE3DD", -- **Taliin Tsagaan** (Талын Цагаан) - "Steppe White"
-		overlay = "#CED8D2", -- **Mönkh Mod** (Мөнх Мод) - "Eternal Trees"
+		base    = "#E6ECE8",
+		surface = "#DAE3DD",
+		overlay = "#CED8D2",
 		-- Foregrounds
-		muted   = "#95A89E", -- **Dari Ereen** (Дари Эрээн) - "Silk Road Green"
-		subtle  = "#7D9187", -- **Uran Nogoon** (Уран Ногоон) - "Artisan Green"
-		text    = "#344F46", -- **Khötöl** (Хөтөл) - "Ridge"
+		muted   = "#748A81",
+		subtle  = "#5C776D",
+		text    = "#344F46",
 		-- Highlights
-		low     = "#A7BCB1", -- **Kharganii Us** (Харганийн Ус) - "Sagebrush Oasis"
-		mid     = "#7D9C8C", -- **Ereenii Us** (Эрээн Ус) - "Striped River"
-		high    = "#568471", -- **Bayan Uul** (Баян Уул) - "Rich Mountain"
+		low     = "#789A91",
+		mid     = "#5A8375",
+		high    = "#568471",
 		-- Main Colors
-		pink    = "#E3B3BE", -- **Sarkhan Sar** (Сархан Сар) - "Blush Moon"
-		red     = "#D2766E", -- **Alag Khon** (Алаг Хонь) - "Spotted Sheep"
-		yellow  = "#E9D19C", -- **Nogoon Els** (Ногоон Элс) - "Golden Green Dunes"
-		green   = "#86AFA0", -- **Khökh Övöo** (Хөх Өвөө) - "Azure Sage"
-		teal    = "#86C3C0", -- **Khuvsgöl Nuur** (Хөвсгөл Нуур) - "Lake Khövsgöl"
-		blue    = "#98B7E1", -- **Dalai Tenger** (Далай Тэнгэр) - "Ocean Sky"
+		pink    = "#CC8FA2",
+		red     = "#B15B54",
+		yellow  = "#C3A86F",
+		green   = "#61937F",
+		teal    = "#5FA5A2",
+		blue    = "#6A96C7",
 	}
 }
