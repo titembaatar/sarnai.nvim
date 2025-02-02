@@ -1,5 +1,5 @@
 
-<h3 align="center">sarnai</h3>
+<h3 align="center">sarnai.nvim</h3>
 <h6 align="center">ᠰᠠᠷᠠᠨᠠᠢ</h6>
 <br/>
 <p align="center">
@@ -7,38 +7,49 @@
   <a href="https://github.com/titembaatar/sarnai/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-9d4a40?style=for-the-badge"></a>
 </p>
 
-sarnai (ᠰᠠᠷᠠᠨᠠᠢ) means "rose" in Mongolian, my favourite colour, but most of all, the name of my beloved wife.
-She's the one who made the logo, helped find colors name, refined the palette to be more authentic. 
+---
 
-## 🇲🇳 Philosophy  
-- **Readability First**: Good contrast for clarity, but soft enough for long sessions.  
-- **Minimalist Spirit**: Sticking with terminal 16 colors and some variants for bgs and fgs.  
-- **Green Tints**: Because I love green, and I'm tired of blues.
+> **This is the Neovim colorscheme repository for `sarnai`.**  
+> The theme repository (including palettes, integrations, etc...) is at:  
+> 👉 **[titembaatar/sarnai](https://github.com/titembaatar/sarnai)**  
 
-sarnai.nvim is a **soft colorscheme** inspired by **Mongolian nature and traditions** that my wife made me discovered and inspired me for this colorscheme.  
+---
 
-It features **three variants**:
-- **🌑 Shono** (Night)
-- **🌆 Udesh** (Evening)
-- **🌄 Olgoo** (Morning)
+## **🌿 About**
+`sarnai.nvim` is a **pastel, nature-inspired Neovim colorscheme** inspired by **Mongolia's Nature**.  
+It is **WCAG contrast-compliant**, with soft yet readable colors. 
 
-> 🎨 **Soft contrasts • WCAG contrast compliance**
+---
+
+## 📸 Screenshots
+Coming soon !
+- 🌑 Shono (Dark)
+- 🌆 Udesh (Bright)
+- 🌄 Olgoo (Light)
 
 ---
 
 ## ✨ Features
-- **Pastel, nature-inspired palette**
-- **Three variations**: `shono` (dark), `udesh` (bright), `olgoo` (light)
-- **Soft contrasts for readability**
-- **Supports treesitter, LSP, and statuslines**
-- **Truecolor support for both GUI & TUI Neovim**
-- **Terminal 16-ANSI color support** 🎨
+- **Neovim 0.8+** compatibility 
+- **Three variants**:  
+  - 🌑 `shono` (dark)  
+  - 🌆 `udesh` (bright)  
+  - 🌄 `olgoo` (light)  
+- **LSP & Treesitter support** for better syntax highlighting
+- **Integrations** with:
+  - Telescope
+  - blink.cmp 
+  - LSP diagnostics
+  - Oil.nvim
+  - mini.nvim
+  - and more...
+- **Full Truecolor support** for both **GUI & TUI Neovim**
 
 ---
 
 ## 📦 Installation
 
-### **Lazy.nvim**
+### **lazy.nvim**
 ```lua
 {
     "titembaatar/sarnai.nvim",
@@ -51,7 +62,7 @@ It features **three variants**:
 }
 ```
 
-### **Packer** (untested)
+### **Packer.nvim** 
 ```lua
 use {
   "titembaatar/sarnai.nim",
@@ -62,43 +73,52 @@ use {
   end
 }
 ```
+> **🛠️ Note**: this should work, but I don't use Packer, so idk 🫥
 
-### Manual Installation
-Clone the repository into your Neovim config:
-```sh
-git clone https://github.com/titembaatar/sarnai.nvim ~/.config/nvim/pack/plugins/start/sarnai.nvim
-```
-Then, in your `init.lua`:
+---
+
+## 🛠️ Configuration
+
+You can customize `sarnai.nvim` using the `setup()` function.
+
+### **Default Settings**
 ```lua
-require("sarnai").setup({ variant = "shono" })
+require("sarnai").setup({
+    variant = "shono", -- Options: "shono" | "udesh" | "olgoo"
+
+    styles = {
+        bold = true,
+        italic = true,
+        underline = false,
+        transparent = false,
+    },
+
+    filetypes = { -- Improve syntax highlighting for:
+        lua = true,
+        shell = true,
+        markdown = true,
+    },
+
+    integrations = {
+        treesitter = true,
+        telescope = true,
+        cmp = true,
+        lsp = true,
+        oil = true,
+        mini = true,
+    },
+
+    highlight_groups = {
+        Comment = { fg = "#FFD700", italic = false }, -- Example override
+    },
+})
 ```
 
 ---
 
-## 🚀 Usage
-Sarnai automatically applies the colorscheme when loaded.
-If you need to manually switch variants, use:
-```lua
-require("sarnai").setup({ variant = "udesh" })
-```
-or
-```vim
-:colorscheme sarnai
-```
-
----
-
-## 📸 Screenshots
-🌑 Shono (Dark)
-
-🌆 Udesh (Bright)
-
-🌄 Olgoo (Light)
-
----
-
-## 🛠️ Contributing
+## 🫱🏼‍🫲🏽 Contributing
 PRs are welcome! If you'd like to help:
-1. Fork the repository 🍴
-2. Make changes & test in Neovim 🛠️
-3. Open a pull request 🚀
+1. Fork the repository
+2. Make changes and test
+3. Open a pull request
+Feel free to report any issues, suggest features, or submit fixes. Especially for `Olgoo`, I am not quite sure if I hit the mark with the colors.
