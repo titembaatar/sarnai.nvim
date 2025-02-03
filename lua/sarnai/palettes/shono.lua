@@ -1,21 +1,21 @@
 return {
 	-- Backgrounds
-	base    = "#101915",
-	surface = "#18241E",
-	overlay = "#213229",
+	base    = "#0E1A16",
+	surface = "#162320",
+	overlay = "#1F3230",
 	-- Foregrounds
-	muted   = "#5E776F",
-	subtle  = "#81978E",
-	text    = "#C7D8D1",
+	muted   = "#5C7670",
+	subtle  = "#7F9590",
+	text    = "#C5D6D0",
 	-- Highlights
-	low     = "#163C32",
-	mid     = "#2A6550",
-	high    = "#468C74",
+	low     = "#1A4A3E",
+	mid     = "#2C6D56",
+	high    = "#429A78",
 	-- Main Colors
-	pink    = "#D8A4AE",
-	red     = "#C4665C",
-	yellow  = "#D7B978",
-	green   = "#6C927E",
-	teal    = "#6CA7A3",
-	blue    = "#809ECF",
+	sarnai  = "#D6A2AC",
+	anis    = "#C4675D",
+	els     = "#D5B677",
+	nuur    = "#3f8895",
+	mus     = "#A5D3D6",
+	uvs     = "#4E9A6C",
 }

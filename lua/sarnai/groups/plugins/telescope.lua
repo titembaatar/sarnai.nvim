@@ -1,12 +1,12 @@
 local M = {}
 
-function M.get_highlights(palette)
+function M.get(palette)
 	return {
 		TelescopeNormal       = { fg = palette.text, bg = palette.base },
-		TelescopeBorder       = { fg = palette.green },
+		TelescopeBorder       = { fg = palette.uvs },
 		TelescopePromptNormal = { fg = palette.test, bg = palette.base },
 		TelescopeSelection    = { fg = palette.text, bg = palette.low },
-		TelescopeMatching     = { fg = palette.pink, bold = true },
+		TelescopeMatching     = { fg = palette.sarnai, bold = true },
 	}
 end
 

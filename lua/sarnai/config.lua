@@ -8,7 +8,6 @@ M.defaults = {
 	styles = {             -- New styles settings for highlights
 		italic = true,
 		bold = true,
-		undercurl = true,
 		underline = true,
 	},
 	plugins = { -- Plugin-specific configuration

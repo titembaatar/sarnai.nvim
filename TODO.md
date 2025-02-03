@@ -57,17 +57,17 @@
   - [x] **Lazy Loading Compatibility**
     - [x] Integrate auto-loading with `folke/lazy.nvim` by following its best practices.
 
-- [ ] **Integration with folke/lazy.nvim**
-  - [ ] **Lazy Plugin Specification**
-    - [ ] Create a specification table in your plugin (or in a separate file) that complies with `folke/lazy.nvim` standards.
-    - [ ] Ensure the colorscheme can be lazy-loaded and configured per the [folke/lazy.nvim developers guidelines](https://lazy.folke.io/developers).
-  - [ ] **Modular Configuration**
-    - [ ] Design the plugin configuration so that lazy-loading of plugin highlights and additional features is seamless and modular.
+- [x] **Integration with folke/lazy.nvim**
+  - [x] **Lazy Plugin Specification**
+    - [x] Create a specification table in your plugin (or in a separate file) that complies with `folke/lazy.nvim` standards.
+    - [x] Ensure the colorscheme can be lazy-loaded and configured per the [folke/lazy.nvim developers guidelines](https://lazy.folke.io/developers).
+  - [x] **Modular Configuration**
+    - [x] Design the plugin configuration so that lazy-loading of plugin highlights and additional features is seamless and modular.
 
-- [ ] **Testing and Iteration**
-  - [ ] **Local Testing**
-    - [ ] Test the colorscheme by loading it in Neovim and switching between palette variants.
-    - [ ] Verify that Neovim’s core highlights and the additional plugin highlights load correctly.
+- [x] **Testing and Iteration**
+  - [x] **Local Testing**
+    - [x] Test the colorscheme by loading it in Neovim and switching between palette variants.
+    - [x] Verify that Neovim’s core highlights and the additional plugin highlights load correctly.
   - [ ] **User Customization Testing**
     - [ ] Test customization options by overriding defaults in the configuration file.
   - [ ] **Iterate**

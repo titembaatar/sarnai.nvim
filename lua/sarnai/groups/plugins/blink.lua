@@ -1,16 +1,12 @@
-local config = require("sarnai.config").extend()
-
 local M = {}
 
-function M.get_highlights(palette)
-	local styles = config.opts.styles
-
+function M.get(palette)
 	return {
-		BlinkCmpMenu   = { fg = palette.text, bg = palette.overlay },
-		BlinkCmpLabel  = { fg = palette.text, bg = palette.overlay },
-		BlinkCmpBorder = { fg = palette.blue },
-		BlinkCmpDoc    = { fg = palette.green },
-		BlinkCmpMatch  = { fg = palette.pink, bold = styles.bold },
+		BlinkCmpMenu            = { fg = palette.text, bg = palette.overlay },
+		BlinkCmpMenuSelection   = { fg = palette.base, bg = palette.sarnai },
+
+		BlinkCmpScrollBarThumb  = { bg = palette.muted },
+		BlinkCmpScrollBarGutter = { bg = palette.overlay },
 	}
 end
 
