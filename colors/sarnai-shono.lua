@@ -1,1 +1,1 @@
-require("sarnai").load({ style = "shono" })
+require("sarnai").load("shono")

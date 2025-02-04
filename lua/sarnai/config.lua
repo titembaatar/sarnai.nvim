@@ -1,8 +1,8 @@
 local M = {}
 
+---@class sarnai.Config
 M.defaults = {
 	style = "shono",       -- Default palette variant: "shono", "udesh", or "ogloo"
-	light_style = "ogloo", -- Light variant
 	transparent = false,   -- Whether to enable transparent background
 	terminal_colors = true, -- Whether to enable terminal colors
 	styles = {             -- New styles settings for highlights
@@ -17,26 +17,17 @@ M.defaults = {
 	overrides = {}, -- Highlight group overrides
 }
 
--- This will hold the final merged options
-M.options = vim.deepcopy(M.defaults)
+---@type sarnai.Config
+M.options = nil
 
--- Setup function: merge user-provided opts with defaults
+---@param options? sarnai.Config
 function M.setup(options)
-	if type(options) == "table" then
-		M.options = vim.tbl_deep_extend("force", {}, M.defaults, options)
-	end
-	return M.options
+	M.options = vim.tbl_deep_extend("force", {}, M.defaults, options or {})
 end
 
--- Extend function: merge the current options with additional opts, if needed
+---@param opts? sarnai.Config
 function M.extend(opts)
-	if type(opts) == "string" then
-		opts = { style = opts }
-	elseif type(opts) ~= "table" then
-		opts = {}
-	end
-
-	return vim.tbl_deep_extend("force", {}, M.options, opts)
+	return opts and vim.tbl_deep_extend("force", {}, M.options, opts) or M.options
 end
 
 setmetatable(M, {

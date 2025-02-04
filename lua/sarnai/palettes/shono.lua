@@ -11,7 +11,7 @@ return {
 	low     = "#1A4A3E",
 	mid     = "#2C6D56",
 	high    = "#429A78",
-	-- Main Colors
+	-- Main colors
 	sarnai  = "#D6A2AC",
 	anis    = "#C4675D",
 	els     = "#D5B677",
