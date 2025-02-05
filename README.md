@@ -15,35 +15,19 @@
 
 ---
 
-## **🌿 About**
-`sarnai.nvim` is a **pastel, nature-inspired Neovim colorscheme** inspired by **Mongolia's Nature**.  
-It is **WCAG contrast-compliant**, with soft yet readable colors. 
-
----
-
-## 📸 Screenshots
-Coming soon !
-- 🌑 Shono (Dark)
-- 🌆 Udesh (Bright)
-- 🌄 Olgoo (Light)
-
----
-
-## ✨ Features
-- **Neovim 0.8+** compatibility 
-- **Three variants**:  
-  - 🌑 `shono` (dark)  
-  - 🌆 `udesh` (bright)  
-  - 🌄 `olgoo` (light)  
-- **LSP & Treesitter support** for better syntax highlighting
-- **Integrations** with:
-  - Telescope
-  - blink.cmp 
-  - LSP diagnostics
-  - Oil.nvim
-  - mini.nvim
-  - and more...
-- **Full Truecolor support** for both **GUI & TUI Neovim**
+## Features
+- Three styles:  
+  - 🌑 `shono` (night)  
+  - 🌆 `udesh` (evening)  
+  - 🌄 `olgoo` (morning)  
+- WCAG contrast-compliant
+- LSP & Treesitter support 
+- Integrations:
+  - [telescope.mvim](https://github.com/nvim-telescope/telescope.nvim)
+  - [blink.cmp](https://github.com/Saghen/blink.cmp)
+  - [oil.nvim](https://github.com/stevearc/oil.nvim)
+  - [mini.statusline](https://github.com/echasnovski/mini.nvim)
+  - [lazgit.nvim](https://github.com/kdheepak/lazygit.nvim)
 
 ---
 
@@ -51,63 +35,43 @@ Coming soon !
 
 ### **lazy.nvim**
 ```lua
-{
-    "titembaatar/sarnai.nvim",
-    name = "sarnai",
-    config = function()
-        require("sarnai").setup({
-            variant = "shono", -- Options: "shono" | "udesh" | "olgoo"
-        })
-    end,
-}
-```
-
-### **Packer.nvim** 
-```lua
-use {
-  "titembaatar/sarnai.nim",
+return {
+  "titembaatar/sarnai.nvim",
+  lazy = false,
+  priority = 1000,
   config = function()
     require("sarnai").setup({
-      variant = "shono", -- Options: "shono" | "udesh" | "olgoo"
+      style = "shono",
     })
+    vim.cmd([[colorscheme sarnai]])
   end
 }
 ```
-> **🛠️ Note**: this should work, but I don't use Packer, so idk 🫥
 
 ---
 
-## 🛠️ Configuration
+## Gallery
+Coming soon !
+- 🌑 Shono (Dark)
+- 🌆 Udesh (Bright)
+- 🌄 Olgoo (Light)
+
+---
+
+## Configuration
 
 You can customize `sarnai.nvim` using the `setup()` function.
 
 ### **Default Settings**
 ```lua
 require("sarnai").setup({
-    variant = "shono", -- Options: "shono" | "udesh" | "olgoo"
-
+    style = "shono", -- Options: "shono" | "udesh" | "olgoo"
     styles = {
         bold = true,
         italic = true,
         underline = false,
         transparent = false,
     },
-
-    filetypes = { -- Improve syntax highlighting for:
-        lua = true,
-        shell = true,
-        markdown = true,
-    },
-
-    integrations = {
-        treesitter = true,
-        telescope = true,
-        cmp = true,
-        lsp = true,
-        oil = true,
-        mini = true,
-    },
-
     highlight_groups = {
         Comment = { fg = "#FFD700", italic = false }, -- Example override
     },
