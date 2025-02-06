@@ -2,7 +2,7 @@ local config = require("sarnai.config")
 
 local M = {}
 
----@param style? sarnai.Config
+---@param style? string Style name
 function M.load(style)
 	local opts = require("sarnai.config").extend({ style = style })
 
@@ -10,5 +10,6 @@ function M.load(style)
 end
 
 M.setup = config.setup
+
 
 return M

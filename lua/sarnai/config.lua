@@ -10,11 +10,7 @@ M.defaults = {
 		bold = true,
 		underline = true,
 	},
-	plugins = { -- Plugin-specific configuration
-		enable = true,
-		overrides = {},
-	},
-	overrides = {}, -- Highlight group overrides
+	groups = {}, -- Highlight group overrides
 }
 
 ---@type sarnai.Config

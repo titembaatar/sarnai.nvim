@@ -1,5 +1,6 @@
 local M = {}
 
+---@param palette table Style colors
 function M.get(palette)
 	return {
 		MiniStatuslineModeNormal  = { fg = palette.base, bg = palette.sarnai },

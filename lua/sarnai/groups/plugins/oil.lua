@@ -2,6 +2,7 @@ local M = {}
 
 local styles = require("sarnai.config").options.styles
 
+---@param palette table Style colors
 function M.get(palette)
 	return {
 		OilHidden           = { fg = palette.muted },

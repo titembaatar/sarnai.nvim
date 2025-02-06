@@ -1,5 +1,6 @@
 local M = {}
 
+---@param opts sarnai.Config
 function M.setup(opts)
 	opts = require("sarnai.config").extend(opts)
 	local palette = require("sarnai.palettes." .. opts.style)

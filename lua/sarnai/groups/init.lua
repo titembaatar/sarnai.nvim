@@ -12,6 +12,7 @@ local modules = {
 	lazygit = "sarnai.groups.plugins.lazygit",
 }
 
+---@param highlights table Apply highlights to all groups
 local function apply_highlights(highlights)
 	for group, opts in pairs(highlights) do
 		if opts.blend ~= nil and (opts.blend >= 0 and opts.blend <= 100) and opts.bg ~= nil then
@@ -21,11 +22,13 @@ local function apply_highlights(highlights)
 	end
 end
 
+---@param palette table Style colors
+---@param opts table sarnai.Config
 function M.setup(palette, opts)
 	local final_highlights = {}
 
 	-- Load and apply module highlights
-	for key, module_path in pairs(modules) do
+	for _, module_path in pairs(modules) do
 		local ok, mod = pcall(require, module_path)
 		if ok and type(mod.get) == "function" then
 			local status, highlights = pcall(mod.get, palette, opts)
