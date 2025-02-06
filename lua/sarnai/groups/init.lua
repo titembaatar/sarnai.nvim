@@ -13,37 +13,35 @@ local modules = {
 }
 
 ---@param highlights table Apply highlights to all groups
-local function apply_highlights(highlights)
-	for group, opts in pairs(highlights) do
-		if opts.blend ~= nil and (opts.blend >= 0 and opts.blend <= 100) and opts.bg ~= nil then
-			opts.bg = util.blend(opts.bg, opts.blend_on or "#0d1615", opts.blend / 100)
+local function set_highlights(highlights, palette)
+	for group, highlight in pairs(highlights) do
+		if highlight.blend ~= nil and (highlight.blend >= 0 and highlight.blend <= 100) and highlight.bg ~= nil then
+			highlight.bg = util.blend(highlight.bg, highlight.blend_on or palette.base, highlight.blend / 100)
 		end
-		local status, err = pcall(vim.api.nvim_set_hl, 0, group, opts)
+
+		highlight.blend = nil
+		highlight.blend_on = nil
+
+		vim.api.nvim_set_hl(0, group, highlight)
 	end
 end
 
 ---@param palette table Style colors
 ---@param opts table sarnai.Config
 function M.setup(palette, opts)
-	local final_highlights = {}
+	local groups_highlights = {}
 
 	-- Load and apply module highlights
-	for _, module_path in pairs(modules) do
-		local ok, mod = pcall(require, module_path)
-		if ok and type(mod.get) == "function" then
-			local status, highlights = pcall(mod.get, palette, opts)
-
-			if status and type(highlights) == "table" then
-				for group, hl_opts in pairs(highlights) do
-					final_highlights[group] = hl_opts
-				end
-			end
+	for _, module in pairs(modules) do
+		local module_highlights = require(module).get(palette, opts)
+		for group, highlight in pairs(module_highlights) do
+			groups_highlights[group] = highlight
 		end
 	end
 
-	-- Apply all highlights
-	apply_highlights(final_highlights)
-	return final_highlights
+	-- Set all highlights
+	set_highlights(groups_highlights, palette)
+	return groups_highlights
 end
 
 return M
