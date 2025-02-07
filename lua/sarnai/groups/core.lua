@@ -25,7 +25,7 @@ function M.get(palette)
 		Directory                                = { fg = palette.mus, bold = styles.bold },
 		-- EndOfBuffer = {},
 		ErrorMsg                                 = { fg = palette.anis, bold = styles.bold },
-		FloatBorder                              = { fg = palette.uvs, bg = palette.base },
+		FloatBorder                              = { fg = palette.muted, bg = palette.base },
 		FloatTitle                               = { fg = palette.mus, bg = palette.surface, bold = styles.bold },
 		FoldColumn                               = { fg = palette.muted },
 		Folded                                   = { fg = palette.text, bg = palette.surface },
