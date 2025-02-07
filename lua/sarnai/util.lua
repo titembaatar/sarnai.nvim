@@ -29,4 +29,21 @@ function M.blend(fg, bg, alpha)
 	return string.format("#%02X%02X%02X", blend_channel(1), blend_channel(2), blend_channel(3))
 end
 
+---@param palette table Style's palette
+---@param color string Color name or hex value
+function M.parse_color(palette, color)
+	if color == nil then
+		print("Invalid color: " .. color)
+		return nil
+	end
+
+	color = color:lower()
+
+	if not color:find("#") and color ~= "NONE" then
+		color = palette[color]
+	end
+
+	return color
+end
+
 return M

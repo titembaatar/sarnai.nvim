@@ -10,6 +10,7 @@ local modules = {
 	oil = "sarnai.groups.plugins.oil",
 	telescope = "sarnai.groups.plugins.telescope",
 	lazygit = "sarnai.groups.plugins.lazygit",
+	render_markdown = "sarnai.groups.plugins.render_markdown",
 }
 
 ---@param highlights table Apply highlights to all groups
@@ -36,6 +37,19 @@ function M.setup(palette, opts)
 		local module_highlights = require(module).get(palette, opts)
 		for group, highlight in pairs(module_highlights) do
 			groups_highlights[group] = highlight
+		end
+	end
+
+	-- Overrides options highlights
+	if opts.highlights ~= nil then
+		for group, highlight in pairs(opts.highlights) do
+			if highlight.fg ~= nil then
+				groups_highlights[group].fg = util.parse_color(palette, highlight.fg)
+			end
+
+			if highlight.bg ~= nil then
+				groups_highlights[group].bg = util.parse_color(palette, highlight.bg)
+			end
 		end
 	end
 

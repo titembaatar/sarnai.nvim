@@ -10,7 +10,7 @@ M.defaults = {
 		bold = true,
 		underline = true,
 	},
-	groups = {}, -- Highlight group overrides
+	highlights = {},
 }
 
 ---@type sarnai.Config
