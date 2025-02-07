@@ -6,13 +6,9 @@
   <a href="https://github.com/titembaatar/sarnai/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-9d4a40?style=for-the-badge"></a>
 </p>
 
----
-
 > **This is the Neovim colorscheme repository for `sarnai`.**  
 > The theme repository (including palettes, integrations, etc...) is at:  
 > 👉 **[titembaatar/sarnai](https://github.com/titembaatar/sarnai)**  
-
----
 
 ## Features
 - Three styles:  
@@ -28,8 +24,6 @@
   - [mini.statusline](https://github.com/echasnovski/mini.nvim)
   - [lazgit.nvim](https://github.com/kdheepak/lazygit.nvim)
 
----
-
 ## 📦 Installation
 
 ### **lazy.nvim**
@@ -44,8 +38,6 @@ return {
 }
 ```
 
----
-
 ## Gallery
 <h4 align="center">🌌 Шөнө (Shono) - Night</h4>
 <p align="center">
@@ -59,8 +51,6 @@ return {
 <p align="center">
   <img src="./assets/nvim_ogloo.png" style="width: 80%">
 </p>
-
----
 
 ## Configuration
 
@@ -82,8 +72,6 @@ require("sarnai").setup({
   },
 })
 ```
-
----
 
 ## 🫱🏼‍🫲🏽 Contributing
 PRs are welcome! If you'd like to help:

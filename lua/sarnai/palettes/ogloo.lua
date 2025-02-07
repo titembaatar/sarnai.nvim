@@ -1,21 +1,21 @@
 return {
 	-- Backgrounds
-	base    = "#F2F7F5",
-	surface = "#E6EEE9",
-	overlay = "#DAE5DE",
+	base    = "#e5f5ea",
+	surface = "#c3e4cd",
+	overlay = "#a3d1b1",
 	-- Foregrounds
-	muted   = "#8CA9A1",
-	subtle  = "#5C7670",
-	text    = "#1C332D",
+	muted   = "#8da594",
+	subtle  = "#4f6456",
+	text    = "#161d18",
 	-- Highlights
-	low     = "#D1E3DB",
-	mid     = "#A3C7B5",
-	high    = "#72A591",
+	low     = "#9fdfb5",
+	mid     = "#66cc87",
+	high    = "#3aac5f",
 	-- Main colors
-	sarnai  = "#B57E8C",
-	anis    = "#C4675D",
-	els     = "#D5B677",
-	nuur    = "#3f8895",
-	mus     = "#5B9A9D",
-	uvs     = "#4E9A6C",
+	sarnai  = "#b93d4d",
+	anis    = "#cc2929",
+	els     = "#df9b23",
+	nuur    = "#0a728c",
+	mus     = "#12adad",
+	uvs     = "#4c890f",
 }
