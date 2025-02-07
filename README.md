@@ -48,13 +48,13 @@ return {
 
 ## Gallery
 <h4 align="center">🌌 Шөнө (Shono) - Night</h4>
-<img src"./assets/nvim_shono.png" align="center" style="width: 80%">
+<img src="./assets/nvim_shono.png" align="center" style="width: 80%">
 <br/>
 <h4 align="center">🌄 Үдэш (Udesh) - Evening</h4>
-<img src"./assets/nvim_udesh.png" align="center" style="width: 80%">
+<img src="./assets/nvim_udesh.png" align="center" style="width: 80%">
 <br/>
 <h4 align="center">🌅 Өглөө (Ogloo) - Morning</h4>
-<img src"./assets/nvim_ogloo.png" align="center" style="width: 80%">
+<img src="./assets/nvim_ogloo.png" align="center" style="width: 80%">
 
 ---
 
