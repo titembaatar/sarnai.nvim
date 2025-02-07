@@ -1,1 +1,1 @@
-require("sarnai").load("ogloo")
+require("sarnai").load({ style = "ogloo" })

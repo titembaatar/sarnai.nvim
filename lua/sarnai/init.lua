@@ -2,10 +2,9 @@ local config = require("sarnai.config")
 
 local M = {}
 
----@param style? string Style name
-function M.load(style)
-	local opts = require("sarnai.config").extend({ style = style })
-
+---@param opts? sarnai.Config
+function M.load(opts)
+	opts = require("sarnai.config").extend(opts)
 	return require("sarnai.colors").setup(opts)
 end
 

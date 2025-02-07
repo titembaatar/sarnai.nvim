@@ -1,5 +1,7 @@
 local M = {}
 
+M.version = "0.1.0"
+
 ---@class sarnai.Config
 M.defaults = {
 	style = "shono",       -- Default palette variant: "shono", "udesh", or "ogloo"
