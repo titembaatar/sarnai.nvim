@@ -1,4 +1,3 @@
-
 <h3 align="center">sarnai.nvim</h3>
 <h6 align="center">ᠰᠠᠷᠠᠨᠠᠢ</h6>
 <br/>
@@ -17,9 +16,9 @@
 
 ## Features
 - Three styles:  
-  - 🌑 `shono` (night)  
-  - 🌆 `udesh` (evening)  
-  - 🌄 `olgoo` (morning)  
+  - 🌌 `shono` (dark)  
+  - 🌄 `udesh` (brighter dark)  
+  - 🌅 `olgoo` (light)  
 - WCAG contrast-compliant
 - LSP & Treesitter support 
 - Integrations:
@@ -40,9 +39,6 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
-    require("sarnai").setup({
-      style = "shono",
-    })
     vim.cmd([[colorscheme sarnai]])
   end
 }
@@ -52,9 +48,9 @@ return {
 
 ## Gallery
 Coming soon !
-- 🌑 Shono (Dark)
-- 🌆 Udesh (Bright)
-- 🌄 Olgoo (Light)
+- 🌌 Шөнө (Shono) - Night
+- 🌄 Үдэш (Udesh) - Evening
+- 🌅 Өглөө (Ogloo) - Morning
 
 ---
 
@@ -65,16 +61,17 @@ You can customize `sarnai.nvim` using the `setup()` function.
 ### **Default Settings**
 ```lua
 require("sarnai").setup({
-    style = "shono", -- Options: "shono" | "udesh" | "olgoo"
-    styles = {
-        bold = true,
-        italic = true,
-        underline = false,
-        transparent = false,
-    },
-    highlight_groups = {
-        Comment = { fg = "#FFD700", italic = false }, -- Example override
-    },
+  style = "shono",                  -- Variant: "shono", "udesh", or "ogloo"
+  transparent = false,              -- Enable transparent background
+  terminal_colors = true,           -- Enable terminal colors
+  styles = {                        -- Enable styles for highlights
+    italic = true,
+    bold = true,
+    underline = true,
+  },
+  highlights = {
+    -- Comment = { fg = "nuur" }    -- Exemple of highlight override
+  },
 })
 ```
 
