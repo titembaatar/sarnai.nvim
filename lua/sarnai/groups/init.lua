@@ -1,61 +1,109 @@
+local Config = require("sarnai.config")
+local Util = require("sarnai.util")
+
 local M = {}
 
-local util = require("sarnai.util")
-
-local modules = {
-	core = "sarnai.groups.core",
-	-- Plugins
-	blink = "sarnai.groups.plugins.blink",
-	mini = "sarnai.groups.plugins.mini",
-	oil = "sarnai.groups.plugins.oil",
-	telescope = "sarnai.groups.plugins.telescope",
-	lazygit = "sarnai.groups.plugins.lazygit",
-	render_markdown = "sarnai.groups.plugins.render_markdown",
+-- stylua: ignore
+M.plugins = {
+	["blink.cmp"]            = "blink",
+	["lazy.nvim"]            = "lazy",
+	["mini.statusline"]      = "mini_statusline",
+	["neo-tree.nvim"]        = "neo-tree",
+	["nvim-tree.lua"]        = "nvim-tree",
+	["render-markdown.nvim"] = "render-markdown",
+	["telescope.nvim"]       = "telescope",
 }
 
----@param highlights table Apply highlights to all groups
-local function set_highlights(highlights, palette)
-	for group, highlight in pairs(highlights) do
-		if highlight.blend ~= nil and (highlight.blend >= 0 and highlight.blend <= 100) and highlight.bg ~= nil then
-			highlight.bg = util.blend(highlight.bg, highlight.blend_on or palette.base, highlight.blend / 100)
-		end
+local me = debug.getinfo(1, "S").source:sub(2)
+me = vim.fn.fnamemodify(me, ":h")
 
-		highlight.blend = nil
-		highlight.blend_on = nil
-
-		vim.api.nvim_set_hl(0, group, highlight)
-	end
+function M.get_group(name)
+	---@type {get: sarnai.HighlightsFn, url: string}
+	return Util.mod("sarnai.groups." .. name)
 end
 
----@param palette table Style colors
----@param opts table sarnai.Config
-function M.setup(palette, opts)
-	local groups_highlights = {}
+---@param colors ColorScheme
+---@param opts sarnai.Config
+function M.get(name, colors, opts)
+	local mod = M.get_group(name)
+	return mod.get(colors, opts)
+end
 
-	-- Load and apply module highlights
-	for _, module in pairs(modules) do
-		local module_highlights = require(module).get(palette, opts)
-		for group, highlight in pairs(module_highlights) do
-			groups_highlights[group] = highlight
+---@param colors ColorScheme
+---@param opts sarnai.Config
+function M.setup(colors, opts)
+	local groups = {
+		base = true,
+		kinds = true,
+		semantic_tokens = true,
+		treesitter = true,
+	}
+
+	if opts.plugins.all then
+		for _, group in pairs(M.plugins) do
+			groups[group] = true
+		end
+	elseif opts.plugins.auto and package.loaded.lazy then
+		local plugins = require("lazy.core.config").plugins
+		for plugin, group in pairs(M.plugins) do
+			if plugins[plugin] then
+				groups[group] = true
+			end
+		end
+
+		-- special case for mini.nvim
+		if plugins["mini.nvim"] then
+			for _, group in pairs(M.plugins) do
+				if group:find("^mini_") then
+					groups[group] = true
+				end
+			end
 		end
 	end
 
-	-- Overrides options highlights
-	if opts.highlights ~= nil then
-		for group, highlight in pairs(opts.highlights) do
-			if highlight.fg ~= nil then
-				groups_highlights[group].fg = util.parse_color(palette, highlight.fg)
+	-- manually enable/disable plugins
+	for plugin, group in pairs(M.plugins) do
+		local use = opts.plugins[group]
+		use = use == nil and opts.plugins[plugin] or use
+		if use ~= nil then
+			if type(use) == "table" then
+				use = use.enabled
 			end
-
-			if highlight.bg ~= nil then
-				groups_highlights[group].bg = util.parse_color(palette, highlight.bg)
-			end
+			groups[group] = use or nil
 		end
 	end
 
-	-- Set all highlights
-	set_highlights(groups_highlights, palette)
-	return groups_highlights
+	local names = vim.tbl_keys(groups)
+	table.sort(names)
+
+	local cache_key = opts.style
+	local cache = opts.cache and Util.cache.read(cache_key)
+
+	local inputs = {
+		colors = colors,
+		plugins = names,
+		version = Config.version,
+		opts = { transparent = opts.transparent, styles = opts.styles, dim_inactive = opts.dim_inactive },
+	}
+
+	local ret = cache and vim.deep_equal(inputs, cache.inputs) and cache.groups
+
+	if not ret then
+		ret = {}
+		-- merge highlights
+		for group in pairs(groups) do
+			for k, v in pairs(M.get(group, colors, opts)) do
+				ret[k] = v
+			end
+		end
+		Util.resolve(ret)
+		if opts.cache then
+			Util.cache.write(cache_key, { groups = ret, inputs = inputs })
+		end
+	end
+	opts.on_highlights(ret, colors)
+
+	return ret, groups
 end
 
 return M
