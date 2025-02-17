@@ -11,18 +11,11 @@
 > 👉 **[titembaatar/sarnai](https://github.com/titembaatar/sarnai)**  
 
 ## Features
-- Three styles:  
-  - 🌌 `shono` (dark)  
-  - 🌄 `udesh` (brighter dark)  
-  - 🌅 `olgoo` (light)  
-- WCAG contrast-compliant
+- Two styles:  
+  - 🌸 `khavar` (dark)  
+  - ❄️ `ovol` (light)  
 - LSP & Treesitter support 
-- Integrations:
-  - [telescope.mvim](https://github.com/nvim-telescope/telescope.nvim)
-  - [blink.cmp](https://github.com/Saghen/blink.cmp)
-  - [oil.nvim](https://github.com/stevearc/oil.nvim)
-  - [mini.statusline](https://github.com/echasnovski/mini.nvim)
-  - [lazgit.nvim](https://github.com/kdheepak/lazygit.nvim)
+- Some plugins integrations
 
 ## 📦 Installation
 
@@ -32,24 +25,18 @@ return {
   "titembaatar/sarnai.nvim",
   lazy = false,
   priority = 1000,
-  config = function()
-    vim.cmd([[colorscheme sarnai]])
-  end
+  opts = {},
 }
 ```
 
 ## Gallery
-<h4 align="center">🌌 Шөнө (Shono) - Night</h4>
+<h4 align="center">🌸 Хавар (Khavar) - Spring</h4>
 <p align="center">
-  <img src="./assets/nvim_shono.png" style="width: 80%">
+  <img src="./assets/nvim_khavar.png" style="width: 80%">
 </p>
-<h4 align="center">🌄 Үдэш (Udesh) - Evening</h4>
+<h4 align="center">❄️ Өвөл (Ovol) - Winter</h4>
 <p align="center">
-  <img src="./assets/nvim_udesh.png" style="width: 80%">
-</p>
-<h4 align="center">🌅 Өглөө (Ogloo) - Morning</h4>
-<p align="center">
-  <img src="./assets/nvim_ogloo.png" style="width: 80%">
+  <img src="./assets/nvim_ovol.png" style="width: 80%">
 </p>
 
 ## Configuration
@@ -58,19 +45,42 @@ You can customize `sarnai.nvim` using the `setup()` function.
 
 ### **Default Settings**
 ```lua
-require("sarnai").setup({
-  style = "shono",                  -- Variant: "shono", "udesh", or "ogloo"
-  transparent = false,              -- Enable transparent background
-  terminal_colors = true,           -- Enable terminal colors
-  styles = {                        -- Enable styles for highlights
-    italic = true,
-    bold = true,
-    underline = true,
-  },
-  highlights = {
-    -- Comment = { fg = "nuur" }    -- Exemple of highlight override
-  },
-})
+M.defaults = {
+	style = "khavar",
+	light_style = "ovol",
+	transparent = false,
+	terminal_colors = true,
+	styles = {
+		comments = { italic = true },
+		keywords = { italic = true },
+		functions = {},
+		variables = {},
+		sidebars = "dark",
+		floats = "dark", 
+	},
+	day_brightness = 0.3,
+	dim_inactive = false,
+	lualine_bold = false,
+
+	--- You can override specific color groups to use other groups or a hex color
+	--- function will be called with a ColorScheme table
+	---@param colors ColorScheme
+	on_colors = function(colors) end,
+
+	--- You can override specific highlights to use other groups or a hex color
+	--- function will be called with a Highlights and ColorScheme table
+	---@param highlights sarnai.Highlights
+	---@param colors ColorScheme
+	on_highlights = function(highlights, colors) end,
+
+	cache = true,
+
+	---@type table<string, boolean|{enabled:boolean}>
+	plugins = {
+		all = package.loaded.lazy == nil,
+		auto = true,
+	},
+}
 ```
 
 ## 🫱🏼‍🫲🏽 Contributing
@@ -78,4 +88,4 @@ PRs are welcome! If you'd like to help:
 1. Fork the repository
 2. Make changes and test
 3. Open a pull request
-Feel free to report any issues, suggest features, or submit fixes. Especially for `Olgoo`, I am not quite sure if I hit the mark with the colors.
+Feel free to report any issues, suggest features, or submit fixes. Especially for `Ovol`, I am not quite sure if I hit the mark with the colors.
