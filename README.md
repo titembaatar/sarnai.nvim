@@ -41,7 +41,7 @@ return {
 
 ## Configuration
 
-You can customize `sarnai.nvim` using the `setup()` function.
+You can customize `sarnai.nvim` using the `opts` field.
 
 ### **Default Settings**
 ```lua
