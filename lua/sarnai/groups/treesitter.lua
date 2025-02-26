@@ -57,7 +57,7 @@ function M.get(c, opts)
 		["@markup.link.label"]            = "SpecialChar",
 		["@markup.link.label.symbol"]     = "Identifier",
 		["@markup.link.url"]              = "Underlined",
-		["@markup.list"]                  = { fg = c.nuur }, -- For special punctutation that does not fall in the categories before.
+		["@markup.list"]                  = { fg = c.chatsargan }, -- For special punctutation that does not fall in the categories before.
 		["@markup.list.checked"]          = { fg = c.mus }, -- For brackets and parens.
 		["@markup.list.markdown"]         = { fg = c.els, bold = true },
 		["@markup.list.unchecked"]        = { fg = c.text }, -- For brackets and parens.
@@ -78,11 +78,11 @@ function M.get(c, opts)
 		["@punctuation.bracket"]          = { fg = c.subtle }, -- For brackets and parens.
 		["@punctuation.delimiter"]        = { fg = c.subtle }, -- For delimiters ie: `.`
 		["@punctuation.special"]          = { fg = c.subtle }, -- For special symbols (e.g. `{}` in string interpolation)
-		["@punctuation.special.markdown"] = { fg = c.els },  -- For special symbols (e.g. `{}` in string interpolation)
+		["@punctuation.special.markdown"] = { fg = c.chatsargan },  -- For special symbols (e.g. `{}` in string interpolation)
 		["@string"]                       = "String",
 		["@string.documentation"]         = { fg = c.els },
 		["@string.escape"]                = { fg = c.nuur }, -- For escape characters within a string.
-		["@string.regexp"]                = { fg = c.uvs }, -- For regexes.
+		["@string.regexp"]                = { fg = c.yargui }, -- For regexes.
 		["@tag"]                          = "Label",
 		["@tag.attribute"]                = "@property",
 		["@tag.delimiter"]                = "Delimiter",
@@ -96,8 +96,8 @@ function M.get(c, opts)
 		["@variable"]                     = { fg = c.text, style = opts.styles.variables }, -- Any variable name that does not have another highlight.
 		["@variable.builtin"]             = { fg = c.anis },                              -- Variable names that are defined by the languages, like `this` or `self`.
 		["@variable.member"]              = { fg = c.mus },                               -- For fields.
-		["@variable.parameter"]           = { fg = c.uvs },                               -- For parameters of a function.
-		["@variable.parameter.builtin"]   = { fg = Util.blend_fg(c.uvs, 0.8) },           -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
+		["@variable.parameter"]           = { fg = c.yargui },                               -- For parameters of a function.
+		["@variable.parameter.builtin"]   = { fg = Util.blend_fg(c.yargui, 0.8) },           -- For builtin parameters of a function, e.g. "..." or Smali's p[1-99]
 	}
 
 	for i, color in ipairs(c.rainbow) do
