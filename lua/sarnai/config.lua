@@ -6,7 +6,7 @@ M.version = "4.11.0" -- x-release-please-version
 ---@field on_colors fun(colors: ColorScheme)
 ---@field on_highlights fun(highlights: sarnai.Highlights, colors: ColorScheme)
 M.defaults = {
-	style = "khavar",      -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
+	style = "khavar",      -- The theme comes in 2 styles, a dark variant `khavar`, and a light variant `ovol`
 	light_style = "ovol",  -- The theme is used when the background is set to light
 	transparent = false,   -- Enable this to disable setting the background color
 	terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
@@ -48,7 +48,7 @@ M.defaults = {
 		auto = true,
 		-- add any plugins here that you want to enable
 		-- for all possible plugins, see:
-		--   * https://github.com/folke/sarnai.nvim/tree/main/lua/sarnai/groups
+		--   * https://github.com/titembaatar/sarnai.nvim/tree/main/lua/sarnai/groups
 		-- telescope = true,
 	},
 }
