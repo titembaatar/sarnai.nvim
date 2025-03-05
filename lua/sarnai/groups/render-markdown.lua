@@ -13,11 +13,11 @@ function M.get(c, opts)
 		RenderMarkdownDash       = { fg = c.els },  -- horizontal rule
 		RenderMarkdownTableHead  = { fg = c.anis },
 		RenderMarkdownTableRow   = { fg = c.els },
-		RenderMarkdownCodeInline = "@markup.raw.markdown_inline"
+		RenderMarkdownCodeInline = "@markup.raw.markdown_inline",
 	}
 	for i, color in ipairs(c.rainbow) do
-		ret["RenderMarkdownH" .. i .. "Bg"] = { bg = Util.blend_bg(color, 0.1) }
-		ret["RenderMarkdownH" .. i .. "Fg"] = { fg = color, bold = true }
+		ret["RenderMarkdownH" .. i .. "Bg"] = { bg = Util.blend_bg(color, 0.2) }
+		ret["RenderMarkdownH" .. i] = { fg = color, bold = true }
 	end
 	return ret
 end

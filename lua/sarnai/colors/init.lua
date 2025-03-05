@@ -67,11 +67,11 @@ function M.setup(opts)
 
 	colors.rainbow = {
 		colors.sarnai,
+		colors.yargui,
 		colors.nuur,
 		colors.mus,
-		colors.els,
 		colors.uvs,
-		colors.anis,
+		colors.els,
 	}
 
 	-- stylua: ignore
