@@ -31,10 +31,10 @@ function M.get(c, opts)
 		SignColumnSB                = { bg = c.bg_sidebar, fg = c.text },                          -- column where |signs| are displayed
 		Substitute                  = "IncSearch",                                                 -- |:substitute| replacement text highlighting
 		LineNr                      = { fg = c.muted },                                            -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-		CursorLineNr                = { fg = c.chatsargan, bold = true },                                -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+		CursorLineNr                = { fg = c.chatsalgan, bold = true },                                -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 		LineNrAbove                 = { fg = c.muted },
 		LineNrBelow                 = { fg = c.muted },
-		MatchParen                  = { fg = c.chatsargan, bg = Util.blend_bg(c.mus, 0.25), bold = true },                              -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+		MatchParen                  = { fg = c.chatsalgan, bg = Util.blend_bg(c.mus, 0.25), bold = true },                              -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
 		ModeMsg                     = { fg = c.subtle, bold = true },                                                            -- 'showmode' message (e.g., "-- INSERT -- ")
 		MsgArea                     = { fg = c.subtle },                                                                         -- Area for messages and cmdline
 		MoreMsg                     = { fg = c.yargui },                                                                            -- |more-prompt|
@@ -54,7 +54,7 @@ function M.get(c, opts)
 		Question                    = { fg = c.mus },                                     -- |hit-enter| prompt and yes/no questions
 		QuickFixLine                = { bg = c.bg_visual, bold = true },                  -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
 		Search                      = { bg = c.bg_search, fg = c.text },                  -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
-		IncSearch                   = { bg = c.chatsargan, fg = c.black },                       -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+		IncSearch                   = { bg = c.chatsalgan, fg = c.black },                       -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 		CurSearch                   = "IncSearch",
 		SpecialKey                  = { fg = c.subtle },                                  -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
 		SpellBad                    = { sp = c.error, undercurl = true },                 -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
@@ -78,10 +78,10 @@ function M.get(c, opts)
 		Bold                        = { bold = true, fg = c.text },                       -- (preferred) any bold text
 		Boolean                     = { fg = c.sarnai },
 		Character                   = { fg = c.els },                                     --  a character constant: 'c', '\n'
-		Constant                    = { fg = c.chatsargan },                                     -- (preferred) any constant
+		Constant                    = { fg = c.chatsalgan },                                     -- (preferred) any constant
 		Special                     = { fg = c.mus },                                     -- (preferred) any special symbol
 		Define                      = { fg = c.yargui },
-		Debug                       = { fg = c.chatsargan },                                  --    debugging statements
+		Debug                       = { fg = c.chatsalgan },                                  --    debugging statements
 		Delimiter                   = "Special",                                          --  character that needs attention
 		Error                       = { fg = c.error },                                   -- (preferred) any erroneous construct
 		Function                    = { fg = c.sarnai, style = opts.styles.functions },   -- function name (also: methods for classes)
