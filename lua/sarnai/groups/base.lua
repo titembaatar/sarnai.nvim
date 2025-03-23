@@ -67,7 +67,7 @@ function M.get(c, opts)
 		TabLineFill                 = { bg = c.black },                                   -- tab pages line, where there are no labels
 		TabLineSel                  = { fg = c.black, bg = c.nuur },                      -- tab pages line, active tab page label
 		Title                       = { fg = c.nuur, bold = true },                       -- titles for output from ":set all", ":autocmd" etc.
-		Visual                      = { bg = c.bg_visual },                               -- Visual mode selection
+		Visual                      = { fg = c.base, bg = c.bg_visual },                  -- Visual mode selection
 		VisualNOS                   = { bg = c.bg_visual },                               -- Visual mode selection when vim is "Not Owning the Selection".
 		WarningMsg                  = { fg = c.warning },                                 -- warning messages
 		Whitespace                  = { fg = c.subtle },                                  -- "nbsp", "space", "tab" and "trail" in 'listchars'
