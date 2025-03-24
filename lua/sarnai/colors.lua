@@ -13,7 +13,7 @@ M.accents = {
   yargui = "#d5b3e5",
 }
 
--- Get khavar (dark) theme
+-- Function to get the khavar (dark) theme
 function M.get_khavar()
   -- Generate intermediate colors with hue 156°
   -- From dark (8%) to light (90%)
@@ -25,11 +25,15 @@ function M.get_khavar()
   -- Additional utility colors
   colors.none = "NONE"
 
+  -- Add terminal colors
+  colors.terminal = util.get_terminal_colors(colors)
+
   return colors
 end
 
--- Get ovol (light) theme
+-- Function to get the ovol (light) theme
 function M.get_ovol()
+  -- Use the conversion utility to generate light theme
   return util.to_light_theme(M.get_khavar())
 end
 
@@ -43,4 +47,3 @@ function M.get_colors(style)
 end
 
 return M
-
