@@ -1,6 +1,11 @@
+---@alias TerminalColors {black: HEX, bright_black: HEX, white: HEX, bright_white: HEX, red: HEX, bright_red: HEX, green: HEX, bright_green: HEX, yellow: HEX, bright_yellow: HEX, blue: HEX, bright_blue: HEX, magenta: HEX, bright_magenta: HEX, cyan: HEX, bright_cyan: HEX}
+
 local M = {}
+local color = require("sarnai.util.color")
 
 -- Generate terminal colors from palette
+---@param palette ColorPalette
+---@return TerminalColors
 function M.get_terminal_colors(palette)
   return {
     black = palette.shadow,
@@ -9,21 +14,22 @@ function M.get_terminal_colors(palette)
     bright_white = palette.text,
 
     red = palette.anis,
-    bright_red = require("sarnai.util.color").lighten(palette.anis, 0.2),
+    bright_red = color.lighten(palette.anis, 0.2),
     green = palette.uvs,
-    bright_green = require("sarnai.util.color").lighten(palette.uvs, 0.2),
+    bright_green = color.lighten(palette.uvs, 0.2),
     yellow = palette.els,
-    bright_yellow = require("sarnai.util.color").lighten(palette.els, 0.2),
+    bright_yellow = color.lighten(palette.els, 0.2),
     blue = palette.nuur,
-    bright_blue = require("sarnai.util.color").lighten(palette.nuur, 0.2),
+    bright_blue = color.lighten(palette.nuur, 0.2),
     magenta = palette.sarnai,
-    bright_magenta = require("sarnai.util.color").lighten(palette.sarnai, 0.2),
+    bright_magenta = color.lighten(palette.sarnai, 0.2),
     cyan = palette.mus,
-    bright_cyan = require("sarnai.util.color").lighten(palette.mus, 0.2),
+    bright_cyan = color.lighten(palette.mus, 0.2),
   }
 end
 
 -- Set terminal colors
+---@param palette ColorPalette
 function M.set_terminal_colors(palette)
   if not palette.terminal then return end
 

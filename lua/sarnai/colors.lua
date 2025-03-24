@@ -1,7 +1,10 @@
+---@alias Style "khavar" | "ovol"
+
 local util = require("sarnai.util")
 local M = {}
 
 -- Core accent colors
+---@type table<string, HEX>
 M.accents = {
   sarnai = "#f0c3cb",
   anis = "#ff6b6b",
@@ -13,7 +16,8 @@ M.accents = {
   yargui = "#d5b3e5",
 }
 
--- Function to get the khavar (dark) theme
+-- Get the khavar (dark) theme
+---@return table<string, HEX|table>
 function M.get_khavar()
   -- Generate intermediate colors with hue 156°
   -- From dark (8%) to light (90%)
@@ -31,13 +35,16 @@ function M.get_khavar()
   return colors
 end
 
--- Function to get the ovol (light) theme
+-- Get the ovol (light) theme
+---@return table<string, HEX|table>
 function M.get_ovol()
   -- Use the conversion utility to generate light theme
   return util.to_light_theme(M.get_khavar())
 end
 
 -- Get colors based on style
+---@param style Style
+---@return table<string, HEX|table>
 function M.get_colors(style)
   if style == "ovol" then
     return M.get_ovol()
@@ -47,3 +54,4 @@ function M.get_colors(style)
 end
 
 return M
+

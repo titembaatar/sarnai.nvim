@@ -1,7 +1,12 @@
+---@alias HEX string # Hex color code like "#RRGGBB"
+---@alias RGB {r: number, g: number, b: number}
+
 local hsluv = require("sarnai.util.hsluv")
 local M = {}
 
--- Colors conversion
+-- Conversion from hex to rgb
+---@param hex HEX
+---@return RGB
 function M.hex_to_rgb(hex)
   hex = hex:gsub("#", "")
   return {
@@ -11,11 +16,18 @@ function M.hex_to_rgb(hex)
   }
 end
 
+-- Conversion from rgb to hex
+---@param rgb RGB
+---@return HEX
 function M.rgb_to_hex(rgb)
   return string.format("#%02x%02x%02x", rgb.r, rgb.g, rgb.b)
 end
 
--- Colors manipulation
+-- Blend the color
+---@param fg HEX
+---@param bg HEX
+---@param alpha number
+---@return HEX
 function M.blend(fg, bg, alpha)
   local bg_rgb = M.hex_to_rgb(bg)
   local fg_rgb = M.hex_to_rgb(fg)
@@ -29,15 +41,27 @@ function M.blend(fg, bg, alpha)
   return M.rgb_to_hex(result)
 end
 
+-- Darken the color
+---@param hex HEX
+---@param amount number
+---@return HEX
 function M.darken(hex, amount)
   return M.blend("#000000", hex, amount)
 end
 
+-- Lighten the color
+---@param hex HEX
+---@param amount number
+---@return HEX
 function M.lighten(hex, amount)
   return M.blend("#ffffff", hex, amount)
 end
 
 -- Generate a color with HSLuv values
+---@param h number # Hue (0-360)
+---@param s number # Saturation (0-100)
+---@param l number # Lightness (0-100)
+---@return HEX
 function M.hsluv(h, s, l)
   -- Keep values in range
   h = h % 360
@@ -48,6 +72,8 @@ function M.hsluv(h, s, l)
 end
 
 -- Invert colors for light theme
+---@param hex HEX
+---@return HEX
 function M.invert_color(hex)
   local color = hsluv.hex_to_hsluv(hex)
 
@@ -65,3 +91,4 @@ function M.invert_color(hex)
 end
 
 return M
+

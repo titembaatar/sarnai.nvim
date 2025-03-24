@@ -1,3 +1,5 @@
+---@alias HSLuv {h: number, s: number, l: number}
+
 -- Adapted from hsluv.org
 
 local hsluv = {}
@@ -22,15 +24,22 @@ hsluv.kappa = 903.2962962
 hsluv.epsilon = 0.0088564516
 
 -- Helper functions
+---@param line {slope: number, intercept: number}
+---@return number
 local function distance_line_from_origin(line)
   return math.abs(line.intercept) / math.sqrt(line.slope * line.slope + 1)
 end
 
+---@param theta number
+---@param line {slope: number, intercept: number}
+---@return number
 local function length_of_ray_until_intersect(theta, line)
   return line.intercept / (math.sin(theta) - line.slope * math.cos(theta))
 end
 
 -- Conversion functions
+---@param l number
+---@return {slope: number, intercept: number}[]
 function hsluv.get_bounds(l)
   local result = {}
   local sub1 = ((l + 16) ^ 3) / 1560896
@@ -51,6 +60,8 @@ function hsluv.get_bounds(l)
   return result
 end
 
+---@param l number
+---@return number
 function hsluv.max_safe_chroma_for_l(l)
   local bounds = hsluv.get_bounds(l)
   local min = math.huge
@@ -64,6 +75,9 @@ function hsluv.max_safe_chroma_for_l(l)
   return min
 end
 
+---@param l number
+---@param h number
+---@return number
 function hsluv.max_safe_chroma_for_lh(l, h)
   local hrad = h / 360 * math.pi * 2
   local bounds = hsluv.get_bounds(l)
@@ -79,6 +93,8 @@ function hsluv.max_safe_chroma_for_lh(l, h)
   return min
 end
 
+---@param c number
+---@return number
 function hsluv.from_linear(c)
   if c <= 0.0031308 then
     return 12.92 * c
@@ -87,6 +103,8 @@ function hsluv.from_linear(c)
   end
 end
 
+---@param c number
+---@return number
 function hsluv.to_linear(c)
   if c > 0.04045 then
     return ((c + 0.055) / 1.055) ^ 2.4
@@ -95,6 +113,9 @@ function hsluv.to_linear(c)
   end
 end
 
+---@param a number[]
+---@param b number[]
+---@return number
 function hsluv.dot_product(a, b)
   local sum = 0
   for i = 1, 3 do
@@ -104,6 +125,8 @@ function hsluv.dot_product(a, b)
 end
 
 -- Main conversion functions
+---@param hsl HSLuv
+---@return HEX
 function hsluv.hsluv_to_hex(hsl)
   local h, s, l = hsl.h, hsl.s, hsl.l
 
@@ -153,6 +176,8 @@ function hsluv.hsluv_to_hex(hsl)
     math.floor(b * 255 + 0.5))
 end
 
+---@param hex HEX
+---@return HSLuv
 function hsluv.hex_to_hsluv(hex)
   hex = hex:gsub("#", "")
   local r = tonumber(hex:sub(1, 2), 16) / 255
