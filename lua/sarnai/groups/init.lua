@@ -5,13 +5,13 @@ local M = {}
 
 -- stylua: ignore
 M.plugins = {
-	["blink.cmp"]            = "blink",
 	["lazy.nvim"]            = "lazy",
-	["mini.statusline"]      = "mini_statusline",
-	["neo-tree.nvim"]        = "neo-tree",
-	["nvim-tree.lua"]        = "nvim-tree",
-	["render-markdown.nvim"] = "render-markdown",
+	["mini.nvim"]      = "mini",
 	["telescope.nvim"]       = "telescope",
+	-- ["blink.cmp"]            = "blink",
+	-- ["neo-tree.nvim"]        = "neo-tree",
+	-- ["nvim-tree.lua"]        = "nvim-tree",
+	-- ["render-markdown.nvim"] = "render-markdown",
 }
 
 local me = debug.getinfo(1, "S").source:sub(2)
@@ -48,15 +48,6 @@ function M.setup(colors, opts)
 		for plugin, group in pairs(M.plugins) do
 			if plugins[plugin] then
 				groups[group] = true
-			end
-		end
-
-		-- special case for mini.nvim
-		if plugins["mini.nvim"] then
-			for _, group in pairs(M.plugins) do
-				if group:find("^mini_") then
-					groups[group] = true
-				end
 			end
 		end
 	end

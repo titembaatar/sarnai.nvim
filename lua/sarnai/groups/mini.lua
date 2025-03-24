@@ -48,7 +48,6 @@ function M.get(c)
     -- mini.indentscope:
     MiniIndentscopeSymbol = { fg = c.muted }, -- Thin vertical line marking scope
     MiniIndentscopePrefix = { fg = c.anis }, -- Prefix connecting vertical line and current line
-
   }
 end
 
