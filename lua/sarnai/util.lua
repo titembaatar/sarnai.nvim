@@ -81,4 +81,75 @@ function M.generate_palette(hue, min_l, max_l)
   return palette
 end
 
+-- Invert colors for light theme
+function M.invert_color(hex)
+  local color = hsluv.hex_to_hsluv(hex)
+
+  -- Invert lightness
+  color.l = 100 - color.l
+
+  -- Adjust saturation based on new lightness for better contrast
+  if color.l > 80 then
+    color.s = math.max(10, color.s * 0.8) -- Reduce saturation for very light colors
+  elseif color.l < 20 then
+    color.s = math.max(20, color.s * 1.2) -- Increase saturation for dark colors
+  end
+
+  return hsluv.hsluv_to_hex(color)
+end
+
+-- Convert theme to light mode
+function M.to_light_theme(colors)
+  local light = {}
+
+  -- Map inverted colors with reverse progression
+  local base_map = {
+    depth = "bright",
+    shadow = "text",
+    base = "subtle",
+    surface = "faded",
+    overlay = "muted",
+    muted = "overlay",
+    faded = "surface",
+    subtle = "base",
+    text = "shadow",
+    bright = "depth"
+  }
+
+  -- Convert base colors with proper mapping
+  for light_name, dark_name in pairs(base_map) do
+    light[light_name] = M.invert_color(colors[dark_name])
+  end
+
+  -- Convert accent colors
+  for name, hex in pairs(colors) do
+    if not light[name] and name ~= "none" and type(hex) == "string" and hex:sub(1, 1) == "#" then
+      light[name] = M.invert_color(hex)
+
+      -- Additional contrast checks for accent colors
+      local accent_hsl = hsluv.hex_to_hsluv(light[name])
+      local bg_hsl = hsluv.hex_to_hsluv(light.text)
+
+      -- Ensure enough lightness contrast with text color
+      if math.abs(accent_hsl.l - bg_hsl.l) < 30 then
+        -- Adjust lightness to ensure contrast
+        if accent_hsl.l > 50 then
+          accent_hsl.l = math.max(15, accent_hsl.l - 40)
+        else
+          accent_hsl.l = math.min(85, accent_hsl.l + 40)
+        end
+        -- Boost saturation for better distinction
+        accent_hsl.s = math.min(100, accent_hsl.s * 1.5)
+
+        light[name] = hsluv.hsluv_to_hex(accent_hsl)
+      end
+    end
+  end
+
+  -- Keep special values
+  light.none = "NONE"
+
+  return light
+end
+
 return M
