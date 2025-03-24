@@ -1,4 +1,3 @@
--- Implementation of HSLuv color space in Lua
 -- Adapted from hsluv.org
 
 local hsluv = {}
