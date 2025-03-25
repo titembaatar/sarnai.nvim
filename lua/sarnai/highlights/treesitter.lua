@@ -45,13 +45,13 @@ function M.get(palette, config)
     ["@function.builtin"] = { fg = groups.hint, italic = styles.italic },      -- Built-in functions
     ["@function.macro"] = { fg = groups.warn, bold = styles.bold },            -- Macro defined functions (preprocessor)
     ["@function.call"] = { fg = c.text },                                      -- Function calls
-    ["@function.method"] = { fg = groups.info },                               -- Method definitions
+    ["@function.method"] = { fg = c.nuur },                                    -- Method definitions
     ["@function.method.call"] = { fg = groups.info },                          -- Method calls
     ["@constructor"] = { fg = c.mus },                                         -- Constructor calls and definitions
     ["@operator"] = { link = "Operator" },                                     -- Operators (+ - * / etc.)
 
     ["@keyword"] = { link = "Keyword" },                                       -- Keywords
-    ["@keyword.function"] = { fg = c.yargui, style = styles.keywords },        -- Keywords used to define a function
+    ["@keyword.function"] = { fg = c.sarnai, style = styles.keywords },        -- Keywords used to define a function
     ["@keyword.operator"] = { fg = c.subtle },                                 -- Keyword operators (new, delete, instanceof, etc.)
     ["@keyword.import"] = { fg = groups.info },                                -- Import keywords
     ["@keyword.storage"] = { fg = c.mus },                                     -- Storage keywords (static, public, etc.)
@@ -132,4 +132,3 @@ function M.get(palette, config)
 end
 
 return M
-
