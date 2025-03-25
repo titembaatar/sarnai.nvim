@@ -17,7 +17,7 @@ function M.get(palette, config)
 
   local highlights = {
     Normal = { fg = c.text, bg = transparent_bg or c.base },             -- Normal text
-    NormalNC = { fg = c.text, bg = transparent_bg or c.base },           -- Normal text in non-current windows
+    NormalNC = { fg = c.subtle, bg = transparent_bg or c.shadow },       -- Normal text in non-current windows
     NormalFloat = { fg = c.text, bg = transparent_bg or c.surface },     -- Normal text in floating windows
 
     LineNr = { fg = c.muted },                                           -- Line number for ":number" and ":#" commands
@@ -27,30 +27,30 @@ function M.get(palette, config)
     CursorLine = { bg = transparent_bg or util.darken(c.surface, 0.5) }, -- Screen-line at the cursor
     CursorColumn = { link = "CursorLine" },                              -- Screen-column at the cursor
 
-    StatusLine = { fg = c.text, bg = c.surface },                        -- Status line of current window
-    StatusLineNC = { fg = c.subtle, bg = c.surface },                    -- Status lines of not-current windows
+    StatusLine = { fg = c.bright, bg = c.surface },                      -- Status line of current window
+    StatusLineNC = { fg = c.faded, bg = c.shadow },                      -- Status lines of not-current windows
 
-    VertSplit = { fg = util.darken(c.surface, 0.2) },                    -- Column separating vertically split windows
+    VertSplit = { fg = c.depth },                                        -- Column separating vertically split windows
     WinSeparator = { link = "VertSplit" },                               -- Separator between window splits (Neovim)
 
     Search = { fg = c.base, bg = c.sarnai },                             -- Last search pattern highlighting
     IncSearch = { fg = c.base, bg = c.sarnai },                          -- 'incsearch' highlighting
 
-    Visual = { bg = util.lighten(c.overlay, 0.1) },                      -- Visual mode selection
+    Visual = { bg = c.overlay },                                         -- Visual mode selection
     VisualNOS = { link = "Visual" },                                     -- Visual mode selection when vim is "Not Owning the Selection"
 
-    Folded = { fg = c.subtle, bg = util.darken(c.surface, 0.2) },        -- Line used for closed folds
+    Folded = { fg = c.faded, bg = c.shadow },                            -- Line used for closed folds
     FoldColumn = { fg = c.muted },                                       -- Column where folds are displayed
 
-    TabLine = { fg = c.subtle, bg = c.surface },                         -- Tab line
-    TabLineFill = { bg = c.surface },                                    -- Tab line fill
-    TabLineSel = { fg = c.text, bg = c.overlay },                        -- Active tab page label
+    TabLine = { fg = c.faded, bg = c.shadow },                           -- Tab line
+    TabLineFill = { bg = c.depth },                                      -- Tab line fill
+    TabLineSel = { fg = c.bright, bg = c.surface },                      -- Active tab page label
 
     SignColumn = vim.tbl_extend("force", { fg = c.muted }, bg_none),     -- Column where signs are displayed
 
-    Pmenu = { fg = c.text, bg = c.surface },                             -- Popup menu normal item
-    PmenuSel = { fg = c.text, bg = c.overlay },                          -- Popup menu selected item
-    PmenuSbar = { bg = c.surface },                                      -- Popup menu scrollbar
+    Pmenu = { fg = c.text, bg = c.shadow },                              -- Popup menu normal item
+    PmenuSel = { fg = c.bright, bg = c.overlay },                        -- Popup menu selected item
+    PmenuSbar = { bg = c.depth },                                        -- Popup menu scrollbar
     PmenuThumb = { bg = c.muted },                                       -- Popup menu scrollbar thumb
 
     ErrorMsg = { fg = c.anis },                                          -- Error messages on the command line
@@ -65,17 +65,17 @@ function M.get(palette, config)
 
     MatchParen = { fg = c.text, bg = util.lighten(c.overlay, 0.2) },     -- Matching parenthesis
 
-    NonText = { fg = c.muted },                                          -- '@' at the end of the window and characters from 'showbreak'
+    NonText = { fg = c.depth },                                          -- '@' at the end of the window and characters from 'showbreak'
     SpecialKey = { fg = c.muted },                                       -- Meta and special keys listed with ":map"
-    Whitespace = { fg = util.darken(c.overlay, 0.2) },                   -- 'listchars' whitespace
+    Whitespace = { fg = c.shadow },                                      -- 'listchars' whitespace
 
     SpellBad = { sp = c.anis, undercurl = true },                        -- Word that is not recognized by the spellchecker
     SpellCap = { sp = c.els, undercurl = true },                         -- Word that should start with a capital
     SpellLocal = { sp = c.uvs, undercurl = true },                       -- Word that is recognized by the spellchecker as used in another region
     SpellRare = { sp = c.nuur, undercurl = true },                       -- Word that is recognized by the spellchecker as rarely used
 
-    WinBar = { fg = c.subtle },                                          -- Window bar of current window
-    WinBarNC = { fg = c.muted },                                         -- Window bar of not-current windows
+    WinBar = { fg = c.bright },                                          -- Window bar of current window
+    WinBarNC = { fg = c.faded },                                         -- Window bar of not-current windows
 
     Comment = { fg = c.muted, style = styles.comments },                 -- Comments
 

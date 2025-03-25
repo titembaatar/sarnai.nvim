@@ -43,20 +43,20 @@ function M.get(palette, config)
     DiagnosticDeprecated = { strikethrough = true },                                                                    -- Deprecated code
     DiagnosticUnnecessary = { fg = c.muted, bg = transparent_bg, style = { italic = true } },                           -- Unused code
 
-    LspReferenceText = { bg = util.lighten(c.surface, 0.1) },                                                           -- References
+    LspReferenceText = { bg = c.overlay },                                                                              -- References
     LspReferenceRead = { link = "LspReferenceText" },                                                                   -- References in read mode
-    LspReferenceWrite = { link = "LspReferenceText" },                                                                  -- References in write mode
+    LspReferenceWrite = { bg = util.blend(c.sarnai, c.base, 0.2) },                                                     -- References in write mode
 
     LspCodeLens = { fg = c.muted },                                                                                     -- Virtual text for codelens
     LspCodeLensSeparator = { fg = c.muted },                                                                            -- Separator between codelens items
 
-    LspInlayHint = { fg = c.muted, bg = transparent_bg or util.darken(c.surface, 0.2), style = { italic = true } },     -- Inlay hints
+    LspInlayHint = { fg = c.faded, bg = transparent_bg or c.depth, style = { italic = true } },                         -- Inlay hints
 
     LspSignatureActiveParameter = { fg = c.chatsalgan, bg = transparent_bg or util.blend(c.chatsalgan, c.base, 0.15) }, -- Active parameter in signature help
 
-    NormalFloat = { fg = c.text, bg = transparent_bg or c.surface },                                                    -- Normal text in floating windows
-    FloatBorder = { fg = c.muted, bg = transparent_bg or c.surface },                                                   -- Border of floating windows
-    FloatTitle = { fg = c.sarnai, bg = transparent_bg or c.surface },                                                   -- Title of floating windows
+    NormalFloat = { fg = c.text, bg = transparent_bg or c.shadow },                                                     -- Normal text in floating windows
+    FloatBorder = { fg = c.muted, bg = transparent_bg or c.shadow },                                                    -- Border of floating windows
+    FloatTitle = { fg = c.sarnai, bg = transparent_bg or c.depth },                                                     -- Title of floating windows
 
     LightBulb = { fg = c.els },                                                                                         -- Lightbulb icon for code actions
     LightBulbSign = { link = "LightBulb" },                                                                             -- Lightbulb sign in the sign column

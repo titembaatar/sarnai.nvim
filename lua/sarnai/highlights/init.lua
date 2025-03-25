@@ -18,11 +18,7 @@ function M.get(palette, config)
   highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.treesitter").get(palette, config))
 
   -- Load plugins highlights
-  -- (Will be implemented later)
-  -- local plugin_highlights = require("sarnai.highlights.plugins").get(palette, config)
-  -- if plugin_highlights then
-  --   highlights = vim.tbl_deep_extend("force", highlights, plugin_highlights)
-  -- end
+  highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.plugins").get(palette, config))
 
   -- Apply user's highlights overrides if provided
   if config.on_highlights and type(config.on_highlights) == "function" then
