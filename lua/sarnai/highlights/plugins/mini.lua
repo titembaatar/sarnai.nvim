@@ -8,6 +8,7 @@ local M = {}
 function M.get(palette, config)
   local c = palette
   local transparent_bg = config.transparent and "NONE" or nil
+  local styles = config.styles
 
   return {
     -- mini.ai (text objects)
@@ -17,15 +18,15 @@ function M.get(palette, config)
     MiniBracketed = { fg = c.sarnai },
 
     -- mini.bufremove (buffer deletion)
-    MiniBufremoveVirtText = { fg = c.anis, style = { italic = true } },
+    MiniBufremoveVirtText = { fg = c.anis, style = { italic = styles.italic } },
 
     -- mini.comment (commenting)
     MiniCommenter = { link = "Comment" },
     MiniCommenterPrefix = { fg = c.muted },
 
     -- mini.cursorword (highlight same words)
-    MiniCursorword = { underline = true },
-    MiniCursorwordCurrent = { underline = true },
+    MiniCursorword = { underline = styles.underline },
+    MiniCursorwordCurrent = { underline = styles.underline },
 
     -- mini.diff (git diffs)
     MiniDiffSign = { fg = c.muted },
@@ -34,12 +35,12 @@ function M.get(palette, config)
     MiniDiffSignDelete = { fg = c.anis },
 
     -- mini.files (file browser)
-    MiniFilesNormal = { fg = c.text, bg = c.shadow },
-    MiniFilesTitle = { fg = c.sarnai, bg = c.depth, style = { bold = true } },
-    MiniFilesTitleFocused = { fg = c.bright, bg = c.overlay, style = { bold = true } },
+    MiniFilesNormal = { fg = c.text, bg = c.base },
+    MiniFilesTitle = { fg = c.sarnai, bg = c.base, style = { bold = styles.bold } },
+    MiniFilesTitleFocused = { fg = c.text, bg = c.overlay, style = { bold = styles.bold } },
     MiniFilesFile = { fg = c.text },
-    MiniFilesDirectory = { fg = c.mus, style = { bold = true } },
-    MiniFilesSymlink = { fg = c.nuur, style = { italic = true } },
+    MiniFilesDirectory = { fg = c.mus, style = { bold = styles.bold } },
+    MiniFilesSymlink = { fg = c.nuur, style = { italic = styles.italic } },
 
     -- mini.git (git status)
     MiniGitSignAdd = { link = "MiniDiffSignAdd" },
@@ -47,52 +48,49 @@ function M.get(palette, config)
     MiniGitSignDelete = { link = "MiniDiffSignDelete" },
 
     -- mini.hipatterns (pattern highlighting)
-    MiniHipatternsFixme = { fg = c.base, bg = c.anis, style = { bold = true } },
-    MiniHipatternsHack = { fg = c.base, bg = c.chatsalgan, style = { bold = true } },
-    MiniHipatternsNote = { fg = c.base, bg = c.nuur, style = { bold = true } },
-    MiniHipatternsTodo = { fg = c.base, bg = c.sarnai, style = { bold = true } },
+    MiniHipatternsFixme = { fg = c.base, bg = c.anis, style = { bold = styles.bold } },
+    MiniHipatternsHack = { fg = c.base, bg = c.chatsalgan, style = { bold = styles.bold } },
+    MiniHipatternsNote = { fg = c.base, bg = c.nuur, style = { bold = styles.bold } },
+    MiniHipatternsTodo = { fg = c.base, bg = c.sarnai, style = { bold = styles.bold } },
     MiniHipatternsDeprecated = { strikethrough = true, fg = c.muted },
 
     -- mini.indentscope (indentation guides)
-    MiniIndentscopeSymbol = { fg = c.shadow },
+    MiniIndentscopeSymbol = { fg = c.base },
     MiniIndentscopePrefix = { fg = c.none }, -- No highlighting for prefix
 
     -- mini.jump (movement)
-    MiniJump = { fg = c.sarnai, style = { bold = true, underline = true } },
-    MiniJump2d = { fg = c.base, bg = c.sarnai, style = { bold = true } },
+    MiniJump = { fg = c.sarnai, style = { bold = styles.bold, underline = styles.underline } },
+    MiniJump2d = { fg = c.base, bg = c.sarnai, style = { bold = styles.bold } },
 
     -- mini.jump2d (2D movement)
-    MiniJump2dSpot = { fg = c.base, bg = c.sarnai, style = { bold = true } },
+    MiniJump2dSpot = { fg = c.base, bg = c.sarnai, style = { bold = styles.bold } },
     MiniJump2dDim = { fg = util.darken(c.text, 0.5) },
     MiniJump2dDimStart = { fg = util.darken(c.text, 0.6) },
 
-    -- mini.pairs (auto-pairs)
-    -- No specific highlights needed
-
     -- mini.statusline (status line)
-    MiniStatuslineFileName = { fg = c.bright, style = { bold = true } },
-    MiniStatuslineFileNameModified = { fg = c.sarnai, style = { bold = true } },
-    MiniStatuslineDevInfo = { fg = c.faded },
+    MiniStatuslineFileName = { fg = c.text, style = { bold = styles.bold } },
+    MiniStatuslineFileNameModified = { fg = c.sarnai, style = { bold = styles.bold } },
+    MiniStatuslineDevInfo = { fg = c.subtle },
     MiniStatuslineFilename = { fg = c.subtle },
-    MiniStatuslineInactive = { fg = c.faded, bg = c.depth },
-    MiniStatuslineModeNormal = { fg = c.base, bg = c.mus, style = { bold = true } },
-    MiniStatuslineModeInsert = { fg = c.base, bg = c.uvs, style = { bold = true } },
-    MiniStatuslineModeVisual = { fg = c.base, bg = c.sarnai, style = { bold = true } },
-    MiniStatuslineModeReplace = { fg = c.base, bg = c.anis, style = { bold = true } },
-    MiniStatuslineModeCommand = { fg = c.base, bg = c.els, style = { bold = true } },
-    MiniStatuslineModeOther = { fg = c.base, bg = c.nuur, style = { bold = true } },
+    MiniStatuslineInactive = { fg = c.subtle, bg = c.base },
+    MiniStatuslineModeNormal = { fg = c.base, bg = c.mus, style = { bold = styles.bold } },
+    MiniStatuslineModeInsert = { fg = c.base, bg = c.uvs, style = { bold = styles.bold } },
+    MiniStatuslineModeVisual = { fg = c.base, bg = c.sarnai, style = { bold = styles.bold } },
+    MiniStatuslineModeReplace = { fg = c.base, bg = c.anis, style = { bold = styles.bold } },
+    MiniStatuslineModeCommand = { fg = c.base, bg = c.els, style = { bold = styles.bold } },
+    MiniStatuslineModeOther = { fg = c.base, bg = c.nuur, style = { bold = styles.bold } },
 
     -- mini.surround (surround operations)
     MiniSurround = { fg = c.base, bg = c.sarnai },
 
     -- mini.tabline (tabs)
-    MiniTablineCurrent = { fg = c.bright, bg = transparent_bg or c.surface, style = { bold = true } },
-    MiniTablineVisible = { fg = c.text, bg = transparent_bg or c.shadow },
-    MiniTablineHidden = { fg = c.faded, bg = transparent_bg or c.depth },
-    MiniTablineModifiedCurrent = { fg = c.sarnai, bg = transparent_bg or c.surface, style = { bold = true } },
-    MiniTablineModifiedVisible = { fg = c.sarnai, bg = transparent_bg or c.shadow },
-    MiniTablineModifiedHidden = { fg = c.sarnai, bg = transparent_bg or c.depth, style = { italic = true } },
-    MiniTablineFill = { bg = transparent_bg or c.depth },
+    MiniTablineCurrent = { fg = c.text, bg = transparent_bg or c.surface, style = { bold = styles.bold } },
+    MiniTablineVisible = { fg = c.text, bg = transparent_bg or c.base },
+    MiniTablineHidden = { fg = c.faded, bg = transparent_bg or c.base },
+    MiniTablineModifiedCurrent = { fg = c.sarnai, bg = transparent_bg or c.surface, style = { bold = styles.bold } },
+    MiniTablineModifiedVisible = { fg = c.sarnai, bg = transparent_bg or c.base },
+    MiniTablineModifiedHidden = { fg = c.sarnai, bg = transparent_bg or c.base, style = { italic = styles.italic } },
+    MiniTablineFill = { bg = transparent_bg or c.base },
 
     -- mini.trailspace (trailing whitespace)
     MiniTrailspace = { bg = c.anis },
@@ -100,4 +98,3 @@ function M.get(palette, config)
 end
 
 return M
-

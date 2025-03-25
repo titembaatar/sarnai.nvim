@@ -8,6 +8,7 @@ local M = {}
 function M.get(palette, config)
   local c = palette
   local transparent_bg = config.transparent and "NONE" or nil
+  local styles = config.styles or {}
 
   return {
     DiagnosticError = { fg = c.anis },                                                                                  -- Error diagnostics
@@ -41,65 +42,41 @@ function M.get(palette, config)
     DiagnosticSignOk = { fg = c.uvs },                                                                                  -- Diagnostic signs for ok
 
     DiagnosticDeprecated = { strikethrough = true },                                                                    -- Deprecated code
-    DiagnosticUnnecessary = { fg = c.muted, bg = transparent_bg, style = { italic = true } },                           -- Unused code
+    DiagnosticUnnecessary = { fg = c.muted, bg = transparent_bg, style = { italic = styles.italic } },                  -- Unused code
 
-    LspReferenceText = { bg = c.overlay },                                                                              -- References
+    LspReferenceText = { bg = c.surface },                                                                              -- References
     LspReferenceRead = { link = "LspReferenceText" },                                                                   -- References in read mode
     LspReferenceWrite = { bg = util.blend(c.sarnai, c.base, 0.2) },                                                     -- References in write mode
 
     LspCodeLens = { fg = c.muted },                                                                                     -- Virtual text for codelens
     LspCodeLensSeparator = { fg = c.muted },                                                                            -- Separator between codelens items
 
-    LspInlayHint = { fg = c.faded, bg = transparent_bg or c.depth, style = { italic = true } },                         -- Inlay hints
+    LspInlayHint = { fg = c.muted, bg = transparent_bg or c.base, style = { italic = styles.italic } },                 -- Inlay hints
 
     LspSignatureActiveParameter = { fg = c.chatsalgan, bg = transparent_bg or util.blend(c.chatsalgan, c.base, 0.15) }, -- Active parameter in signature help
 
-    NormalFloat = { fg = c.text, bg = transparent_bg or c.shadow },                                                     -- Normal text in floating windows
-    FloatBorder = { fg = c.muted, bg = transparent_bg or c.shadow },                                                    -- Border of floating windows
-    FloatTitle = { fg = c.sarnai, bg = transparent_bg or c.depth },                                                     -- Title of floating windows
+    NormalFloat = { fg = c.text, bg = transparent_bg or c.surface },                                                    -- Normal text in floating windows
+    FloatBorder = { fg = c.muted, bg = transparent_bg or c.surface },                                                   -- Border of floating windows
+    FloatTitle = { fg = c.sarnai, bg = transparent_bg or c.surface },                                                   -- Title of floating windows
 
     LightBulb = { fg = c.els },                                                                                         -- Lightbulb icon for code actions
     LightBulbSign = { link = "LightBulb" },                                                                             -- Lightbulb sign in the sign column
     LightBulbFloatWin = { link = "LightBulb" },                                                                         -- Lightbulb in floating windows
 
-    LspRenameTitle = { fg = c.sarnai, style = { bold = true } },                                                        -- Title for rename popups
+    LspRenameTitle = { fg = c.sarnai, style = { bold = styles.bold } },                                                 -- Title for rename popups
     LspRenameMatch = { bg = util.blend(c.sarnai, c.base, 0.2) },                                                        -- Matching text in rename preview
 
-    CmpItemAbbr = { fg = c.text },                                                                                      -- Completion item text
-    CmpItemAbbrDeprecated = { fg = c.muted, strikethrough = true },                                                     -- Deprecated completion items
-    CmpItemAbbrMatch = { fg = c.sarnai, style = { bold = true } },                                                      -- Matching part of completion item
-    CmpItemAbbrMatchFuzzy = { fg = c.sarnai, style = { bold = true } },                                                 -- Fuzzy matching part of completion
-
-    CmpItemKind = { fg = c.subtle },                                                                                    -- Kind of completion item
-    CmpItemMenu = { fg = c.subtle },                                                                                    -- Menu text in completion
-
-    -- Types of completion items
-    CmpItemKindText = { fg = c.text },
-    CmpItemKindMethod = { fg = c.nuur },
-    CmpItemKindFunction = { fg = c.nuur },
-    CmpItemKindConstructor = { fg = c.nuur },
-    CmpItemKindField = { fg = c.uvs },
-    CmpItemKindVariable = { fg = c.mus },
-    CmpItemKindClass = { fg = c.els },
-    CmpItemKindInterface = { fg = c.els },
-    CmpItemKindModule = { fg = c.els },
-    CmpItemKindProperty = { fg = c.uvs },
-    CmpItemKindUnit = { fg = c.text },
-    CmpItemKindValue = { fg = c.yargui },
-    CmpItemKindEnum = { fg = c.els },
-    CmpItemKindKeyword = { fg = c.yargui },
-    CmpItemKindSnippet = { fg = c.sarnai },
-    CmpItemKindColor = { fg = c.sarnai },
-    CmpItemKindFile = { fg = c.text },
-    CmpItemKindReference = { fg = c.text },
-    CmpItemKindFolder = { fg = c.text },
-    CmpItemKindEnumMember = { fg = c.uvs },
-    CmpItemKindConstant = { fg = c.yargui },
-    CmpItemKindStruct = { fg = c.els },
-    CmpItemKindEvent = { fg = c.nuur },
-    CmpItemKindOperator = { fg = c.nuur },
-    CmpItemKindTypeParameter = { fg = c.els },
-    CmpItemKindCopilot = { fg = c.uvs },
+    CmpItemAbbr = { fg = c.subtle },
+    CmpItemAbbrDeprecated = { fg = c.subtle, strikethrough = true },
+    CmpItemAbbrMatch = { fg = c.text, style = { bold = styles.bold } },
+    CmpItemAbbrMatchFuzzy = { fg = palette.text, style = { bold = styles.bold } },
+    CmpItemKind = { fg = c.subtle },
+    CmpItemKindClass = { link = "StorageClass" },
+    CmpItemKindFunction = { link = "Function" },
+    CmpItemKindInterface = { link = "Type" },
+    CmpItemKindMethod = { link = "PreProc" },
+    CmpItemKindSnippet = { link = "String" },
+    CmpItemKindVariable = { link = "Identifier" },
   }
 end
 

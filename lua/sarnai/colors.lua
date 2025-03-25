@@ -1,7 +1,20 @@
+---@alias ColorPalette table<string, HEX|string|table>
 ---@alias Style "khavar" | "ovol"
 
 local util = require("sarnai.util")
+
 local M = {}
+
+-- Core base colors
+---@type table<string, HEX>
+M.base = {
+  base = "#172620",
+  surface = "#21362d",
+  overlay = "#2d493d",
+  muted = "#4e7e6b",
+  subtle = "#90bbaa",
+  text = "#dfece7",
+}
 
 -- Core accent colors
 ---@type table<string, HEX>
@@ -19,14 +32,42 @@ M.accents = {
 -- Function to get the khavar (dark) theme
 ---@return ColorPalette
 function M.get_khavar()
-  -- Generate intermediate colors with hue 156°
-  -- From dark (8%) to light (90%)
-  local base_colors = util.generate_palette(156, 8, 90)
-
-  -- Combine with accent colors
-  local colors = vim.tbl_deep_extend("force", base_colors, M.accents)
+  local colors = vim.tbl_deep_extend("force", M.base, M.accents)
 
   -- Additional utility colors
+  ---@type table<string, HEX|string>
+  colors.groups = {
+    border = "sarnai",
+    link = "yargui",
+    panel = "surface",
+
+    error = "anis",
+    hint = "yargui",
+    info = "mus",
+    ok = "uvs",
+    warn = "chatsalgan",
+    note = "nuur",
+    todo = "sarnai",
+
+    git_add = "mus",
+    git_change = "sarnai",
+    git_delete = "anis",
+    git_dirty = "sarnai",
+    git_ignore = "muted",
+    git_merge = "yargui",
+    git_rename = "nuur",
+    git_stage = "yargui",
+    git_text = "sarnai",
+    git_untracked = "subtle",
+
+    h1 = "sarnai",
+    h2 = "mus",
+    h3 = "yargui",
+    h4 = "uvs",
+    h5 = "nuur",
+    h6 = "uvs",
+  }
+
   colors.none = "NONE"
 
   -- Add terminal colors

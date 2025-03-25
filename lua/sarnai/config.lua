@@ -23,7 +23,7 @@
 ---@field style Style # The theme style: "khavar" (dark) or "ovol" (light)
 ---@field transparent boolean # Whether to use transparent backgrounds
 ---@field terminal_colors boolean # Whether to set terminal colors
----@field styles table<string, StyleConfig> # Styling for different elements
+---@field styles table<string, boolean|StyleConfig> # Styling for different elements
 ---@field plugins PluginsConfig # Plugin-specific configuration
 ---@field cache boolean # Whether to cache highlights (default: true)
 ---@field on_colors? fun(colors: ColorPalette): nil # Function to override colors
@@ -38,6 +38,9 @@ M.defaults = {
   transparent = false,
   terminal_colors = true,
   styles = {
+    italic = true,
+    bold = true,
+    underline = true,
     comments = { italic = true },
     keywords = { italic = true },
     functions = {},

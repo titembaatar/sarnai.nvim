@@ -15,7 +15,7 @@ function M.get(palette, config)
     SnacksDashboardCenter = { fg = c.bright },
     SnacksDashboardShortcut = { fg = c.nuur, style = { bold = true } },
     SnacksDashboardFooter = { fg = c.muted, style = { italic = true } },
-    SnacksDashboardKey = { fg = c.chatsalgan, bg = c.depth, style = { bold = true } },
+    SnacksDashboardKey = { fg = c.chatsalgan, style = { bold = true } },
     SnacksDashboardDesc = { fg = c.text },
     SnacksDashboardIcon = { fg = c.sarnai },
     SnacksDashboardSectionTitle = { fg = c.subtle, bg = c.depth },
