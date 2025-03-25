@@ -39,7 +39,7 @@ function M.generate_palette(hue, min_l, max_l)
     end
 
     -- Use HSLuv for better perceptual uniformity
-    palette[name] = hsluv.hsluv(hue, s, l)
+    palette[name] = hsluv.hsluv_to_hex(hue, s, l)
   end
 
   return palette
