@@ -12,12 +12,10 @@ function M.get(palette, config)
   highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.base").get(palette, config))
 
   -- Load LSP highlights
-  -- (Will be implemented later)
-  -- highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.lsp").get(palette, config))
+  highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.lsp").get(palette, config))
 
   -- Load Treesitter highlights
-  -- (Will be implemented later)
-  -- highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.treesitter").get(palette, config))
+  highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.treesitter").get(palette, config))
 
   -- Load plugins highlights
   -- (Will be implemented later)
