@@ -7,23 +7,24 @@ local M = {}
 ---@return Highlights
 function M.get(palette, config)
   local c = palette
+  local groups = util.get_groups(c.groups, c)
+
   local transparent_bg = config.transparent and "NONE" or nil
 
   return {
-    -- Zen Mode doesn't define custom highlights, but we can enhance the editor UI for zen mode
-    ZenBg = { bg = transparent_bg or c.depth },
+    ZenBg = { bg = transparent_bg or c.base },
 
     -- These affect the text area in zen mode
-    ZenNormal = { fg = c.bright, bg = transparent_bg or c.depth },
-    ZenNormalNC = { fg = c.text, bg = transparent_bg or c.depth },
-    ZenCursorLine = { bg = transparent_bg or c.shadow },
+    ZenNormal = { fg = c.text, bg = transparent_bg or c.base },
+    ZenNormalNC = { fg = c.text, bg = transparent_bg or c.base },
+    ZenCursorLine = { bg = transparent_bg or c.surface },
 
     -- These affect the UI elements in zen mode
-    ZenStatusLine = { fg = c.faded, bg = transparent_bg or c.depth },
-    ZenStatusLineNC = { fg = c.faded, bg = transparent_bg or c.depth },
-    ZenWinBar = { fg = c.subtle, bg = transparent_bg or c.depth },
-    ZenWinBarNC = { fg = c.faded, bg = transparent_bg or c.depth },
-    ZenBorder = { fg = c.depth, bg = transparent_bg or c.depth },
+    ZenStatusLine = { fg = c.muted, bg = transparent_bg or c.base },
+    ZenStatusLineNC = { fg = c.muted, bg = transparent_bg or c.base },
+    ZenWinBar = { fg = c.subtle, bg = transparent_bg or c.base },
+    ZenWinBarNC = { fg = c.muted, bg = transparent_bg or c.base },
+    ZenBorder = { fg = groups.border, bg = transparent_bg or c.base },
   }
 end
 

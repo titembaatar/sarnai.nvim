@@ -1,4 +1,4 @@
----@alias ColorPalette table<string, HEX|string|table>
+---@alias ColorPalette table<string, HEX|table>
 ---@alias Style "khavar" | "ovol"
 
 local util = require("sarnai.util")
@@ -35,7 +35,7 @@ function M.get_khavar()
   local colors = vim.tbl_deep_extend("force", M.base, M.accents)
 
   -- Additional utility colors
-  ---@type table<string, HEX|string>
+  ---@type table<string, string>
   colors.groups = {
     border = "sarnai",
     link = "yargui",

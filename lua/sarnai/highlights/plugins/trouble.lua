@@ -7,49 +7,52 @@ local M = {}
 ---@return Highlights
 function M.get(palette, config)
   local c = palette
+  local groups = util.get_groups(c.groups, c)
+
+  local styles = config.styles or {}
   local transparent_bg = config.transparent and "NONE" or nil
 
   return {
     -- Trouble window elements
-    TroubleNormal = { fg = c.text, bg = transparent_bg or c.shadow },
+    TroubleNormal = { fg = c.text, bg = transparent_bg or c.base },
     TroubleText = { fg = c.text },
-    TroubleCount = { fg = c.bright, bg = c.overlay, style = { bold = true } },
-    TroubleIndent = { fg = c.depth },
+    TroubleCount = { fg = c.text, bg = c.overlay, bold = styles.bold },
+    TroubleIndent = { fg = c.base },
     TroubleLocation = { fg = c.subtle },
     TroubleFoldIcon = { fg = c.muted },
-    TroubleSignError = { fg = c.anis },
-    TroubleSignWarning = { fg = c.chatsalgan },
-    TroubleSignInformation = { fg = c.nuur },
-    TroubleSignHint = { fg = c.sarnai },
-    TroubleSignOther = { fg = c.uvs },
-    TroubleFile = { fg = c.text, style = { bold = true } },
-    TroubleSource = { fg = c.muted, style = { italic = true } },
-    TroubleLine = { fg = c.text, style = { underline = true } },
+    TroubleSignError = { fg = groups.error },
+    TroubleSignWarning = { fg = groups.warn },
+    TroubleSignInformation = { fg = groups.info },
+    TroubleSignHint = { fg = groups.hint },
+    TroubleSignOther = { fg = groups.ok },
+    TroubleFile = { fg = c.text, bold = styles.bold },
+    TroubleSource = { fg = c.muted, italic = styles.italic },
+    TroubleLine = { fg = c.text, underline = styles.underline },
     TroubleCode = { fg = c.els },
 
     -- Preview elements
     TroublePreview = { bg = c.surface },
 
     -- Item types
-    TroubleError = { fg = c.anis },
-    TroubleWarning = { fg = c.chatsalgan },
-    TroubleInformation = { fg = c.nuur },
-    TroubleHint = { fg = c.sarnai },
-    TroubleOther = { fg = c.uvs },
+    TroubleError = { fg = groups.error },
+    TroubleWarning = { fg = groups.warn },
+    TroubleInformation = { fg = groups.info },
+    TroubleHint = { fg = groups.hint },
+    TroubleOther = { fg = groups.ok },
+
+    -- Text with diagnostics
+    TroubleTextError = { fg = groups.error },
+    TroubleTextWarning = { fg = groups.warn },
+    TroubleTextInformation = { fg = groups.info },
+    TroubleTextHint = { fg = groups.hint },
+    TroubleTextOther = { fg = groups.ok },
 
     -- Selected item
-    TroubleTextError = { fg = c.anis },
-    TroubleTextWarning = { fg = c.chatsalgan },
-    TroubleTextInformation = { fg = c.nuur },
-    TroubleTextHint = { fg = c.sarnai },
-    TroubleTextOther = { fg = c.uvs },
-
-    -- Selected item
-    TroubleSelectedError = { fg = c.bright, bg = util.blend(c.anis, c.depth, 0.3) },
-    TroubleSelectedWarning = { fg = c.bright, bg = util.blend(c.chatsalgan, c.depth, 0.3) },
-    TroubleSelectedInformation = { fg = c.bright, bg = util.blend(c.nuur, c.depth, 0.3) },
-    TroubleSelectedHint = { fg = c.bright, bg = util.blend(c.sarnai, c.depth, 0.3) },
-    TroubleSelectedOther = { fg = c.bright, bg = util.blend(c.uvs, c.depth, 0.3) },
+    TroubleSelectedError = { fg = c.text, bg = util.blend(groups.error, c.base, 0.3) },
+    TroubleSelectedWarning = { fg = c.text, bg = util.blend(groups.warn, c.base, 0.3) },
+    TroubleSelectedInformation = { fg = c.text, bg = util.blend(groups.info, c.base, 0.3) },
+    TroubleSelectedHint = { fg = c.text, bg = util.blend(groups.hint, c.base, 0.3) },
+    TroubleSelectedOther = { fg = c.text, bg = util.blend(groups.ok, c.base, 0.3) },
   }
 end
 

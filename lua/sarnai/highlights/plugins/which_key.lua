@@ -7,23 +7,26 @@ local M = {}
 ---@return Highlights
 function M.get(palette, config)
   local c = palette
+  local groups = util.get_groups(c.groups, c)
+
+  local styles = config.styles or {}
   local transparent_bg = config.transparent and "NONE" or nil
 
   return {
     -- Main which-key popup
-    WhichKey = { fg = c.sarnai },
+    WhichKey = { fg = groups.hint },
     WhichKeyGroup = { fg = c.yargui },
     WhichKeySeparator = { fg = c.muted },
     WhichKeyDesc = { fg = c.text },
     WhichKeyValue = { fg = c.subtle },
     WhichKeyFloat = { bg = transparent_bg or c.surface },
-    WhichKeyBorder = { fg = c.muted, bg = transparent_bg or c.surface },
+    WhichKeyBorder = { fg = groups.border, bg = transparent_bg or c.surface },
 
     -- Special keys
-    WhichKeySpecial = { fg = c.nuur },
+    WhichKeySpecial = { fg = groups.info },
 
     -- Operators
-    WhichKeyOperator = { fg = c.chatsalgan },
+    WhichKeyOperator = { fg = groups.warn },
 
     -- Legend elements
     WhichKeyLegend1 = { fg = c.text },
@@ -33,3 +36,4 @@ function M.get(palette, config)
 end
 
 return M
+

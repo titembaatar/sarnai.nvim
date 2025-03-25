@@ -88,4 +88,49 @@ function M.invert_color(hex)
   return hsluv.hsluv_to_hex(color)
 end
 
+-- Parse a color value which can be either a hex color or a reference to a palette color
+---@param value string The color value or reference
+---@param palette ColorPalette The color palette to look up references
+---@return HEX The resolved hex color
+function M.parse_color(value, palette)
+  -- If value is already a hex color, return it directly
+  if type(value) == "string" and value:sub(1, 1) == "#" then
+    return value
+  end
+
+  -- If value is a string but not a hex, it's a reference to a palette color
+  if type(value) == "string" and palette[value] then
+    local color = palette[value]
+    -- Make sure we're returning a hex color and not another reference
+    if type(color) == "string" and color:sub(1, 1) == "#" then
+      return color
+    elseif type(color) == "string" and palette[color] then
+      -- Handle one level of indirection (color name points to another color name)
+      local resolved = palette[color]
+      if type(resolved) == "string" and resolved:sub(1, 1) == "#" then
+        return resolved
+      end
+    end
+  end
+
+  -- Fallback to a default color if the reference isn't found
+  return "#000000"
+end
+
+-- Process color groups, converting all references to actual hex colors
+---@param groups table<string, string>|nil The group colors table
+---@param palette ColorPalette The color palette to look up references
+---@return table<string, HEX> Table with all group colors resolved to hex values
+function M.get_groups(groups, palette)
+  local result = {}
+
+  if groups and type(groups) == "table" then
+    for group, color in pairs(groups) do
+      result[group] = M.parse_color(color, palette)
+    end
+  end
+
+  return result
+end
+
 return M
