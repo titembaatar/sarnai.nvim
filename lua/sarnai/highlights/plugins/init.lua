@@ -25,8 +25,8 @@ local function is_plugin_loaded(name)
 end
 
 -- Check if plugin is enabled based on config
----@param lazy_name string The lazy.nvim plugin name
----@param module_name string Our internal module name
+---@param lazy_name string lazy.nvim plugin name
+---@param module_name string internal module name
 ---@param config SarnaiConfig Theme configuration
 ---@return boolean
 local function is_plugin_enabled(lazy_name, module_name, config)

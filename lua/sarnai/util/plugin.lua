@@ -59,17 +59,14 @@ function M.load_plugin_highlights(palette, config)
     ["mini.nvim"] = "mini",
     ["trouble.nvim"] = "trouble",
     ["which-key.nvim"] = "which_key",
-    ["telescope.nvim"] = "telescope",
-    ["fzf-lua"] = "telescope", -- Both use the same highlight file
+    ["telescope.nvim"] = "picker",
+    ["fzf-lua"] = "picker", -- Both use the same highlight file
     ["gitsigns.nvim"] = "git",
     ["zen-mode.nvim"] = "zen",
     ["nvim-dap"] = "dap",
     ["blink.cmp"] = "blink_cmp",
     ["snacks.nvim"] = "snacks",
   }
-
-  -- Get installed plugins from lazy
-  local lazy_config = require("lazy.core.config")
 
   -- Check each known plugin mapping
   for plugin_name, module_name in pairs(plugin_map) do
