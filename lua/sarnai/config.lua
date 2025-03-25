@@ -8,6 +8,16 @@
 ---@class PluginsConfig
 ---@field all boolean # Enable all plugins by default when not using lazy.nvim
 ---@field auto boolean # Use plugin manager to automatically enable plugins (only lazy.nvim supported)
+---@field mini? boolean
+---@field trouble? boolean
+---@field which_key? boolean
+---@field telescope? boolean
+---@field fzf_lua? boolean
+---@field git? boolean
+---@field zen_mode? boolean
+---@field nvim_dap? boolean
+---@field blink_cmp? boolean
+---@field snacks? boolean
 
 ---@class SarnaiConfig
 ---@field style Style # The theme style: "khavar" (dark) or "ovol" (light)
@@ -15,6 +25,7 @@
 ---@field terminal_colors boolean # Whether to set terminal colors
 ---@field styles table<string, StyleConfig> # Styling for different elements
 ---@field plugins PluginsConfig # Plugin-specific configuration
+---@field cache boolean # Whether to cache highlights (default: true)
 ---@field on_colors? fun(colors: ColorPalette): nil # Function to override colors
 ---@field on_highlights? fun(highlights: table, colors: ColorPalette): nil # Function to override highlights
 
@@ -44,6 +55,7 @@ M.defaults = {
     -- trouble = true,
     -- etc.
   },
+  cache = true, -- Enable caching by default
 }
 
 return M
