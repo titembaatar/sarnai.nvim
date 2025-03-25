@@ -4,7 +4,7 @@
 local hsluv = require("sarnai.util.hsluv")
 local M = {}
 
--- Conversion from hex to rgb
+-- Colors conversion
 ---@param hex HEX
 ---@return RGB
 function M.hex_to_rgb(hex)
@@ -16,14 +16,13 @@ function M.hex_to_rgb(hex)
   }
 end
 
--- Conversion from rgb to hex
 ---@param rgb RGB
 ---@return HEX
 function M.rgb_to_hex(rgb)
   return string.format("#%02x%02x%02x", rgb.r, rgb.g, rgb.b)
 end
 
--- Blend the color
+-- Colors manipulation
 ---@param fg HEX
 ---@param bg HEX
 ---@param alpha number
@@ -41,7 +40,6 @@ function M.blend(fg, bg, alpha)
   return M.rgb_to_hex(result)
 end
 
--- Darken the color
 ---@param hex HEX
 ---@param amount number
 ---@return HEX
@@ -49,7 +47,6 @@ function M.darken(hex, amount)
   return M.blend("#000000", hex, amount)
 end
 
--- Lighten the color
 ---@param hex HEX
 ---@param amount number
 ---@return HEX
@@ -91,4 +88,3 @@ function M.invert_color(hex)
 end
 
 return M
-

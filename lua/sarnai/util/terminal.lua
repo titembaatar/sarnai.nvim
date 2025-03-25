@@ -7,24 +7,35 @@ local color = require("sarnai.util.color")
 ---@param palette ColorPalette
 ---@return TerminalColors
 function M.get_terminal_colors(palette)
-  return {
-    black = palette.shadow,
-    bright_black = palette.surface,
-    white = palette.subtle,
-    bright_white = palette.text,
+  -- Safe access function to handle potentially nil values
+  ---@param key string
+  ---@return HEX
+  local function get_color(key)
+    local clr = palette[key]
+    if type(clr) == "string" then
+      return clr
+    end
+    return "#000000" -- Fallback color
+  end
 
-    red = palette.anis,
-    bright_red = color.lighten(palette.anis, 0.2),
-    green = palette.uvs,
-    bright_green = color.lighten(palette.uvs, 0.2),
-    yellow = palette.els,
-    bright_yellow = color.lighten(palette.els, 0.2),
-    blue = palette.nuur,
-    bright_blue = color.lighten(palette.nuur, 0.2),
-    magenta = palette.sarnai,
-    bright_magenta = color.lighten(palette.sarnai, 0.2),
-    cyan = palette.mus,
-    bright_cyan = color.lighten(palette.mus, 0.2),
+  return {
+    black = get_color("shadow"),
+    bright_black = get_color("surface"),
+    white = get_color("subtle"),
+    bright_white = get_color("text"),
+
+    red = get_color("anis"),
+    bright_red = color.lighten(get_color("anis"), 0.2),
+    green = get_color("uvs"),
+    bright_green = color.lighten(get_color("uvs"), 0.2),
+    yellow = get_color("els"),
+    bright_yellow = color.lighten(get_color("els"), 0.2),
+    blue = get_color("nuur"),
+    bright_blue = color.lighten(get_color("nuur"), 0.2),
+    magenta = get_color("sarnai"),
+    bright_magenta = color.lighten(get_color("sarnai"), 0.2),
+    cyan = get_color("mus"),
+    bright_cyan = color.lighten(get_color("mus"), 0.2),
   }
 end
 
@@ -33,22 +44,37 @@ end
 function M.set_terminal_colors(palette)
   if not palette.terminal then return end
 
-  vim.g.terminal_color_0 = palette.terminal.black
-  vim.g.terminal_color_1 = palette.terminal.red
-  vim.g.terminal_color_2 = palette.terminal.green
-  vim.g.terminal_color_3 = palette.terminal.yellow
-  vim.g.terminal_color_4 = palette.terminal.blue
-  vim.g.terminal_color_5 = palette.terminal.magenta
-  vim.g.terminal_color_6 = palette.terminal.cyan
-  vim.g.terminal_color_7 = palette.terminal.white
-  vim.g.terminal_color_8 = palette.terminal.bright_black
-  vim.g.terminal_color_9 = palette.terminal.bright_red
-  vim.g.terminal_color_10 = palette.terminal.bright_green
-  vim.g.terminal_color_11 = palette.terminal.bright_yellow
-  vim.g.terminal_color_12 = palette.terminal.bright_blue
-  vim.g.terminal_color_13 = palette.terminal.bright_magenta
-  vim.g.terminal_color_14 = palette.terminal.bright_cyan
-  vim.g.terminal_color_15 = palette.terminal.bright_white
+  -- Safe access function to handle potentially nil values
+  ---@param obj table
+  ---@param key string
+  ---@return HEX
+  local function safe_get(obj, key)
+    local val = obj[key]
+    if type(val) == "string" then
+      return val
+    end
+    return "#000000" -- Fallback color
+  end
+
+  local t = palette.terminal
+  if type(t) ~= "table" then return end
+
+  vim.g.terminal_color_0 = safe_get(t, "black")
+  vim.g.terminal_color_1 = safe_get(t, "red")
+  vim.g.terminal_color_2 = safe_get(t, "green")
+  vim.g.terminal_color_3 = safe_get(t, "yellow")
+  vim.g.terminal_color_4 = safe_get(t, "blue")
+  vim.g.terminal_color_5 = safe_get(t, "magenta")
+  vim.g.terminal_color_6 = safe_get(t, "cyan")
+  vim.g.terminal_color_7 = safe_get(t, "white")
+  vim.g.terminal_color_8 = safe_get(t, "bright_black")
+  vim.g.terminal_color_9 = safe_get(t, "bright_red")
+  vim.g.terminal_color_10 = safe_get(t, "bright_green")
+  vim.g.terminal_color_11 = safe_get(t, "bright_yellow")
+  vim.g.terminal_color_12 = safe_get(t, "bright_blue")
+  vim.g.terminal_color_13 = safe_get(t, "bright_magenta")
+  vim.g.terminal_color_14 = safe_get(t, "bright_cyan")
+  vim.g.terminal_color_15 = safe_get(t, "bright_white")
 end
 
 return M

@@ -16,8 +16,8 @@ M.accents = {
   yargui = "#d5b3e5",
 }
 
--- Get the khavar (dark) theme
----@return table<string, HEX|table>
+-- Function to get the khavar (dark) theme
+---@return ColorPalette
 function M.get_khavar()
   -- Generate intermediate colors with hue 156°
   -- From dark (8%) to light (90%)
@@ -35,8 +35,8 @@ function M.get_khavar()
   return colors
 end
 
--- Get the ovol (light) theme
----@return table<string, HEX|table>
+-- Function to get the ovol (light) theme
+---@return ColorPalette
 function M.get_ovol()
   -- Use the conversion utility to generate light theme
   return util.to_light_theme(M.get_khavar())
@@ -44,7 +44,7 @@ end
 
 -- Get colors based on style
 ---@param style Style
----@return table<string, HEX|table>
+---@return ColorPalette
 function M.get_colors(style)
   if style == "ovol" then
     return M.get_ovol()
@@ -54,4 +54,3 @@ function M.get_colors(style)
 end
 
 return M
-
