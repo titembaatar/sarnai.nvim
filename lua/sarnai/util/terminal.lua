@@ -1,7 +1,8 @@
 ---@alias TerminalColors {black: HEX, bright_black: HEX, white: HEX, bright_white: HEX, red: HEX, bright_red: HEX, green: HEX, bright_green: HEX, yellow: HEX, bright_yellow: HEX, blue: HEX, bright_blue: HEX, magenta: HEX, bright_magenta: HEX, cyan: HEX, bright_cyan: HEX}
 
-local M = {}
 local color = require("sarnai.util.color")
+
+local M = {}
 
 -- Generate terminal colors from palette
 ---@param palette ColorPalette
