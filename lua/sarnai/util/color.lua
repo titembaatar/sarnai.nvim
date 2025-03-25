@@ -1,7 +1,8 @@
 ---@alias HEX string # Hex color code like "#RRGGBB"
 ---@alias RGB {r: number, g: number, b: number}
 
-local hsluv = require("sarnai.util.hsluv")
+local util = require("sarnai.util")
+
 local M = {}
 
 -- Colors conversion
@@ -65,14 +66,14 @@ function M.hsluv(h, s, l)
   s = math.max(0, math.min(100, s))
   l = math.max(0, math.min(100, l))
 
-  return hsluv.hsluv_to_hex({ h = h, s = s, l = l })
+  return util.hsluv_to_hex(h, s, l)
 end
 
 -- Invert colors for light theme
 ---@param hex HEX
 ---@return HEX
 function M.invert_color(hex)
-  local color = hsluv.hex_to_hsluv(hex)
+  local color = util.hex_to_hsluv(hex)
 
   -- Invert lightness
   color.l = 100 - color.l
@@ -84,7 +85,7 @@ function M.invert_color(hex)
     color.s = math.max(20, color.s * 1.2) -- Increase saturation for dark colors
   end
 
-  return hsluv.hsluv_to_hex(color)
+  return util.hsluv_to_hex(color)
 end
 
 return M

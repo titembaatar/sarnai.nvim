@@ -1,7 +1,7 @@
 ---@alias ColorPalette table<string, HEX|table>
 
-local hsluv = require("sarnai.util.hsluv")
-local color = require("sarnai.util.color")
+local util = require("sarnai.util")
+
 local M = {}
 
 -- Generate palette
@@ -38,7 +38,7 @@ function M.generate_palette(hue, min_l, max_l)
     end
 
     -- Use HSLuv for better perceptual uniformity
-    palette[name] = color.hsluv(hue, s, l)
+    palette[name] = util.hsluv(hue, s, l)
   end
 
   return palette
@@ -78,17 +78,17 @@ function M.to_light_theme(colors)
 
   -- Convert base colors with proper mapping
   for light_name, dark_name in pairs(base_map) do
-    light[light_name] = color.invert_color(get_color_safe(colors, dark_name))
+    light[light_name] = util.invert_color(get_color_safe(colors, dark_name))
   end
 
   -- Convert accent colors
   for name, hex in pairs(colors) do
     if not light[name] and name ~= "none" and type(hex) == "string" and hex:sub(1, 1) == "#" then
-      light[name] = color.invert_color(hex)
+      light[name] = util.invert_color(hex)
 
       -- Additional contrast checks for accent colors
-      local accent_hsl = hsluv.hex_to_hsluv(light[name])
-      local bg_hsl = hsluv.hex_to_hsluv(get_color_safe(light, "text"))
+      local accent_hsl = util.hex_to_hsluv(light[name])
+      local bg_hsl = util.hex_to_hsluv(get_color_safe(light, "text"))
 
       -- Ensure enough lightness contrast with text color
       if math.abs(accent_hsl.l - bg_hsl.l) < 30 then
@@ -101,7 +101,7 @@ function M.to_light_theme(colors)
         -- Boost saturation for better distinction
         accent_hsl.s = math.min(100, accent_hsl.s * 1.5)
 
-        light[name] = hsluv.hsluv_to_hex(accent_hsl)
+        light[name] = util.hsluv_to_hex_obj(accent_hsl)
       end
     end
   end

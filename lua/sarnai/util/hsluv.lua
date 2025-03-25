@@ -1,233 +1,252 @@
----@alias HSLuv {h: number, s: number, l: number}
+local M = {}
 
--- Adapted from hsluv.org
+local hexChars = "0123456789abcdef"
 
-local hsluv = {}
+local function hex_to_rgb(hex)
+  hex = string.lower(hex)
+  local ret = {}
+  for i = 0, 2 do
+    local char1 = string.sub(hex, i * 2 + 2, i * 2 + 2)
+    local char2 = string.sub(hex, i * 2 + 3, i * 2 + 3)
+    local digit1 = string.find(hexChars, char1) - 1
+    local digit2 = string.find(hexChars, char2) - 1
+    ret[i + 1] = (digit1 * 16 + digit2) / 255.0
+  end
+  return ret
+end
 
--- Constants
-hsluv.m = {
+local function rgb_to_hex(rgb)
+  local hex = "#"
+  for i = 1, 3 do
+    local c = rgb[i] * 255.0
+    c = math.min(math.max(math.floor(c + 0.5), 0), 255)
+    local digit1 = math.floor(c / 16)
+    local digit2 = math.floor(c % 16)
+    hex = hex .. string.sub(hexChars, digit1 + 1, digit1 + 1)
+    hex = hex .. string.sub(hexChars, digit2 + 1, digit2 + 1)
+  end
+  return hex
+end
+
+-- http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
+-- sRGB conversion matrices
+local m = {
   { 3.240969941904521, -1.537383177570093, -0.498610760293 },
   { -0.96924363628087, 1.87596750150772,   0.041555057407175 },
-  { 0.055630079696993, -0.20397695888897,  1.056971514242878 }
+  { 0.055630079696993, -0.20397695888897,  1.056971514242878 },
+}
+local min = {
+  { 0.41239079926595, 0.35758433938387, 0.18048078840183 },
+  { 0.21263900587151, 0.71516867876775, 0.07219231536073 },
+  { 0.01933082871559, 0.11919477979462, 0.95053215224966 },
 }
 
-hsluv.minv = {
-  { 0.41239079926595,  0.35758433938387, 0.18048078840183 },
-  { 0.21263900587151,  0.71516867876775, 0.072192315360733 },
-  { 0.019330818715591, 0.11919477979462, 0.95053215224966 }
-}
-
-hsluv.refY = 1.0
-hsluv.refU = 0.19783000664283
-hsluv.refV = 0.46831999493879
-hsluv.kappa = 903.2962962
-hsluv.epsilon = 0.0088564516
-
--- Helper functions
----@param line {slope: number, intercept: number}
----@return number
-local function distance_line_from_origin(line)
-  return math.abs(line.intercept) / math.sqrt(line.slope * line.slope + 1)
-end
-
----@param theta number
----@param line {slope: number, intercept: number}
----@return number
-local function length_of_ray_until_intersect(theta, line)
-  return line.intercept / (math.sin(theta) - line.slope * math.cos(theta))
-end
-
--- Conversion functions
----@param l number
----@return {slope: number, intercept: number}[]
-function hsluv.get_bounds(l)
-  local result = {}
-  local sub1 = ((l + 16) ^ 3) / 1560896
-  local sub2 = sub1 > hsluv.epsilon and sub1 or l / hsluv.kappa
-
+local function dot_product(a, b)
+  local ret = 0
   for i = 1, 3 do
-    local m1 = hsluv.m[i][1]
-    local m2 = hsluv.m[i][2]
-    local m3 = hsluv.m[i][3]
+    ret = ret + a[i] * b[i]
+  end
+  return ret
+end
+
+local function rgb_to_xyz(rgb)
+  local r = rgb[1]
+  local g = rgb[2]
+  local b = rgb[3]
+  -- gamma correction, assume sRGB
+  r = (r > 0.04045) and (((r + 0.055) / 1.055) ^ 2.4) or (r / 12.92)
+  g = (g > 0.04045) and (((g + 0.055) / 1.055) ^ 2.4) or (g / 12.92)
+  b = (b > 0.04045) and (((b + 0.055) / 1.055) ^ 2.4) or (b / 12.92)
+
+  return { dot_product(min[1], { r, g, b }), dot_product(min[2], { r, g, b }), dot_product(min[3], { r, g, b }) }
+end
+
+local refY = 1.0
+local refU = 0.19783000664283
+local refV = 0.46831999493879
+
+local kappa = 903.2962962
+local epsilon = 0.0088564516
+
+local function xyz_to_luv(xyz)
+  local x = xyz[1]
+  local y = xyz[2]
+  local z = xyz[3]
+
+  local l
+  if y <= epsilon then
+    l = y * kappa
+  else
+    l = 116 * math.pow(y, 1.0 / 3.0) - 16
+  end
+
+  local vars = { x, y, z }
+  if vars[1] == 0 and vars[2] == 0 and vars[3] == 0 then
+    return { 0, 0, 0 }
+  end
+
+  local varU = (4 * vars[1]) / (vars[1] + (15 * vars[2]) + (3 * vars[3]))
+  local varV = (9 * vars[2]) / (vars[1] + (15 * vars[2]) + (3 * vars[3]))
+  local u = 13 * l * (varU - refU)
+  local v = 13 * l * (varV - refV)
+
+  return { l, u, v }
+end
+
+local function luv_to_lch(luv)
+  local l = luv[1]
+  local u = luv[2]
+  local v = luv[3]
+  local c = math.sqrt(u * u + v * v)
+  local h
+  if c < 0.00000001 then
+    h = 0
+  else
+    h = math.atan2(v, u) * 180.0 / math.pi
+    if h < 0 then
+      h = 360 + h
+    end
+  end
+  return { l, c, h }
+end
+
+local function lch_to_husl(lch)
+  local l = lch[1]
+  local c = lch[2]
+  local h = lch[3]
+  if l > 99.9999999 then
+    return { h, 0, 100 }
+  end
+  if l < 0.00000001 then
+    return { h, 0, 0 }
+  end
+
+  local max_c = M.max_chroma_for_lh(l, h)
+  local s = c / max_c * 100.0
+
+  return { h, s, l }
+end
+
+local function get_bounds(l)
+  local sub1 = math.pow(l + 16, 3) / 1560896
+  local sub2 = sub1 > epsilon and sub1 or l / kappa
+  local ret = {}
+
+  for channel = 1, 3 do
+    local m1 = m[channel][1]
+    local m2 = m[channel][2]
+    local m3 = m[channel][3]
 
     for t = 0, 1 do
       local top1 = (284517 * m1 - 94839 * m3) * sub2
       local top2 = (838422 * m3 + 769860 * m2 + 731718 * m1) * l * sub2 - 769860 * t * l
       local bottom = (632260 * m3 - 126452 * m2) * sub2 + 126452 * t
-      table.insert(result, { slope = top1 / bottom, intercept = top2 / bottom })
+      table.insert(ret, { top1 / bottom, top2 / bottom })
     end
   end
-  return result
+  return ret
 end
 
----@param l number
----@return number
-function hsluv.max_safe_chroma_for_l(l)
-  local bounds = hsluv.get_bounds(l)
-  local min = math.huge
-
-  for i = 1, 6 do
-    local length = distance_line_from_origin(bounds[i])
-    if length >= 0 then
-      min = math.min(min, length)
-    end
-  end
-  return min
-end
-
----@param l number
----@param h number
----@return number
-function hsluv.max_safe_chroma_for_lh(l, h)
+function M.max_chroma_for_lh(l, h)
   local hrad = h / 360 * math.pi * 2
-  local bounds = hsluv.get_bounds(l)
-  local min = math.huge
+  local bounds = get_bounds(l)
+  local min = 1.0e6
 
   for i = 1, 6 do
-    local bound = bounds[i]
-    local length = length_of_ray_until_intersect(hrad, bound)
-    if length >= 0 then
+    local length = M.length_of_ray_until_intersect(hrad, bounds[i])
+    if length > 0 then
       min = math.min(min, length)
     end
   end
   return min
 end
 
----@param c number
----@return number
-function hsluv.from_linear(c)
-  if c <= 0.0031308 then
-    return 12.92 * c
-  else
-    return 1.055 * (c ^ (1 / 2.4)) - 0.055
-  end
+function M.length_of_ray_until_intersect(theta, line)
+  return line[2] / (math.sin(theta) - line[1] * math.cos(theta))
 end
 
----@param c number
----@return number
-function hsluv.to_linear(c)
-  if c > 0.04045 then
-    return ((c + 0.055) / 1.055) ^ 2.4
-  else
-    return c / 12.92
-  end
-end
-
----@param a number[]
----@param b number[]
----@return number
-function hsluv.dot_product(a, b)
-  local sum = 0
-  for i = 1, 3 do
-    sum = sum + a[i] * b[i]
-  end
-  return sum
-end
-
--- Main conversion functions
----@param hsl HSLuv
----@return HEX
-function hsluv.hsluv_to_hex(hsl)
-  local h, s, l = hsl.h, hsl.s, hsl.l
-
-  if l > 99.9999 then
-    return "#ffffff"
-  end
-
-  if l < 0.00001 then
+function M.hsluv_to_hex(h, s, l)
+  if l <= 0.0001 then
     return "#000000"
   end
-
-  local max_chroma = hsluv.max_safe_chroma_for_lh(l, h)
-  local c = max_chroma * s / 100
-  local hrad = h / 360 * 2 * math.pi
-  local u = math.cos(hrad) * c
-  local v = math.sin(hrad) * c
-
-  local x, y, z
-  if l == 0 then
-    x, y, z = 0, 0, 0
-  else
-    y = l / 100
-    if y <= 0.008856 then
-      y = y / 903.3
-    else
-      y = (y + 0.16) / 1.16
-    end
-
-    u = u / (13 * l) + hsluv.refU
-    v = v / (13 * l) + hsluv.refV
-
-    x = 9 * y * u / (4 * v)
-    z = -x / 3 - 5 * y + 3
+  if l >= 99.9999 then
+    return "#ffffff"
   end
-
-  local r = hsluv.from_linear(3.2404542 * x - 1.5371385 * y - 0.4985314 * z)
-  local g = hsluv.from_linear(-0.9692660 * x + 1.8760108 * y + 0.0415560 * z)
-  local b = hsluv.from_linear(0.0556434 * x - 0.2040259 * y + 1.0572252 * z)
-
-  r = math.max(0, math.min(1, r))
-  g = math.max(0, math.min(1, g))
-  b = math.max(0, math.min(1, b))
-
-  return string.format("#%02x%02x%02x",
-    math.floor(r * 255 + 0.5),
-    math.floor(g * 255 + 0.5),
-    math.floor(b * 255 + 0.5))
+  h = h % 360
+  local lch = { l, M.max_chroma_for_lh(l, h) * s / 100, h }
+  return M.lch_to_hex(lch)
 end
 
----@param hex HEX
----@return HSLuv
-function hsluv.hex_to_hsluv(hex)
-  hex = hex:gsub("#", "")
-  local r = tonumber(hex:sub(1, 2), 16) / 255
-  local g = tonumber(hex:sub(3, 4), 16) / 255
-  local b = tonumber(hex:sub(5, 6), 16) / 255
-
-  -- RGB to XYZ
-  r = hsluv.to_linear(r)
-  g = hsluv.to_linear(g)
-  b = hsluv.to_linear(b)
-
-  local x = 0.4124564 * r + 0.3575761 * g + 0.1804375 * b
-  local y = 0.2126729 * r + 0.7151522 * g + 0.0721750 * b
-  local z = 0.0193339 * r + 0.1191920 * g + 0.9503041 * b
-
-  -- XYZ to LUV
-  local l
-  if y <= 0.008856 then
-    l = y * 903.3
-  else
-    l = 116 * (y ^ (1 / 3)) - 16
-  end
-
-  if l < 0.00001 then
-    return { h = 0, s = 0, l = 0 }
-  end
-
-  local u = 4 * x / (x + 15 * y + 3 * z)
-  local v = 9 * y / (x + 15 * y + 3 * z)
-
-  u = 13 * l * (u - hsluv.refU)
-  v = 13 * l * (v - hsluv.refV)
-
-  -- LUV to HSLuv
-  local h, s
-  if math.abs(u) < 0.00001 and math.abs(v) < 0.00001 then
-    h = 0
-    s = 0
-  else
-    h = math.atan2(v, u) * 180 / math.pi
-    if h < 0 then
-      h = h + 360
-    end
-
-    local c = math.sqrt(u * u + v * v)
-    local max_chroma = hsluv.max_safe_chroma_for_lh(l, h)
-    s = c / max_chroma * 100
-  end
-
-  return { h = h, s = s, l = l }
+function M.hex_to_hsluv(hex)
+  local rgb = hex_to_rgb(hex)
+  local xyz = rgb_to_xyz(rgb)
+  local luv = xyz_to_luv(xyz)
+  local lch = luv_to_lch(luv)
+  local hsluv = lch_to_husl(lch)
+  return { h = hsluv[1], s = hsluv[2], l = hsluv[3] }
 end
 
-return hsluv
+function M.lch_to_hex(lch)
+  return M.luv_to_hex(M.lch_to_luv(lch))
+end
+
+function M.lch_to_luv(lch)
+  local l = lch[1]
+  local c = lch[2]
+  local h = lch[3] / 360.0 * 2 * math.pi
+  return { l, math.cos(h) * c, math.sin(h) * c }
+end
+
+function M.luv_to_hex(luv)
+  return M.xyz_to_hex(M.luv_to_xyz(luv))
+end
+
+function M.luv_to_xyz(luv)
+  local l = luv[1]
+  local u = luv[2]
+  local v = luv[3]
+  if l <= 0.00000001 then
+    return { 0, 0, 0 }
+  end
+
+  local varU = u / (13 * l) + refU
+  local varV = v / (13 * l) + refV
+
+  local y
+  if l <= 8.0 then
+    y = l / kappa
+  else
+    y = math.pow((l + 16) / 116, 3)
+  end
+
+  local x = y * (9 * varU) / (4 * varV)
+  local z = y * (12 - 3 * varU - 20 * varV) / (4 * varV)
+  return { x, y, z }
+end
+
+function M.xyz_to_hex(xyz)
+  return rgb_to_hex(M.xyz_to_rgb(xyz))
+end
+
+function M.xyz_to_rgb(xyz)
+  local x = xyz[1]
+  local y = xyz[2]
+  local z = xyz[3]
+
+  local rgb = {}
+  rgb[1] = dot_product(m[1], xyz)
+  rgb[2] = dot_product(m[2], xyz)
+  rgb[3] = dot_product(m[3], xyz)
+
+  for i = 1, 3 do
+    rgb[i] = (rgb[i] <= 0.0031308) and (12.92 * rgb[i]) or (1.055 * math.pow(rgb[i], 1.0 / 2.4) - 0.055)
+  end
+  return rgb
+end
+
+-- Convenience function for our colorscheme usage
+function M.hsluv_to_hex_obj(hsl)
+  return M.hsluv_to_hex(hsl.h, hsl.s, hsl.l)
+end
+
+return M
