@@ -1,9 +1,8 @@
----@type table<string, string>
 local M = {}
 
 local util = require("sarnai.util")
 
--- stylua: ignore
+-- Define plugin mapping table with proper type annotation
 ---@type table<string, string>
 M.plugins = {
   ["mini.nvim"]      = "mini",
@@ -12,12 +11,11 @@ M.plugins = {
   ["telescope.nvim"] = "picker",
   ["fzf-lua"]        = "picker", -- Uses the same highlights as telescope
   ["gitsigns.nvim"]  = "git",
-  ["zen-mode.nvim"]  = "zen_mode",
-  ["nvim-dap"]       = "nvim_dap",
+  ["zen-mode.nvim"]  = "zen",
+  ["nvim-dap"]       = "dap",
   ["blink.cmp"]      = "blink_cmp",
   ["snacks.nvim"]    = "snacks"
 }
-
 
 ---@param palette ColorPalette
 ---@param config SarnaiConfig
@@ -29,7 +27,7 @@ function M.get(palette, config)
   local loaded = {}
 
   -- Load highlights for each enabled plugin
-  for lazy_name, module_name in pairs(util.plugins) do
+  for lazy_name, module_name in pairs(M.plugins) do
     -- Skip if we already loaded this module's highlights
     if loaded[module_name] then goto continue end
 
@@ -55,4 +53,3 @@ function M.get(palette, config)
 end
 
 return M
-
