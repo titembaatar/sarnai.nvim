@@ -18,6 +18,7 @@ function M.get(palette, config)
     zen_mode = pcall(require, "zen-mode") or vim.fn.exists("g:loaded_zen_mode") == 1,
     nvim_dap = pcall(require, "dap") or vim.fn.exists("g:loaded_dap") == 1,
     nvim_cmp = pcall(require, "cmp") or vim.fn.exists("g:loaded_cmp") == 1,
+    snacks = pcall(require, "snacks") or vim.fn.exists("g:loaded_snacks") == 1,
   }
 
   -- Load mini.nvim highlights if detected
@@ -56,6 +57,12 @@ function M.get(palette, config)
   -- Load dap highlights if detected
   if plugins.nvim_dap then
     highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.plugins.dap").get(palette, config))
+  end
+
+  -- Load snacks highlights if detected
+  if plugins.snacks then
+    highlights = vim.tbl_deep_extend("force", highlights,
+      require("sarnai.highlights.plugins.snacks").get(palette, config))
   end
 
   return highlights
