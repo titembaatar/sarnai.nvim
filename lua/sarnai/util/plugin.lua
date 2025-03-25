@@ -6,80 +6,53 @@ function M.has_lazy()
   return package.loaded["lazy"] ~= nil
 end
 
--- Check if a plugin is installed via lazy.nvim (regardless of load state)
----@param plugin_name string The name or partial name of the plugin
+-- Check if plugin is loaded using require
+---@param name string The plugin name
 ---@return boolean
-function M.has_plugin(plugin_name)
-  -- If lazy isn't available, assume everything is available
-  if not M.has_lazy() then
-    return true
+function M.is_plugin_loaded(name)
+  local ok, _ = pcall(require, name:gsub("%.nvim$", ""):gsub("-", "."))
+  return ok
+end
+
+-- Check if plugin is enabled based on config
+---@param lazy_name string lazy.nvim plugin name
+---@param module_name string internal module name
+---@param config SarnaiConfig Theme configuration
+---@return boolean
+function M.is_plugin_enabled(lazy_name, module_name, config)
+  local plugins = config.plugins or {}
+
+  -- 1. If plugin is explicitly set in config, use that setting
+  if plugins[module_name] ~= nil then
+    return plugins[module_name]
   end
 
-  -- Get the lazy.nvim plugin specs
-  local lazy_config = require("lazy.core.config")
+  -- 2. If auto detection is enabled and lazy.nvim is available
+  if plugins.auto ~= false and M.has_lazy() then
+    local loaded_plugins = {}
+    for _, p in ipairs(require("lazy").plugins()) do
+      loaded_plugins[p.name] = true
+    end
 
-  -- Check if the plugin exists in lazy's config
-  for name, _ in pairs(lazy_config.specs) do
-    if name == plugin_name or name:match(plugin_name) then
+    -- Check if plugin is loaded in lazy
+    if loaded_plugins[lazy_name] then
+      return true
+    end
+
+    -- Special case for mini.nvim
+    if lazy_name == "mini.nvim" and vim.tbl_contains(vim.api.nvim_get_runtime_path(), "mini.nvim") then
       return true
     end
   end
 
-  return false
-end
-
--- Dynamically load plugin highlights based on available files
----@param palette ColorPalette
----@param config SarnaiConfig
----@return Highlights
-function M.load_plugin_highlights(palette, config)
-  local highlights = {}
-
-  -- Path to plugin highlights directory
-  local plugin_dir = "sarnai.highlights.plugins."
-
-  -- If lazy isn't available, load all plugin highlights
-  if not M.has_lazy() then
-    -- Try loading every plugin highlight module except init
-    for _, module_name in ipairs({
-      "mini", "trouble", "which_key", "telescope", "git",
-      "zen", "dap", "blink_cmp", "snacks"
-    }) do
-      local ok, plugin_hl = pcall(require, plugin_dir .. module_name)
-      if ok and type(plugin_hl.get) == "function" then
-        highlights = vim.tbl_deep_extend("force", highlights, plugin_hl.get(palette, config))
-      end
-    end
-    return highlights
+  -- 3. When not using lazy.nvim, load all by default unless explicitly set to false
+  if plugins.all ~= false and not M.has_lazy() then
+    return true
   end
 
-  -- With lazy.nvim, we can be more selective
-  -- Map plugin names to their highlight modules
-  local plugin_map = {
-    ["mini.nvim"] = "mini",
-    ["trouble.nvim"] = "trouble",
-    ["which-key.nvim"] = "which_key",
-    ["telescope.nvim"] = "picker",
-    ["fzf-lua"] = "picker", -- Both use the same highlight file
-    ["gitsigns.nvim"] = "git",
-    ["zen-mode.nvim"] = "zen",
-    ["nvim-dap"] = "dap",
-    ["blink.cmp"] = "blink_cmp",
-    ["snacks.nvim"] = "snacks",
-  }
-
-  -- Check each known plugin mapping
-  for plugin_name, module_name in pairs(plugin_map) do
-    -- Check if the plugin is installed
-    if M.has_plugin(plugin_name) then
-      local ok, plugin_hl = pcall(require, plugin_dir .. module_name)
-      if ok and type(plugin_hl.get) == "function" then
-        highlights = vim.tbl_deep_extend("force", highlights, plugin_hl.get(palette, config))
-      end
-    end
-  end
-
-  return highlights
+  -- 4. Fall back to checking if plugin is actually loaded
+  return M.is_plugin_loaded(lazy_name)
 end
 
 return M
+
