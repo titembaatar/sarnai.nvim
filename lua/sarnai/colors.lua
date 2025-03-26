@@ -38,14 +38,14 @@
 
 ---@class SemanticPalette
 ---@field error HEX Errors
----@field error_bg HEX Error background
 ---@field warn HEX Warnings
----@field warn_bg HEX Warning background
 ---@field info HEX Information
----@field info_bg HEX Info background
 ---@field hint HEX Hints
----@field hint_bg HEX Hint background
 ---@field ok HEX Success/OK
+---@field error_bg HEX Error background
+---@field warn_bg HEX Warning background
+---@field info_bg HEX Info background
+---@field hint_bg HEX Hint background
 ---@field ok_bg HEX Hint background
 
 ---@class GitPalette
@@ -57,6 +57,14 @@
 ---@field git_merge HEX Merge conflicts
 ---@field git_rename HEX Renamed content
 ---@field git_text HEX Git text (commit messages, etc.)
+---@field git_add_bg HEX Added content background
+---@field git_change_bg HEX Changed content background
+---@field git_delete_bg HEX Deleted content background
+---@field git_dirty_bg HEX Dirty/unstaged changes background
+---@field git_ignore_bg HEX Ignored files background
+---@field git_merge_bg HEX Merge conflicts background
+---@field git_rename_bg HEX Renamed content background
+---@field git_text_bg HEX Git text (commit messages, etc.) background
 
 ---@class SpecialPalette
 ---@field link HEX Links, URLs
@@ -148,25 +156,33 @@ function M.generate_color_palette(p)
     },
     semantic = {
       error = p.anis,                                   -- Errors
-      error_bg = util.blend(p.anis, p.base, 0.15),      -- Error background
       warn = p.chatsalgan,                              -- Warnings
-      warn_bg = util.blend(p.chatsalgan, p.base, 0.15), -- Warning background
       info = p.nuur,                                    -- Information
-      info_bg = util.blend(p.nuur, p.base, 0.15),       -- Info background
       hint = p.sarnai,                                  -- Hints
-      hint_bg = util.blend(p.sarnai, p.base, 0.15),     -- Hint background
       ok = p.uvs,                                       -- Success/OK
+      error_bg = util.blend(p.anis, p.base, 0.15),      -- Error background
+      warn_bg = util.blend(p.chatsalgan, p.base, 0.15), -- Warning background
+      info_bg = util.blend(p.nuur, p.base, 0.15),       -- Info background
+      hint_bg = util.blend(p.sarnai, p.base, 0.15),     -- Hint background
       ok_bg = util.blend(p.uvs, p.base, 0.15),          -- Success background
     },
     git = {
-      git_add = p.uvs,      -- Added content
-      git_change = p.els,   -- Changed content
-      git_delete = p.anis,  -- Deleted content
-      git_dirty = p.sarnai, -- Dirty/unstaged changes
-      git_ignore = p.muted, -- Ignored files
-      git_merge = p.yargui, -- Merge conflicts
-      git_rename = p.nuur,  -- Renamed content
-      git_text = p.sarnai,  -- Git text (commit messages, etc.)
+      git_add = p.uvs,                                    -- Added content
+      git_change = p.els,                                 -- Changed content
+      git_delete = p.anis,                                -- Deleted content
+      git_dirty = p.sarnai,                               -- Dirty/unstaged changes
+      git_ignore = p.muted,                               -- Ignored files
+      git_merge = p.yargui,                               -- Merge conflicts
+      git_rename = p.nuur,                                -- Renamed content
+      git_text = p.sarnai,                                -- Git text (commit messages, etc.)
+      git_add_bg = util.blend(p.uvs, p.base, 0, 15),      -- Added content background
+      git_change_bg = util.blend(p.els, p.base, 0, 15),   -- Changed content background
+      git_delete_bg = util.blend(p.anis, p.base, 0, 15),  -- Deleted content background
+      git_dirty_bg = util.blend(p.sarnai, p.base, 0, 15), -- Dirty/unstaged changes background
+      git_ignore_bg = util.blend(p.muted, p.base, 0, 15), -- Ignored files background
+      git_merge_bg = util.blend(p.yargui, p.base, 0, 15), -- Merge conflicts background
+      git_rename_bg = util.blend(p.nuur, p.base, 0, 15),  -- Renamed content background
+      git_text_bg = util.blend(p.sarnai, p.base, 0, 15),  -- Git text (commit messages, etc.) background
     },
     special = {
       link = p.nuur,          -- Links, URLs
@@ -208,4 +224,3 @@ function M.get_colors(style)
 end
 
 return M
-
