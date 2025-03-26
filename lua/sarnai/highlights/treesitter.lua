@@ -21,33 +21,33 @@ function M.get(palette, opts)
     ["@string.documentation"] = { fg = p.palette.subtle },                           -- Documentation strings
     ["@string.regexp"] = { fg = p.palette.yargui },                                  -- Regular expressions
     ["@string.escape"] = { fg = p.palette.nuur },                                    -- Escape characters in strings
-    ["@string.special"] = { link = "String" },                                       -- Special strings (URLs, file paths, etc.)
-    ["@string.special.symbol"] = { link = "Identifier" },                            -- Special strings (URLs, file paths, etc.)
+    ["@string.special"] = "String",                                                  -- Special strings (URLs, file paths, etc.)
+    ["@string.special.symbol"] = "Identifier",                                       -- Special strings (URLs, file paths, etc.)
     ["@string.special.url"] = { fg = p.special.link },                               -- Special strings (URLs, file paths, etc.)
-    ["@character"] = { link = "Character" },                                         -- Character literals
-    ["@character.special"] = { link = "Character" },                                 -- Special characters (e.g. wildcards)
-    ["@boolean"] = { link = "Boolean" },                                             -- Boolean literals
-    ["@number"] = { link = "Number" },                                               -- Numeric literals
-    ["@number.float"] = { link = "Float" },                                          -- Floating-point number literals
-    ["@float"] = { link = "Float" },                                                 -- Floating-point number literals
+    ["@character"] = "Character",                                                    -- Character literals
+    ["@character.special"] = "Character",                                            -- Special characters (e.g. wildcards)
+    ["@boolean"] = "Boolean",                                                        -- Boolean literals
+    ["@number"] = "Number",                                                          -- Numeric literals
+    ["@number.float"] = "Float",                                                     -- Floating-point number literals
+    ["@float"] = "Float",                                                            -- Floating-point number literals
 
-    ["@type"] = { link = "Type" },                                                   -- Type identifiers
+    ["@type"] = "Type",                                                              -- Type identifiers
     ["@type.builtin"] = { fg = p.palette.mus, italic = styles.italic },              -- Built-in types
     -- ["@type.definition"] = {},
     ["@type.qualifier"] = { fg = p.palette.yargui, italic = styles.italic },         -- Type qualifiers (e.g., const)
     ["@attribute"] = { fg = p.palette.yargui, bold = styles.bold },                  -- Attribute annotations
     ["@property"] = { fg = p.palette.mus, italic = styles.italic },                  -- Object properties and struct members
 
-    ["@function"] = { link = "Function" },                                           -- Function definitions
+    ["@function"] = "Function",                                                      -- Function definitions
     ["@function.builtin"] = { fg = p.palette.sarnai, italic = styles.italic },       -- Built-in functions
     ["@function.macro"] = { fg = p.palette.chatsalgan, bold = styles.bold },         -- Macro defined functions (preprocessor)
     ["@function.call"] = { fg = p.syntax.variable },                                 -- Function calls
     ["@function.method"] = { fg = p.palette.nuur },                                  -- Method definitions
     ["@function.method.call"] = { fg = p.palette.nuur },                             -- Method calls
     ["@constructor"] = { fg = p.palette.mus },                                       -- Constructor calls and definitions
-    ["@operator"] = { link = "Operator" },                                           -- Operators (+ - * / etc.)
+    ["@operator"] = "Operator",                                                      -- Operators (+ - * / etc.)
 
-    ["@keyword"] = { link = "Keyword" },                                             -- Keywords
+    ["@keyword"] = "Keyword",                                                        -- Keywords
     ["@keyword.function"] = { fg = p.palette.sarnai, style = styles.keywords },      -- Keywords used to define a function
     ["@keyword.operator"] = { fg = p.palette.subtle },                               -- Keyword operators (new, delete, instanceof, etc.)
     ["@keyword.import"] = { fg = p.palette.nuur },                                   -- Import keywords
@@ -61,7 +61,7 @@ function M.get(palette, opts)
     ["@punctuation.bracket"] = { fg = p.palette.subtle },                            -- Brackets ((), [], {}, etc.)
     ["@punctuation.special"] = { fg = p.palette.subtle, bold = styles.bold },        -- Special punctuation (e.g., interpolation braces in strings)
 
-    ["@comment"] = { link = "Comment" },                                             -- Regular comments
+    ["@comment"] = "Comment",                                                        -- Regular comments
     ["@comment.documentation"] = { fg = p.palette.subtle, style = styles.comments }, -- Documentation comments
     ["@comment.error"] = { fg = p.semantic.error, style = styles.comments },         -- Error markers in comments
     ["@comment.warning"] = { fg = p.semantic.warn, style = styles.comments },        -- Warning markers in comments
@@ -81,10 +81,10 @@ function M.get(palette, opts)
     ["@markup.list.checked"] = { fg = p.palette.mus },                               -- Checked list markers
     ["@markup.list.unchecked"] = { fg = p.syntax.variable },                         -- Unchecked list markers
     ["@markup.quote"] = { fg = p.syntax.variable, italic = styles.italic },          -- Quotes
-    ["@markup.math"] = { link = "Special" },                                         -- Math environments
-    ["@markup.environment"] = { link = "Macro" },                                    -- Document environment blocks
+    ["@markup.math"] = "Special",                                                    -- Math environments
+    ["@markup.environment"] = "Macro",                                               -- Document environment blocks
 
-    ["@tag"] = { link = "Tag" },                                                     -- Tags like HTML/XML tags
+    ["@tag"] = "Tag",                                                                -- Tags like HTML/XML tags
     ["@tag.attribute"] = { fg = p.palette.yargui },                                  -- HTML/XML tag attributes
     ["@tag.delimiter"] = { fg = p.palette.subtle },                                  -- Tag delimiters like < > /
 
@@ -93,7 +93,7 @@ function M.get(palette, opts)
     ["@diff.delta"] = { fg = p.git.git_change },                                     -- Changed lines
 
     ["@module"] = { fg = p.syntax.variable },                                        -- Modules, imports, packages
-    ["@namespace"] = { link = "Include" },                                           -- Namespaces, packages
+    ["@namespace"] = "Include",                                                      -- Namespaces, packages
 
     ["@definition"] = { underline = styles.underline },                              -- Definitions/implementations
     ["@scope"] = { fg = p.palette.subtle },                                          -- Scope blocks
@@ -105,26 +105,26 @@ function M.get(palette, opts)
     ["@conceal"] = { fg = p.palette.muted },                                         -- Conceal tokens
 
     -- LSP semantic tokens
-    ["@lsp.type.class"] = { link = "@type" },
-    ["@lsp.type.comment"] = { link = "@comment" },
-    ["@lsp.type.decorator"] = { link = "@function" },
-    ["@lsp.type.enum"] = { link = "@type" },
-    ["@lsp.type.enumMember"] = { link = "@constant" },
-    ["@lsp.type.function"] = { link = "@function" },
-    ["@lsp.type.interface"] = { link = "@type" },
-    ["@lsp.type.keyword"] = { link = "@keyword" },
-    ["@lsp.type.macro"] = { link = "@function.macro" },
-    ["@lsp.type.method"] = { link = "@function.method" },
-    ["@lsp.type.namespace"] = { link = "@namespace" },
-    ["@lsp.type.number"] = { link = "@number" },
-    ["@lsp.type.operator"] = { link = "@operator" },
-    ["@lsp.type.parameter"] = { link = "@variable.parameter" },
-    ["@lsp.type.property"] = { link = "@property" },
-    ["@lsp.type.string"] = { link = "@string" },
-    ["@lsp.type.struct"] = { link = "@type" },
-    ["@lsp.type.type"] = { link = "@type" },
-    ["@lsp.type.typeParameter"] = { link = "@type" },
-    ["@lsp.type.variable"] = { link = "@variable" },
+    ["@lsp.type.class"] = "@type",
+    ["@lsp.type.comment"] = "@comment",
+    ["@lsp.type.decorator"] = "@function",
+    ["@lsp.type.enum"] = "@type",
+    ["@lsp.type.enumMember"] = "@constant",
+    ["@lsp.type.function"] = "@function",
+    ["@lsp.type.interface"] = "@type",
+    ["@lsp.type.keyword"] = "@keyword",
+    ["@lsp.type.macro"] = "@function.macro",
+    ["@lsp.type.method"] = "@function.method",
+    ["@lsp.type.namespace"] = "@namespace",
+    ["@lsp.type.number"] = "@number",
+    ["@lsp.type.operator"] = "@operator",
+    ["@lsp.type.parameter"] = "@variable.parameter",
+    ["@lsp.type.property"] = "@property",
+    ["@lsp.type.string"] = "@string",
+    ["@lsp.type.struct"] = "@type",
+    ["@lsp.type.type"] = "@type",
+    ["@lsp.type.typeParameter"] = "@type",
+    ["@lsp.type.variable"] = "@variable",
   }
 end
 

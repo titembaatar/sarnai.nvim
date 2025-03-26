@@ -45,23 +45,23 @@ function M.get(palette, opts)
       bg = transparent_bg or p.semantic.ok_bg
     },                                                                                               -- Virtual text for ok
 
-    DiagnosticFloatingError = { link = "DiagnosticError" },                                          -- Diagnostic floating window error text
-    DiagnosticFloatingWarn = { link = "DiagnosticWarn" },                                            -- Diagnostic floating window warning text
-    DiagnosticFloatingInfo = { link = "DiagnosticInfo" },                                            -- Diagnostic floating window info text
-    DiagnosticFloatingHint = { link = "DiagnosticHint" },                                            -- Diagnostic floating window hint text
-    DiagnosticFloatingOk = { link = "DiagnosticOk" },                                                -- Diagnostic floating window ok text
+    DiagnosticFloatingError = "DiagnosticError",                                                     -- Diagnostic floating window error text
+    DiagnosticFloatingWarn = "DiagnosticWarn",                                                       -- Diagnostic floating window warning text
+    DiagnosticFloatingInfo = "DiagnosticInfo",                                                       -- Diagnostic floating window info text
+    DiagnosticFloatingHint = "DiagnosticHint",                                                       -- Diagnostic floating window hint text
+    DiagnosticFloatingOk = "DiagnosticOk",                                                           -- Diagnostic floating window ok text
 
-    DiagnosticSignError = { link = "DiagnosticError" },                                              -- Diagnostic signs for errors
-    DiagnosticSignWarn = { link = "DiagnosticWarn" },                                                -- Diagnostic signs for warnings
-    DiagnosticSignInfo = { link = "DiagnosticInfo" },                                                -- Diagnostic signs for info
-    DiagnosticSignHint = { link = "DiagnosticHint" },                                                -- Diagnostic signs for hints
-    DiagnosticSignOk = { link = "DiagnosticOk" },                                                    -- Diagnostic signs for ok
+    DiagnosticSignError = "DiagnosticError",                                                         -- Diagnostic signs for errors
+    DiagnosticSignWarn = "DiagnosticWarn",                                                           -- Diagnostic signs for warnings
+    DiagnosticSignInfo = "DiagnosticInfo",                                                           -- Diagnostic signs for info
+    DiagnosticSignHint = "DiagnosticHint",                                                           -- Diagnostic signs for hints
+    DiagnosticSignOk = "DiagnosticOk",                                                               -- Diagnostic signs for ok
 
     DiagnosticDeprecated = { strikethrough = true },                                                 -- Deprecated code
     DiagnosticUnnecessary = { fg = p.palette.muted, bg = transparent_bg, italic = styles.italic },   -- Unused code
 
     LspReferenceText = { bg = p.palette.surface },                                                   -- References
-    LspReferenceRead = { link = "LspReferenceText" },                                                -- References in read mode
+    LspReferenceRead = "LspReferenceText",                                                           -- References in read mode
     LspReferenceWrite = { bg = util.blend(p.special.link, p.ui.bg, 0.2) },                           -- References in write mode
 
     LspCodeLens = { fg = p.palette.muted },                                                          -- Virtual text for codelens
@@ -79,8 +79,8 @@ function M.get(palette, opts)
     FloatTitle = { fg = p.ui.border, bg = transparent_bg or p.ui.bg_float, bold = styles.bold }, -- Title of floating windows
 
     LightBulb = { fg = p.semantic.hint },                                                        -- Lightbulb icon for code actions
-    LightBulbSign = { link = "LightBulb" },                                                      -- Lightbulb sign in the sign column
-    LightBulbFloatWin = { link = "LightBulb" },                                                  -- Lightbulb in floating windows
+    LightBulbSign = "LightBulb",                                                                 -- Lightbulb sign in the sign column
+    LightBulbFloatWin = "LightBulb",                                                             -- Lightbulb in floating windows
 
     LspRenameTitle = { fg = p.semantic.hint, bold = styles.bold },                               -- Title for rename popups
     LspRenameMatch = { bg = util.blend(p.semantic.hint, p.ui.bg, 0.2) },                         -- Matching text in rename preview
@@ -90,12 +90,12 @@ function M.get(palette, opts)
     CmpItemAbbrMatch = { fg = p.ui.fg, bold = styles.bold },
     CmpItemAbbrMatchFuzzy = { fg = p.ui.fg, bold = styles.bold },
     CmpItemKind = { fg = p.palette.subtle },
-    CmpItemKindClass = { link = "StorageClass" },
-    CmpItemKindFunction = { link = "Function" },
-    CmpItemKindInterface = { link = "Type" },
-    CmpItemKindMethod = { link = "PreProc" },
-    CmpItemKindSnippet = { link = "String" },
-    CmpItemKindVariable = { link = "Identifier" },
+    CmpItemKindClass = "StorageClass",
+    CmpItemKindFunction = "Function",
+    CmpItemKindInterface = "Type",
+    CmpItemKindMethod = "PreProc",
+    CmpItemKindSnippet = "String",
+    CmpItemKindVariable = "Identifier",
   }
 end
 

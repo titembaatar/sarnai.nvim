@@ -24,7 +24,7 @@ function M.get(palette, opts)
     -- Cursor
     Cursor = { fg = p.ui.bg, bg = p.ui.fg },
     CursorLine = { bg = transparent_bg or util.lighten(p.ui.bg, 0.05) },
-    CursorColumn = { link = "CursorLine" },
+    CursorColumn = "CursorLine",
 
     -- Status line
     StatusLine = { fg = p.ui.fg, bg = p.ui.bg },
@@ -32,7 +32,7 @@ function M.get(palette, opts)
 
     -- Window separators
     VertSplit = { fg = util.darken(p.ui.bg, 0.1) },
-    WinSeparator = { link = "VertSplit" },
+    WinSeparator = "VertSplit",
 
     -- Search highlighting
     Search = { fg = p.ui.bg, bg = util.blend(p.ui.accent, p.ui.bg, 0.2) },
@@ -40,7 +40,7 @@ function M.get(palette, opts)
 
     -- Visual mode
     Visual = { bg = p.palette.overlay },
-    VisualNOS = { link = "Visual" },
+    VisualNOS = "Visual",
 
     -- Folding
     Folded = { fg = p.ui.fg, bg = p.none },
@@ -93,39 +93,39 @@ function M.get(palette, opts)
 
     Constant = { fg = p.syntax.constant },
     String = { fg = p.syntax.string },
-    Character = { link = "String" },
+    Character = "String",
     Number = { fg = p.syntax.constant },
     Boolean = { fg = p.syntax.boolean },
-    Float = { link = "Number" },
+    Float = "Number",
 
     Identifier = { fg = p.syntax.variable, style = styles.variables },
     Function = { fg = p.syntax.functions, style = styles.functions },
 
     Statement = { fg = p.syntax.keyword, style = styles.keywords },
-    Conditional = { link = "Statement" },
-    Repeat = { link = "Statement" },
-    Label = { link = "Statement" },
+    Conditional = "Statement",
+    Repeat = "Statement",
+    Label = "Statement",
     Operator = { fg = p.syntax.operator },
-    Keyword = { link = "Statement" },
-    Exception = { link = "Statement" },
+    Keyword = "Statement",
+    Exception = "Statement",
 
     PreProc = { fg = p.palette.yargui },
-    Include = { link = "PreProc" },
-    Define = { link = "PreProc" },
-    Macro = { link = "PreProc" },
-    PreCondit = { link = "PreProc" },
+    Include = "PreProc",
+    Define = "PreProc",
+    Macro = "PreProc",
+    PreCondit = "PreProc",
 
     Type = { fg = p.syntax.type },
-    StorageClass = { link = "Type" },
-    Structure = { link = "Type" },
-    Typedef = { link = "Type" },
+    StorageClass = "Type",
+    Structure = "Type",
+    Typedef = "Type",
 
     Special = { fg = p.special.special },
-    SpecialChar = { link = "Special" },
-    Tag = { link = "Special" },
+    SpecialChar = "Special",
+    Tag = "Special",
     Delimiter = { fg = p.syntax.punctuation },
     SpecialComment = { fg = p.palette.yargui, style = styles.comments },
-    Debug = { link = "Special" },
+    Debug = "Special",
 
     Underlined = { underline = styles.underline },
 

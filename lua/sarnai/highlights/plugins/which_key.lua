@@ -13,7 +13,7 @@ function M.get(palette, opts)
     WhichKeyBorder = { fg = p.ui.border, bg = transparent_bg or p.palette.surface },
     WhichKeyDesc = { fg = p.ui.fg },
     WhichKeyGroup = { fg = p.palette.mus },
-    WhichKeyIcon = { link = "@markup.link" },
+    WhichKeyIcon = "@markup.link",
     WhichKeyIconAzure = { fg = p.syntax.functions },
     WhichKeyIconBlue = { fg = p.semantic.info },
     WhichKeyIconCyan = { fg = p.semantic.hint },
