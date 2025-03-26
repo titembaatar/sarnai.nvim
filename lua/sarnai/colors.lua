@@ -30,6 +30,7 @@
 ---@field constant HEX Constants, numbers
 ---@field string HEX Strings
 ---@field functions HEX Functions, methods
+---@field boolean HEX Boolean
 ---@field keyword HEX Keywords
 ---@field operator HEX Operators
 ---@field type HEX Types, classes
@@ -139,6 +140,7 @@ function M.generate_color_palette(p)
       constant = p.els,       -- Constants, numbers
       string = p.els,         -- Strings
       functions = p.sarnai,   -- Functions, methods
+      boolean = p.sarnai,     -- Booleans
       keyword = p.nuur,       -- Keywords
       operator = p.subtle,    -- Operators
       type = p.mus,           -- Types, classes

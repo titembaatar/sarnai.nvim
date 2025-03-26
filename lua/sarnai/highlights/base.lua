@@ -7,118 +7,133 @@ local M = {}
 ---@return Highlights
 function M.get(palette, opts)
   local c = palette
-  local groups = util.get_groups(c.groups, c)
 
   local styles = opts.styles or {}
   local transparent_bg = opts.transparent and "NONE" or nil
 
   local highlights = {
-    Normal = { fg = c.text, bg = transparent_bg or c.base },                       -- Normal text
-    NormalNC = { fg = c.subtle, bg = transparent_bg or util.darken(c.base, 0.1) }, -- Normal text in non-current windows
-    NormalFloat = { fg = c.text, bg = transparent_bg or c.surface },               -- Normal text in floating windows
+    -- Core UI elements
+    Normal = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg },
+    NormalNC = { fg = c.palette.subtle, bg = transparent_bg or util.darken(c.ui.bg, 0.1) },
+    NormalFloat = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg_float },
 
-    LineNr = { fg = c.muted },                                                     -- Line number for ":number" and ":#" commands
-    CursorLineNr = { fg = groups.hint },                                           -- Line number for the cursor line
+    -- Line numbers
+    LineNr = { fg = c.palette.muted },
+    CursorLineNr = { fg = c.ui.accent },
 
-    Cursor = { fg = c.base, bg = c.text },                                         -- Character under the cursor
-    CursorLine = { bg = transparent_bg or c.overlay },                             -- Screen-line at the cursor
-    CursorColumn = { link = "CursorLine" },                                        -- Screen-column at the cursor
+    -- Cursor
+    Cursor = { fg = c.ui.bg, bg = c.ui.fg },
+    CursorLine = { bg = transparent_bg or util.lighten(c.ui.bg, 0.05) },
+    CursorColumn = { link = "CursorLine" },
 
-    StatusLine = { fg = c.text, bg = c.base },                                     -- Status line of current window
-    StatusLineNC = { fg = c.muted, bg = c.base },                                  -- Status lines of not-current windows
+    -- Status line
+    StatusLine = { fg = c.ui.fg, bg = c.ui.bg },
+    StatusLineNC = { fg = c.palette.muted, bg = c.ui.bg },
 
-    VertSplit = { fg = util.darken(c.base, 0.1) },                                 -- Column separating vertically split windows
-    WinSeparator = { link = "VertSplit" },                                         -- Separator between window splits (Neovim)
+    -- Window separators
+    VertSplit = { fg = util.darken(c.ui.bg, 0.1) },
+    WinSeparator = { link = "VertSplit" },
 
-    Search = { fg = c.base, bg = util.blend(groups.hint, c.base, 0.2) },           -- Last search pattern highlighting
-    IncSearch = { fg = c.base, bg = groups.hint },                                 -- 'incsearch' highlighting
+    -- Search highlighting
+    Search = { fg = c.ui.bg, bg = util.blend(c.ui.accent, c.ui.bg, 0.2) },
+    IncSearch = { fg = c.ui.bg, bg = c.ui.accent },
 
-    Visual = { bg = c.overlay },                                                   -- Visual mode selection
-    VisualNOS = { link = "Visual" },                                               -- Visual mode selection when vim is "Not Owning the Selection"
+    -- Visual mode
+    Visual = { bg = c.palette.overlay },
+    VisualNOS = { link = "Visual" },
 
-    Folded = { fg = c.text, bg = c.none },                                         -- Line used for closed folds
-    FoldColumn = { fg = c.muted },                                                 -- Column where folds are displayed
+    -- Folding
+    Folded = { fg = c.ui.fg, bg = c.none },
+    FoldColumn = { fg = c.palette.muted },
 
-    TabLine = { fg = c.subtle, bg = c.surface },                                   -- Tab line
-    TabLineFill = { bg = c.base },                                                 -- Tab line fill
-    TabLineSel = { fg = c.text, bg = c.overlay },                                  -- Active tab page label
+    -- Tab line
+    TabLine = { fg = c.palette.subtle, bg = c.palette.surface },
+    TabLineFill = { bg = c.ui.bg },
+    TabLineSel = { fg = c.ui.fg, bg = c.palette.overlay },
 
-    SignColumn = { fg = c.text, bg = c.none },
+    SignColumn = { fg = c.ui.fg, bg = c.none },
 
-    Pmenu = { fg = c.subtle, bg = c.surface },                                    -- Popup menu normal item
-    PmenuSel = { fg = c.text, bg = c.overlay },                                   -- Popup menu selected item
-    PmenuSbar = { bg = c.surface },                                               -- Popup menu scrollbar
-    PmenuThumb = { bg = c.overlay },                                              -- Popup menu scrollbar thumb
+    -- Popup menu
+    Pmenu = { fg = c.palette.subtle, bg = c.ui.bg_float },
+    PmenuSel = { fg = c.ui.fg, bg = c.ui.bg_popup },
+    PmenuSbar = { bg = c.ui.bg_float },
+    PmenuThumb = { bg = c.ui.bg_popup },
 
-    ErrorMsg = { fg = groups.error },                                             -- Error messages on the command line
-    WarningMsg = { fg = groups.warn },                                            -- Warning messages
-    MoreMsg = { fg = groups.ok },                                                 -- More-prompt
-    Question = { fg = groups.info },                                              -- "Hit-enter" prompt and yes/no questions
+    -- Messages
+    ErrorMsg = { fg = c.semantic.error },
+    WarningMsg = { fg = c.semantic.warn },
+    MoreMsg = { fg = c.semantic.ok },
+    Question = { fg = c.semantic.info },
 
-    DiffAdd = { bg = util.blend(groups.git_add, c.base, 0.2) },                   -- Added line
-    DiffChange = { bg = util.blend(groups.git_change, c.base, 0.2) },             -- Changed line
-    DiffDelete = { bg = util.blend(groups.git_delete, c.base, 0.2) },             -- Deleted line
-    DiffText = { bg = util.blend(groups.git_text, c.base, 0.4) },                 -- Changed text within a changed line
+    -- Diff
+    DiffAdd = { bg = util.blend(c.git.git_add, c.ui.bg, 0.2) },
+    DiffChange = { bg = util.blend(c.git.git_change, c.ui.bg, 0.2) },
+    DiffDelete = { bg = util.blend(c.git.git_delete, c.ui.bg, 0.2) },
+    DiffText = { bg = util.blend(c.git.git_text, c.ui.bg, 0.4) },
 
-    MatchParen = { fg = groups.info, bg = util.blend(groups.info, c.base, 0.2) }, -- Matching parenthesis
+    -- Matching parenthesis
+    MatchParen = { fg = c.semantic.info, bg = util.blend(c.semantic.info, c.ui.bg, 0.2) },
 
-    NonText = { fg = c.muted },                                                   -- '@' at the end of the window and characters from 'showbreak'
-    SpecialKey = { fg = c.mus },                                                  -- Meta and special keys listed with ":map"
-    -- Whitespace = {},                                                           -- 'listchars' whitespace
+    -- Special characters
+    NonText = { fg = c.palette.muted },
+    SpecialKey = { fg = c.palette.mus },
 
-    SpellBad = { sp = groups.error, undercurl = true },          -- Word that is not recognized by the spellchecker
-    SpellCap = { sp = groups.warn, undercurl = true },           -- Word that should start with a capital
-    SpellLocal = { sp = groups.ok, undercurl = true },           -- Word that is recognized by the spellchecker as used in another region
-    SpellRare = { sp = groups.info, undercurl = true },          -- Word that is recognized by the spellchecker as rarely used
+    -- Spell checking
+    SpellBad = { sp = c.semantic.error, undercurl = true },
+    SpellCap = { sp = c.semantic.warn, undercurl = true },
+    SpellLocal = { sp = c.semantic.ok, undercurl = true },
+    SpellRare = { sp = c.semantic.info, undercurl = true },
 
-    WinBar = { fg = c.subtle, bg = c.surface },                  -- Window bar of current window
-    WinBarNC = { fg = c.muted, bg = c.base },                    -- Window bar of not-current windows
+    -- Window bar
+    WinBar = { fg = c.palette.subtle, bg = c.palette.surface },
+    WinBarNC = { fg = c.palette.muted, bg = c.ui.bg },
 
-    Comment = { fg = c.muted, style = styles.comments },         -- Comments
+    -- Syntax highlighting
+    Comment = { fg = c.syntax.comment, style = styles.comments },
 
-    Constant = { fg = c.els },                                   -- Any constant
-    String = { fg = c.els },                                     -- String constants
-    Character = { link = "String" },                             -- Character constants
-    Number = { fg = c.els },                                     -- Numeric constants
-    Boolean = { fg = groups.hint },                              -- Boolean constants
-    Float = { link = "Number" },                                 -- Floating point constants
+    Constant = { fg = c.syntax.constant },
+    String = { fg = c.syntax.string },
+    Character = { link = "String" },
+    Number = { fg = c.syntax.constant },
+    Boolean = { fg = c.syntax.boolean },
+    Float = { link = "Number" },
 
-    Identifier = { fg = c.text, style = styles.variables },      -- Any variable name
-    Function = { fg = groups.hint, style = styles.functions },   -- Function names
+    Identifier = { fg = c.syntax.variable, style = styles.variables },
+    Function = { fg = c.syntax.functions, style = styles.functions },
 
-    Statement = { fg = groups.info, style = styles.keywords },   -- Any statement
-    Conditional = { link = "Statement" },                        -- if, then, else, switch, etc.
-    Repeat = { link = "Statement" },                             -- for, do, while, etc.
-    Label = { link = "Statement" },                              -- case, default, etc.
-    Operator = { fg = c.subtle },                                -- "sizeof", "+", "*", etc.
-    Keyword = { link = "Statement" },                            -- any other keyword
-    Exception = { link = "Statement" },                          -- try, catch, throw
+    Statement = { fg = c.syntax.keyword, style = styles.keywords },
+    Conditional = { link = "Statement" },
+    Repeat = { link = "Statement" },
+    Label = { link = "Statement" },
+    Operator = { fg = c.syntax.operator },
+    Keyword = { link = "Statement" },
+    Exception = { link = "Statement" },
 
-    PreProc = { fg = c.yargui },                                 -- Generic Preprocessor
-    Include = { link = "PreProc" },                              -- Preprocessor #include
-    Define = { link = "PreProc" },                               -- Preprocessor #define
-    Macro = { link = "PreProc" },                                -- Same as Define
-    PreCondit = { link = "PreProc" },                            -- Preprocessor #if, #else, #endif, etc.
+    PreProc = { fg = c.palette.yargui },
+    Include = { link = "PreProc" },
+    Define = { link = "PreProc" },
+    Macro = { link = "PreProc" },
+    PreCondit = { link = "PreProc" },
 
-    Type = { fg = c.mus },                                       -- int, long, char, etc.
-    StorageClass = { link = "Type" },                            -- static, register, volatile, etc.
-    Structure = { link = "Type" },                               -- struct, union, enum, etc.
-    Typedef = { link = "Type" },                                 -- A typedef
+    Type = { fg = c.syntax.type },
+    StorageClass = { link = "Type" },
+    Structure = { link = "Type" },
+    Typedef = { link = "Type" },
 
-    Special = { fg = c.mus },                                    -- Any special symbol
-    SpecialChar = { link = "Special" },                          -- Special character in a constant
-    Tag = { link = "Special" },                                  -- You can use CTRL-] on this
-    Delimiter = { fg = c.subtle },                               -- Character that needs attention
-    SpecialComment = { fg = c.yargui, style = styles.comments }, -- Special things inside a comment
-    Debug = { link = "Special" },                                -- Debugging statements
+    Special = { fg = c.special.special },
+    SpecialChar = { link = "Special" },
+    Tag = { link = "Special" },
+    Delimiter = { fg = c.syntax.punctuation },
+    SpecialComment = { fg = c.palette.yargui, style = styles.comments },
+    Debug = { link = "Special" },
 
-    Underlined = { underline = styles.underline },               -- Text that stands out, HTML links
+    Underlined = { underline = styles.underline },
 
-    Bold = { bold = styles.bold },                               -- Bold text
-    Italic = { italic = styles.italic },                         -- Italic text
+    Bold = { bold = styles.bold },
+    Italic = { italic = styles.italic },
 
-    FloatBorder = { fg = groups.border },                        -- Border of floating windows
-    Title = { fg = groups.border, bold = styles.bold },          -- Titles for output from ":set all", ":autocmd" etc.
+    FloatBorder = { fg = c.ui.border },
+    Title = { fg = c.ui.border, bold = styles.bold },
   }
 
   return highlights
