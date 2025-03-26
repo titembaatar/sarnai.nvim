@@ -1,32 +1,32 @@
 local M = {}
 
 ---@param palette ColorPalette
----@param config SarnaiConfig
+---@param opts SarnaiConfig
 ---@return Highlights
-function M.get(palette, config)
-  local c = palette
+function M.get(palette, opts)
+  local p = palette
 
-  local transparent_bg = config.transparent and "NONE" or nil
+  local transparent_bg = opts.transparent and "NONE" or nil
 
   return {
-    WhichKey = { fg = c.syntax.functions },
-    WhichKeyBorder = { fg = c.ui.border, bg = transparent_bg or c.palette.surface },
-    WhichKeyDesc = { fg = c.ui.fg },
-    WhichKeyGroup = { fg = c.palette.mus },
+    WhichKey = { fg = p.syntax.functions },
+    WhichKeyBorder = { fg = p.ui.border, bg = transparent_bg or p.palette.surface },
+    WhichKeyDesc = { fg = p.ui.fg },
+    WhichKeyGroup = { fg = p.palette.mus },
     WhichKeyIcon = { link = "@markup.link" },
-    WhichKeyIconAzure = { fg = c.syntax.functions },
-    WhichKeyIconBlue = { fg = c.semantic.info },
-    WhichKeyIconCyan = { fg = c.semantic.hint },
-    WhichKeyIconGreen = { fg = c.semantic.ok },
-    WhichKeyIconGrey = { fg = c.palette.subtle },
-    WhichKeyIconOrange = { fg = c.semantic.warn },
-    WhichKeyIconPurple = { fg = c.syntax.constant },
-    WhichKeyIconRed = { fg = c.semantic.error },
-    WhichKeyIconYellow = { fg = c.semantic.warn },
-    WhichKeyNormal = { fg = c.ui.fg },
-    WhichKeySeparator = { fg = c.palette.muted },
-    WhichKeyTitle = { fg = c.ui.border },
-    WhichKeyValue = { fg = c.syntax.comment },
+    WhichKeyIconAzure = { fg = p.syntax.functions },
+    WhichKeyIconBlue = { fg = p.semantic.info },
+    WhichKeyIconCyan = { fg = p.semantic.hint },
+    WhichKeyIconGreen = { fg = p.semantic.ok },
+    WhichKeyIconGrey = { fg = p.palette.subtle },
+    WhichKeyIconOrange = { fg = p.semantic.warn },
+    WhichKeyIconPurple = { fg = p.syntax.constant },
+    WhichKeyIconRed = { fg = p.semantic.error },
+    WhichKeyIconYellow = { fg = p.semantic.warn },
+    WhichKeyNormal = { fg = p.ui.fg },
+    WhichKeySeparator = { fg = p.palette.muted },
+    WhichKeyTitle = { fg = p.ui.border },
+    WhichKeyValue = { fg = p.syntax.comment },
   }
 end
 
