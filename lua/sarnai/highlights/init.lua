@@ -40,8 +40,14 @@ function M.set(highlights)
 
   -- Define highlights
   for group, opts in pairs(highlights) do
+    -- Ensure opts is a valid table before processing
+    if type(opts) ~= "table" then
+      vim.notify("Invalid highlight options for group " .. group .. ": " .. tostring(opts), vim.log.levels.WARN)
+      goto continue
+    end
+
     -- Process style table if it exists
-    if opts.style then
+    if opts.style and type(opts.style) == "table" then
       local style = opts.style
       opts.italic = style.italic or false
       opts.bold = style.bold or false
@@ -51,7 +57,15 @@ function M.set(highlights)
       opts.style = nil
     end
 
-    vim.api.nvim_set_hl(0, group, opts)
+    -- Handle "link" case which just needs the link value
+    if opts.link and type(opts.link) == "string" then
+      vim.api.nvim_set_hl(0, group, { link = opts.link })
+    else
+      -- For regular highlight groups
+      vim.api.nvim_set_hl(0, group, opts)
+    end
+
+    ::continue::
   end
 end
 
