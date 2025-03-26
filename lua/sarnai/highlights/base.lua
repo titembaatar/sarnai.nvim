@@ -6,125 +6,125 @@ local M = {}
 ---@param opts SarnaiConfig
 ---@return Highlights
 function M.get(palette, opts)
-  local c = palette
+  local p = palette
 
   local styles = opts.styles or {}
   local transparent_bg = opts.transparent and "NONE" or nil
 
   local highlights = {
     -- Core UI elements
-    Normal = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg },
-    NormalNC = { fg = c.palette.subtle, bg = transparent_bg or util.darken(c.ui.bg, 0.1) },
-    NormalFloat = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg_float },
+    Normal = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg },
+    NormalNC = { fg = p.palette.subtle, bg = transparent_bg or util.darken(p.ui.bg, 0.1) },
+    NormalFloat = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg_float },
 
     -- Line numbers
-    LineNr = { fg = c.palette.muted },
-    CursorLineNr = { fg = c.ui.accent },
+    LineNr = { fg = p.palette.muted },
+    CursorLineNr = { fg = p.ui.accent },
 
     -- Cursor
-    Cursor = { fg = c.ui.bg, bg = c.ui.fg },
-    CursorLine = { bg = transparent_bg or util.lighten(c.ui.bg, 0.05) },
+    Cursor = { fg = p.ui.bg, bg = p.ui.fg },
+    CursorLine = { bg = transparent_bg or util.lighten(p.ui.bg, 0.05) },
     CursorColumn = { link = "CursorLine" },
 
     -- Status line
-    StatusLine = { fg = c.ui.fg, bg = c.ui.bg },
-    StatusLineNC = { fg = c.palette.muted, bg = c.ui.bg },
+    StatusLine = { fg = p.ui.fg, bg = p.ui.bg },
+    StatusLineNC = { fg = p.palette.muted, bg = p.ui.bg },
 
     -- Window separators
-    VertSplit = { fg = util.darken(c.ui.bg, 0.1) },
+    VertSplit = { fg = util.darken(p.ui.bg, 0.1) },
     WinSeparator = { link = "VertSplit" },
 
     -- Search highlighting
-    Search = { fg = c.ui.bg, bg = util.blend(c.ui.accent, c.ui.bg, 0.2) },
-    IncSearch = { fg = c.ui.bg, bg = c.ui.accent },
+    Search = { fg = p.ui.bg, bg = util.blend(p.ui.accent, p.ui.bg, 0.2) },
+    IncSearch = { fg = p.ui.bg, bg = p.ui.accent },
 
     -- Visual mode
-    Visual = { bg = c.palette.overlay },
+    Visual = { bg = p.palette.overlay },
     VisualNOS = { link = "Visual" },
 
     -- Folding
-    Folded = { fg = c.ui.fg, bg = c.none },
-    FoldColumn = { fg = c.palette.muted },
+    Folded = { fg = p.ui.fg, bg = p.none },
+    FoldColumn = { fg = p.palette.muted },
 
     -- Tab line
-    TabLine = { fg = c.palette.subtle, bg = c.palette.surface },
-    TabLineFill = { bg = c.ui.bg },
-    TabLineSel = { fg = c.ui.fg, bg = c.palette.overlay },
+    TabLine = { fg = p.palette.subtle, bg = p.palette.surface },
+    TabLineFill = { bg = p.ui.bg },
+    TabLineSel = { fg = p.ui.fg, bg = p.palette.overlay },
 
-    SignColumn = { fg = c.ui.fg, bg = c.none },
+    SignColumn = { fg = p.ui.fg, bg = p.none },
 
     -- Popup menu
-    Pmenu = { fg = c.palette.subtle, bg = c.ui.bg_float },
-    PmenuSel = { fg = c.ui.fg, bg = c.ui.bg_popup },
-    PmenuSbar = { bg = c.ui.bg_float },
-    PmenuThumb = { bg = c.ui.bg_popup },
+    Pmenu = { fg = p.palette.subtle, bg = p.ui.bg_float },
+    PmenuSel = { fg = p.ui.fg, bg = p.ui.bg_popup },
+    PmenuSbar = { bg = p.ui.bg_float },
+    PmenuThumb = { bg = p.ui.bg_popup },
 
     -- Messages
-    ErrorMsg = { fg = c.semantic.error },
-    WarningMsg = { fg = c.semantic.warn },
-    MoreMsg = { fg = c.semantic.ok },
-    Question = { fg = c.semantic.info },
+    ErrorMsg = { fg = p.semantic.error },
+    WarningMsg = { fg = p.semantic.warn },
+    MoreMsg = { fg = p.semantic.ok },
+    Question = { fg = p.semantic.info },
 
     -- Diff
-    DiffAdd = { bg = util.blend(c.git.git_add, c.ui.bg, 0.2) },
-    DiffChange = { bg = util.blend(c.git.git_change, c.ui.bg, 0.2) },
-    DiffDelete = { bg = util.blend(c.git.git_delete, c.ui.bg, 0.2) },
-    DiffText = { bg = util.blend(c.git.git_text, c.ui.bg, 0.4) },
+    DiffAdd = { bg = util.blend(p.git.git_add, p.ui.bg, 0.2) },
+    DiffChange = { bg = util.blend(p.git.git_change, p.ui.bg, 0.2) },
+    DiffDelete = { bg = util.blend(p.git.git_delete, p.ui.bg, 0.2) },
+    DiffText = { bg = util.blend(p.git.git_text, p.ui.bg, 0.4) },
 
     -- Matching parenthesis
-    MatchParen = { fg = c.semantic.info, bg = util.blend(c.semantic.info, c.ui.bg, 0.2) },
+    MatchParen = { fg = p.semantic.info, bg = util.blend(p.semantic.info, p.ui.bg, 0.2) },
 
     -- Special characters
-    NonText = { fg = c.palette.muted },
-    SpecialKey = { fg = c.palette.mus },
+    NonText = { fg = p.palette.muted },
+    SpecialKey = { fg = p.palette.mus },
 
     -- Spell checking
-    SpellBad = { sp = c.semantic.error, undercurl = true },
-    SpellCap = { sp = c.semantic.warn, undercurl = true },
-    SpellLocal = { sp = c.semantic.ok, undercurl = true },
-    SpellRare = { sp = c.semantic.info, undercurl = true },
+    SpellBad = { sp = p.semantic.error, undercurl = true },
+    SpellCap = { sp = p.semantic.warn, undercurl = true },
+    SpellLocal = { sp = p.semantic.ok, undercurl = true },
+    SpellRare = { sp = p.semantic.info, undercurl = true },
 
     -- Window bar
-    WinBar = { fg = c.palette.subtle, bg = c.palette.surface },
-    WinBarNC = { fg = c.palette.muted, bg = c.ui.bg },
+    WinBar = { fg = p.palette.subtle, bg = p.palette.surface },
+    WinBarNC = { fg = p.palette.muted, bg = p.ui.bg },
 
     -- Syntax highlighting
-    Comment = { fg = c.syntax.comment, style = styles.comments },
+    Comment = { fg = p.syntax.comment, style = styles.comments },
 
-    Constant = { fg = c.syntax.constant },
-    String = { fg = c.syntax.string },
+    Constant = { fg = p.syntax.constant },
+    String = { fg = p.syntax.string },
     Character = { link = "String" },
-    Number = { fg = c.syntax.constant },
-    Boolean = { fg = c.syntax.boolean },
+    Number = { fg = p.syntax.constant },
+    Boolean = { fg = p.syntax.boolean },
     Float = { link = "Number" },
 
-    Identifier = { fg = c.syntax.variable, style = styles.variables },
-    Function = { fg = c.syntax.functions, style = styles.functions },
+    Identifier = { fg = p.syntax.variable, style = styles.variables },
+    Function = { fg = p.syntax.functions, style = styles.functions },
 
-    Statement = { fg = c.syntax.keyword, style = styles.keywords },
+    Statement = { fg = p.syntax.keyword, style = styles.keywords },
     Conditional = { link = "Statement" },
     Repeat = { link = "Statement" },
     Label = { link = "Statement" },
-    Operator = { fg = c.syntax.operator },
+    Operator = { fg = p.syntax.operator },
     Keyword = { link = "Statement" },
     Exception = { link = "Statement" },
 
-    PreProc = { fg = c.palette.yargui },
+    PreProc = { fg = p.palette.yargui },
     Include = { link = "PreProc" },
     Define = { link = "PreProc" },
     Macro = { link = "PreProc" },
     PreCondit = { link = "PreProc" },
 
-    Type = { fg = c.syntax.type },
+    Type = { fg = p.syntax.type },
     StorageClass = { link = "Type" },
     Structure = { link = "Type" },
     Typedef = { link = "Type" },
 
-    Special = { fg = c.special.special },
+    Special = { fg = p.special.special },
     SpecialChar = { link = "Special" },
     Tag = { link = "Special" },
-    Delimiter = { fg = c.syntax.punctuation },
-    SpecialComment = { fg = c.palette.yargui, style = styles.comments },
+    Delimiter = { fg = p.syntax.punctuation },
+    SpecialComment = { fg = p.palette.yargui, style = styles.comments },
     Debug = { link = "Special" },
 
     Underlined = { underline = styles.underline },
@@ -132,12 +132,11 @@ function M.get(palette, opts)
     Bold = { bold = styles.bold },
     Italic = { italic = styles.italic },
 
-    FloatBorder = { fg = c.ui.border },
-    Title = { fg = c.ui.border, bold = styles.bold },
+    FloatBorder = { fg = p.ui.border },
+    Title = { fg = p.ui.border, bold = styles.bold },
   }
 
   return highlights
 end
 
 return M
-
