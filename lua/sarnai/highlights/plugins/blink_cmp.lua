@@ -7,72 +7,71 @@ local M = {}
 ---@return Highlights
 function M.get(palette, config)
   local c = palette
-  local groups = util.get_groups(c.groups, c)
 
   local styles = config.styles or {}
   local transparent_bg = config.transparent and "NONE" or nil
 
   return {
     -- Main completion window
-    BlinkCmpNormal = { fg = c.text, bg = transparent_bg or c.surface },
-    BlinkCmpBorder = { fg = groups.border, bg = transparent_bg or c.surface },
+    BlinkCmpNormal = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg_float },
+    BlinkCmpBorder = { fg = c.ui.border, bg = transparent_bg or c.ui.bg_float },
     BlinkCmpFloatBorder = { link = "BlinkCmpBorder" },
 
     -- Completion items
-    BlinkCmpItemAbbr = { fg = c.text },
-    BlinkCmpItemAbbrDeprecated = { fg = c.muted, strikethrough = true },
-    BlinkCmpItemAbbrMatch = { fg = groups.hint, bold = styles.bold },
-    BlinkCmpItemAbbrMatchFuzzy = { fg = groups.hint, bold = styles.bold },
+    BlinkCmpItemAbbr = { fg = c.ui.fg },
+    BlinkCmpItemAbbrDeprecated = { fg = c.palette.muted, strikethrough = true },
+    BlinkCmpItemAbbrMatch = { fg = c.palette.sarnai, bold = styles.bold },
+    BlinkCmpItemAbbrMatchFuzzy = { fg = c.palette.sarnai, bold = styles.bold },
 
     -- Selection
-    BlinkCmpItemSelected = { bg = c.overlay },
-    BlinkCmpItemSelectedAbbr = { fg = c.text, bg = c.overlay },
+    BlinkCmpItemSelected = { bg = c.ui.bg_popup },
+    BlinkCmpItemSelectedAbbr = { fg = c.ui.fg, bg = c.ui.bg_popup },
 
     -- Kind icons and text
-    BlinkCmpItemKind = { fg = c.subtle },
-    BlinkCmpItemMenu = { fg = c.muted, italic = styles.italic },
+    BlinkCmpItemKind = { fg = c.palette.subtle },
+    BlinkCmpItemMenu = { fg = c.palette.muted, italic = styles.italic },
 
     -- Documentation window
-    BlinkCmpDocNormal = { fg = c.text, bg = transparent_bg or c.surface },
-    BlinkCmpDocBorder = { fg = groups.border, bg = transparent_bg or c.surface },
+    BlinkCmpDocNormal = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg_float },
+    BlinkCmpDocBorder = { fg = c.ui.border, bg = transparent_bg or c.ui.bg_float },
 
     -- Item kinds
-    BlinkCmpItemKindText = { fg = c.text },
-    BlinkCmpItemKindMethod = { fg = groups.info },
-    BlinkCmpItemKindFunction = { fg = groups.info },
-    BlinkCmpItemKindConstructor = { fg = groups.info },
-    BlinkCmpItemKindField = { fg = groups.ok },
-    BlinkCmpItemKindVariable = { fg = c.mus },
-    BlinkCmpItemKindClass = { fg = c.els },
-    BlinkCmpItemKindInterface = { fg = c.els },
-    BlinkCmpItemKindModule = { fg = c.els },
-    BlinkCmpItemKindProperty = { fg = groups.ok },
-    BlinkCmpItemKindUnit = { fg = c.text },
-    BlinkCmpItemKindValue = { fg = c.yargui },
-    BlinkCmpItemKindEnum = { fg = c.els },
-    BlinkCmpItemKindKeyword = { fg = c.yargui },
-    BlinkCmpItemKindSnippet = { fg = groups.hint },
-    BlinkCmpItemKindColor = { fg = groups.hint },
-    BlinkCmpItemKindFile = { fg = c.text },
-    BlinkCmpItemKindReference = { fg = c.text },
-    BlinkCmpItemKindFolder = { fg = c.text },
-    BlinkCmpItemKindEnumMember = { fg = groups.ok },
-    BlinkCmpItemKindConstant = { fg = c.yargui },
-    BlinkCmpItemKindStruct = { fg = c.els },
-    BlinkCmpItemKindEvent = { fg = groups.info },
-    BlinkCmpItemKindOperator = { fg = groups.info },
-    BlinkCmpItemKindTypeParameter = { fg = c.els },
+    BlinkCmpItemKindText = { fg = c.ui.fg },
+    BlinkCmpItemKindMethod = { fg = c.syntax.functions },
+    BlinkCmpItemKindFunction = { fg = c.syntax.functions },
+    BlinkCmpItemKindConstructor = { fg = c.syntax.functions },
+    BlinkCmpItemKindField = { fg = c.syntax.variable },
+    BlinkCmpItemKindVariable = { fg = c.syntax.variable },
+    BlinkCmpItemKindClass = { fg = c.syntax.type },
+    BlinkCmpItemKindInterface = { fg = c.syntax.type },
+    BlinkCmpItemKindModule = { fg = c.syntax.type },
+    BlinkCmpItemKindProperty = { fg = c.syntax.variable },
+    BlinkCmpItemKindUnit = { fg = c.ui.fg },
+    BlinkCmpItemKindValue = { fg = c.syntax.constant },
+    BlinkCmpItemKindEnum = { fg = c.syntax.type },
+    BlinkCmpItemKindKeyword = { fg = c.syntax.keyword },
+    BlinkCmpItemKindSnippet = { fg = c.palette.mus },
+    BlinkCmpItemKindColor = { fg = c.palette.mus },
+    BlinkCmpItemKindFile = { fg = c.ui.fg },
+    BlinkCmpItemKindReference = { fg = c.ui.fg },
+    BlinkCmpItemKindFolder = { fg = c.ui.fg },
+    BlinkCmpItemKindEnumMember = { fg = c.syntax.constant },
+    BlinkCmpItemKindConstant = { fg = c.syntax.constant },
+    BlinkCmpItemKindStruct = { fg = c.syntax.type },
+    BlinkCmpItemKindEvent = { fg = c.syntax.functions },
+    BlinkCmpItemKindOperator = { fg = c.syntax.operator },
+    BlinkCmpItemKindTypeParameter = { fg = c.syntax.type },
 
     -- LazyDev integration
-    BlinkCmpItemKindLazyDev = { fg = groups.ok, bold = styles.bold },
+    BlinkCmpItemKindLazyDev = { fg = c.palette.uvs, bold = styles.bold },
 
     -- Snippets
-    BlinkCmpSnippetActive = { fg = c.base, bg = groups.hint },
-    BlinkCmpSnippetPassive = { fg = c.base, bg = c.muted },
+    BlinkCmpSnippetActive = { fg = c.ui.bg, bg = c.palette.sarnai },
+    BlinkCmpSnippetPassive = { fg = c.ui.bg, bg = c.palette.muted },
 
     -- Scrollbar
-    BlinkCmpScrollbarThumb = { bg = c.muted },
-    BlinkCmpScrollbarTrack = { bg = c.base },
+    BlinkCmpScrollbarThumb = { bg = c.palette.muted },
+    BlinkCmpScrollbarTrack = { bg = c.ui.bg },
 
     -- Fallback for nvim-cmp compatibility
     CmpItemAbbr = { link = "BlinkCmpItemAbbr" },

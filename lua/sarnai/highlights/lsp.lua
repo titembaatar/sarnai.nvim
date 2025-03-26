@@ -7,91 +7,89 @@ local M = {}
 ---@return Highlights
 function M.get(palette, config)
   local c = palette
-  local groups = util.get_groups(c.groups, c)
 
   local styles = config.styles or {}
   local transparent_bg = config.transparent and "NONE" or nil
 
-
   return {
-    DiagnosticError = { fg = groups.error },                            -- Error diagnostics
-    DiagnosticWarn = { fg = groups.warn },                              -- Warning diagnostics
-    DiagnosticInfo = { fg = groups.info },                              -- Information diagnostics
-    DiagnosticHint = { fg = groups.hint },                              -- Hint diagnostics
-    DiagnosticOk = { fg = groups.ok },                                  -- Ok diagnostics
+    DiagnosticError = { fg = c.semantic.error },                            -- Error diagnostics
+    DiagnosticWarn = { fg = c.semantic.warn },                              -- Warning diagnostics
+    DiagnosticInfo = { fg = c.semantic.info },                              -- Information diagnostics
+    DiagnosticHint = { fg = c.semantic.hint },                              -- Hint diagnostics
+    DiagnosticOk = { fg = c.semantic.ok },                                  -- Ok diagnostics
 
-    DiagnosticUnderlineError = { undercurl = true, sp = groups.error }, -- Underline for errors
-    DiagnosticUnderlineWarn = { undercurl = true, sp = groups.warn },   -- Underline for warnings
-    DiagnosticUnderlineInfo = { undercurl = true, sp = groups.info },   -- Underline for info
-    DiagnosticUnderlineHint = { undercurl = true, sp = groups.hint },   -- Underline for hints
-    DiagnosticUnderlineOk = { undercurl = true, sp = groups.ok },       -- Underline for ok
+    DiagnosticUnderlineError = { undercurl = true, sp = c.semantic.error }, -- Underline for errors
+    DiagnosticUnderlineWarn = { undercurl = true, sp = c.semantic.warn },   -- Underline for warnings
+    DiagnosticUnderlineInfo = { undercurl = true, sp = c.semantic.info },   -- Underline for info
+    DiagnosticUnderlineHint = { undercurl = true, sp = c.semantic.hint },   -- Underline for hints
+    DiagnosticUnderlineOk = { undercurl = true, sp = c.semantic.ok },       -- Underline for ok
 
     DiagnosticVirtualTextError = {
-      fg = groups.error,
-      bg = transparent_bg or util.blend(groups.error, c.base, 0.15)
-    },                                                                                              -- Virtual text for errors
+      fg = c.semantic.error,
+      bg = transparent_bg or c.semantic.error_bg
+    },                                                                                           -- Virtual text for errors
     DiagnosticVirtualTextWarn = {
-      fg = groups.warn,
-      bg = transparent_bg or util.blend(groups.warn, c.base, 0.15)
-    },                                                                                              -- Virtual text for warnings
+      fg = c.semantic.warn,
+      bg = transparent_bg or c.semantic.warn_bg
+    },                                                                                           -- Virtual text for warnings
     DiagnosticVirtualTextInfo = {
-      fg = groups.info,
-      bg = transparent_bg or util.blend(groups.info, c.base, 0.15)
-    },                                                                                              -- Virtual text for info
+      fg = c.semantic.info,
+      bg = transparent_bg or c.semantic.info_bg
+    },                                                                                           -- Virtual text for info
     DiagnosticVirtualTextHint = {
-      fg = groups.hint,
-      bg = transparent_bg or util.blend(groups.hint, c.base, 0.15)
-    },                                                                                              -- Virtual text for hints
+      fg = c.semantic.hint,
+      bg = transparent_bg or c.semantic.hint_bg
+    },                                                                                           -- Virtual text for hints
     DiagnosticVirtualTextOk = {
-      fg = groups.ok,
-      bg = transparent_bg or util.blend(groups.ok, c.base, 0.15)
-    },                                                                                              -- Virtual text for ok
+      fg = c.semantic.ok,
+      bg = transparent_bg or c.semantic.ok_bg
+    },                                                                                           -- Virtual text for ok
 
-    DiagnosticFloatingError = { link = "DiagnosticError" },                                         -- Diagnostic floating window error text
-    DiagnosticFloatingWarn = { link = "DiagnosticWarn" },                                           -- Diagnostic floating window warning text
-    DiagnosticFloatingInfo = { link = "DiagnosticInfo" },                                           -- Diagnostic floating window info text
-    DiagnosticFloatingHint = { link = "DiagnosticHint" },                                           -- Diagnostic floating window hint text
-    DiagnosticFloatingOk = { link = "DiagnosticOk" },                                               -- Diagnostic floating window ok text
+    DiagnosticFloatingError = { link = "DiagnosticError" },                                      -- Diagnostic floating window error text
+    DiagnosticFloatingWarn = { link = "DiagnosticWarn" },                                        -- Diagnostic floating window warning text
+    DiagnosticFloatingInfo = { link = "DiagnosticInfo" },                                        -- Diagnostic floating window info text
+    DiagnosticFloatingHint = { link = "DiagnosticHint" },                                        -- Diagnostic floating window hint text
+    DiagnosticFloatingOk = { link = "DiagnosticOk" },                                            -- Diagnostic floating window ok text
 
-    DiagnosticSignError = { link = "DiagnosticError" },                                             -- Diagnostic signs for errors
-    DiagnosticSignWarn = { link = "DiagnosticWarn" },                                               -- Diagnostic signs for warnings
-    DiagnosticSignInfo = { link = "DiagnosticInfo" },                                               -- Diagnostic signs for info
-    DiagnosticSignHint = { link = "DiagnosticHint" },                                               -- Diagnostic signs for hints
-    DiagnosticSignOk = { link = "DiagnosticOk" },                                                   -- Diagnostic signs for ok
+    DiagnosticSignError = { link = "DiagnosticError" },                                          -- Diagnostic signs for errors
+    DiagnosticSignWarn = { link = "DiagnosticWarn" },                                            -- Diagnostic signs for warnings
+    DiagnosticSignInfo = { link = "DiagnosticInfo" },                                            -- Diagnostic signs for info
+    DiagnosticSignHint = { link = "DiagnosticHint" },                                            -- Diagnostic signs for hints
+    DiagnosticSignOk = { link = "DiagnosticOk" },                                                -- Diagnostic signs for ok
 
-    DiagnosticDeprecated = { strikethrough = true },                                                -- Deprecated code
-    DiagnosticUnnecessary = { fg = c.muted, bg = transparent_bg, italic = styles.italic },          -- Unused code
+    DiagnosticDeprecated = { strikethrough = true },                                             -- Deprecated code
+    DiagnosticUnnecessary = { fg = c.palette.muted, bg = transparent_bg, italic = styles.italic }, -- Unused code
 
-    LspReferenceText = { bg = c.surface },                                                          -- References
-    LspReferenceRead = { link = "LspReferenceText" },                                               -- References in read mode
-    LspReferenceWrite = { bg = util.blend(groups.link, c.base, 0.2) },                              -- References in write mode
+    LspReferenceText = { bg = c.palette.surface },                                               -- References
+    LspReferenceRead = { link = "LspReferenceText" },                                            -- References in read mode
+    LspReferenceWrite = { bg = util.blend(c.special.link, c.ui.bg, 0.2) },                       -- References in write mode
 
-    LspCodeLens = { fg = c.muted },                                                                 -- Virtual text for codelens
-    LspCodeLensSeparator = { fg = c.muted },                                                        -- Separator between codelens items
+    LspCodeLens = { fg = c.palette.muted },                                                      -- Virtual text for codelens
+    LspCodeLensSeparator = { fg = c.palette.muted },                                             -- Separator between codelens items
 
-    LspInlayHint = { fg = c.muted, bg = transparent_bg or c.base, italic = styles.italic },         -- Inlay hints
+    LspInlayHint = { fg = c.palette.muted, bg = transparent_bg or c.ui.bg, italic = styles.italic }, -- Inlay hints
 
     LspSignatureActiveParameter = {
-      fg = groups.warn,
-      bg = transparent_bg or util.blend(groups.warn, c.base, 0.15)
-    },                                                                                             -- Active parameter in signature help
+      fg = c.semantic.warn,
+      bg = transparent_bg or c.semantic.warn_bg
+    },                                                                                           -- Active parameter in signature help
 
-    NormalFloat = { fg = c.text, bg = transparent_bg or c.surface },                               -- Normal text in floating windows
-    FloatBorder = { fg = groups.border, bg = transparent_bg or c.surface },                        -- Border of floating windows
-    FloatTitle = { fg = groups.border, bg = transparent_bg or c.surface, bold = styles.bold },     -- Title of floating windows
+    NormalFloat = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg_float },                        -- Normal text in floating windows
+    FloatBorder = { fg = c.ui.border, bg = transparent_bg or c.ui.bg_float },                    -- Border of floating windows
+    FloatTitle = { fg = c.ui.border, bg = transparent_bg or c.ui.bg_float, bold = styles.bold }, -- Title of floating windows
 
-    LightBulb = { fg = groups.hint },                                                              -- Lightbulb icon for code actions
-    LightBulbSign = { link = "LightBulb" },                                                        -- Lightbulb sign in the sign column
-    LightBulbFloatWin = { link = "LightBulb" },                                                    -- Lightbulb in floating windows
+    LightBulb = { fg = c.semantic.hint },                                                        -- Lightbulb icon for code actions
+    LightBulbSign = { link = "LightBulb" },                                                      -- Lightbulb sign in the sign column
+    LightBulbFloatWin = { link = "LightBulb" },                                                  -- Lightbulb in floating windows
 
-    LspRenameTitle = { fg = groups.hint, bold = styles.bold },                                     -- Title for rename popups
-    LspRenameMatch = { bg = util.blend(groups.hint, c.base, 0.2) },                                -- Matching text in rename preview
+    LspRenameTitle = { fg = c.semantic.hint, bold = styles.bold },                               -- Title for rename popups
+    LspRenameMatch = { bg = util.blend(c.semantic.hint, c.ui.bg, 0.2) },                         -- Matching text in rename preview
 
-    CmpItemAbbr = { fg = c.subtle },
-    CmpItemAbbrDeprecated = { fg = c.subtle, strikethrough = true },
-    CmpItemAbbrMatch = { fg = c.text, bold = styles.bold },
-    CmpItemAbbrMatchFuzzy = { fg = c.text, bold = styles.bold },
-    CmpItemKind = { fg = c.subtle },
+    CmpItemAbbr = { fg = c.palette.subtle },
+    CmpItemAbbrDeprecated = { fg = c.palette.subtle, strikethrough = true },
+    CmpItemAbbrMatch = { fg = c.ui.fg, bold = styles.bold },
+    CmpItemAbbrMatchFuzzy = { fg = c.ui.fg, bold = styles.bold },
+    CmpItemKind = { fg = c.palette.subtle },
     CmpItemKindClass = { link = "StorageClass" },
     CmpItemKindFunction = { link = "Function" },
     CmpItemKindInterface = { link = "Type" },

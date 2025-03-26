@@ -7,43 +7,41 @@ local M = {}
 ---@return Highlights
 function M.get(palette, config)
   local c = palette
-  local groups = util.get_groups(c.groups, c)
 
   local styles = config.styles or {}
   local transparent_bg = config.transparent and "NONE" or nil
 
-
   return {
     -- mini.ai (text objects)
-    MiniAiIndicator = { fg = c.text, bg = c.overlay },
+    MiniAiIndicator = { fg = c.ui.fg, bg = c.palette.overlay },
 
     -- mini.bracketed (bracket navigation)
-    MiniBracketed = { fg = groups.hint },
+    MiniBracketed = { fg = c.semantic.hint },
 
     -- mini.bufremove (buffer deletion)
-    MiniBufremoveVirtText = { fg = groups.error, italic = styles.italic },
+    MiniBufremoveVirtText = { fg = c.semantic.error, italic = styles.italic },
 
     -- mini.comment (commenting)
     MiniCommenter = { link = "Comment" },
-    MiniCommenterPrefix = { fg = c.muted },
+    MiniCommenterPrefix = { fg = c.palette.muted },
 
     -- mini.cursorword (highlight same words)
-    MiniCursorword = { fg = c.text, bg = c.surface, underline = false },
-    MiniCursorwordCurrent = { fg = c.text, bg = c.surface, underline = false },
+    MiniCursorword = { fg = c.ui.fg, bg = c.palette.surface, underline = false },
+    MiniCursorwordCurrent = { fg = c.ui.fg, bg = c.palette.surface, underline = false },
 
     -- mini.diff (git diffs)
-    MiniDiffSign = { fg = c.muted },
-    MiniDiffSignAdd = { fg = groups.git_add },
-    MiniDiffSignChange = { fg = groups.git_change },
-    MiniDiffSignDelete = { fg = groups.git_delete },
+    MiniDiffSign = { fg = c.palette.muted },
+    MiniDiffSignAdd = { fg = c.git.git_add },
+    MiniDiffSignChange = { fg = c.git.git_change },
+    MiniDiffSignDelete = { fg = c.git.git_delete },
 
     -- mini.files (file browser)
-    MiniFilesNormal = { fg = c.text, bg = c.base },
-    MiniFilesTitle = { fg = groups.border, bg = c.base, bold = styles.bold },
-    MiniFilesTitleFocused = { fg = c.text, bg = c.overlay, bold = styles.bold },
-    MiniFilesFile = { fg = c.text },
-    MiniFilesDirectory = { fg = c.mus, bold = styles.bold },
-    MiniFilesSymlink = { fg = groups.link, italic = styles.italic },
+    MiniFilesNormal = { fg = c.ui.fg, bg = c.ui.bg },
+    MiniFilesTitle = { fg = c.ui.border, bg = c.ui.bg, bold = styles.bold },
+    MiniFilesTitleFocused = { fg = c.ui.fg, bg = c.palette.overlay, bold = styles.bold },
+    MiniFilesFile = { fg = c.ui.fg },
+    MiniFilesDirectory = { fg = c.palette.mus, bold = styles.bold },
+    MiniFilesSymlink = { fg = c.special.link, italic = styles.italic },
 
     -- mini.git (git status)
     MiniGitSignAdd = { link = "MiniDiffSignAdd" },
@@ -51,52 +49,52 @@ function M.get(palette, config)
     MiniGitSignDelete = { link = "MiniDiffSignDelete" },
 
     -- mini.hipatterns (pattern highlighting)
-    MiniHipatternsFixme = { fg = c.base, bg = groups.error, bold = styles.bold },
-    MiniHipatternsHack = { fg = c.base, bg = groups.warn, bold = styles.bold },
-    MiniHipatternsNote = { fg = c.base, bg = groups.note, bold = styles.bold },
-    MiniHipatternsTodo = { fg = c.base, bg = groups.todo, bold = styles.bold },
-    MiniHipatternsDeprecated = { strikethrough = true, fg = c.muted },
+    MiniHipatternsFixme = { fg = c.ui.bg, bg = c.semantic.error, bold = styles.bold },
+    MiniHipatternsHack = { fg = c.ui.bg, bg = c.semantic.warn, bold = styles.bold },
+    MiniHipatternsNote = { fg = c.ui.bg, bg = c.special.note, bold = styles.bold },
+    MiniHipatternsTodo = { fg = c.ui.bg, bg = c.special.todo, bold = styles.bold },
+    MiniHipatternsDeprecated = { strikethrough = true, fg = c.palette.muted },
 
     -- mini.indentscope (indentation guides)
-    MiniIndentscopeSymbol = { fg = c.muted },
+    MiniIndentscopeSymbol = { fg = c.palette.muted },
     MiniIndentscopePrefix = { fg = c.none },
 
     -- mini.jump (movement)
-    MiniJump = { fg = groups.hint, bold = styles.bold, underline = styles.underline },
-    MiniJump2d = { fg = c.base, bg = groups.hint, bold = styles.bold },
+    MiniJump = { fg = c.semantic.hint, bold = styles.bold, underline = styles.underline },
+    MiniJump2d = { fg = c.ui.bg, bg = c.semantic.hint, bold = styles.bold },
 
     -- mini.jump2d (2D movement)
-    MiniJump2dSpot = { fg = c.base, bg = groups.hint, bold = styles.bold },
-    MiniJump2dDim = { fg = util.darken(c.text, 0.5) },
-    MiniJump2dDimStart = { fg = util.darken(c.text, 0.6) },
+    MiniJump2dSpot = { fg = c.ui.bg, bg = c.semantic.hint, bold = styles.bold },
+    MiniJump2dDim = { fg = util.darken(c.ui.fg, 0.5) },
+    MiniJump2dDimStart = { fg = util.darken(c.ui.fg, 0.6) },
 
     -- mini.statusline (status line)
-    MiniStatuslineFileName = { fg = c.text, bold = styles.bold },
-    MiniStatuslineFileNameModified = { fg = groups.git_dirty or groups.hint, bold = styles.bold },
-    MiniStatuslineDevInfo = { fg = c.subtle },
-    MiniStatuslineFilename = { fg = c.subtle },
-    MiniStatuslineInactive = { fg = c.subtle, bg = c.base },
-    MiniStatuslineModeNormal = { fg = c.base, bg = c.sarnai, bold = styles.bold },
-    MiniStatuslineModeInsert = { fg = c.base, bg = c.mus, bold = styles.bold },
-    MiniStatuslineModeVisual = { fg = c.base, bg = c.yargui, bold = styles.bold },
-    MiniStatuslineModeReplace = { fg = c.base, bg = c.anis, bold = styles.bold },
-    MiniStatuslineModeCommand = { fg = c.base, bg = c.els, bold = styles.bold },
-    MiniStatuslineModeOther = { fg = c.base, bg = c.uvs, bold = styles.bold },
+    MiniStatuslineFileName = { fg = c.ui.fg, bold = styles.bold },
+    MiniStatuslineFileNameModified = { fg = c.git.git_dirty, bold = styles.bold },
+    MiniStatuslineDevInfo = { fg = c.palette.subtle },
+    MiniStatuslineFilename = { fg = c.palette.subtle },
+    MiniStatuslineInactive = { fg = c.palette.subtle, bg = c.ui.bg },
+    MiniStatuslineModeNormal = { fg = c.ui.bg, bg = c.palette.sarnai, bold = styles.bold },
+    MiniStatuslineModeInsert = { fg = c.ui.bg, bg = c.palette.mus, bold = styles.bold },
+    MiniStatuslineModeVisual = { fg = c.ui.bg, bg = c.palette.yargui, bold = styles.bold },
+    MiniStatuslineModeReplace = { fg = c.ui.bg, bg = c.palette.anis, bold = styles.bold },
+    MiniStatuslineModeCommand = { fg = c.ui.bg, bg = c.palette.els, bold = styles.bold },
+    MiniStatuslineModeOther = { fg = c.ui.bg, bg = c.palette.uvs, bold = styles.bold },
 
     -- mini.surround (surround operations)
-    MiniSurround = { fg = c.base, bg = groups.hint },
+    MiniSurround = { fg = c.ui.bg, bg = c.semantic.hint },
 
     -- mini.tabline (tabs)
-    MiniTablineCurrent = { fg = c.text, bg = transparent_bg or c.surface, bold = styles.bold },
-    MiniTablineVisible = { fg = c.text, bg = transparent_bg or c.base },
-    MiniTablineHidden = { fg = c.muted, bg = transparent_bg or c.base },
-    MiniTablineModifiedCurrent = { fg = groups.git_dirty or groups.hint, bg = transparent_bg or c.surface, bold = styles.bold },
-    MiniTablineModifiedVisible = { fg = groups.git_dirty or groups.hint, bg = transparent_bg or c.base },
-    MiniTablineModifiedHidden = { fg = groups.git_dirty or groups.hint, bg = transparent_bg or c.base, italic = styles.italic },
-    MiniTablineFill = { bg = transparent_bg or c.base },
+    MiniTablineCurrent = { fg = c.ui.fg, bg = transparent_bg or c.palette.surface, bold = styles.bold },
+    MiniTablineVisible = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg },
+    MiniTablineHidden = { fg = c.palette.muted, bg = transparent_bg or c.ui.bg },
+    MiniTablineModifiedCurrent = { fg = c.git.git_dirty, bg = transparent_bg or c.palette.surface, bold = styles.bold },
+    MiniTablineModifiedVisible = { fg = c.git.git_dirty, bg = transparent_bg or c.ui.bg },
+    MiniTablineModifiedHidden = { fg = c.git.git_dirty, bg = transparent_bg or c.ui.bg, italic = styles.italic },
+    MiniTablineFill = { bg = transparent_bg or c.ui.bg },
 
     -- mini.trailspace (trailing whitespace)
-    MiniTrailspace = { bg = groups.error },
+    MiniTrailspace = { bg = c.semantic.error },
   }
 end
 

@@ -7,24 +7,23 @@ local M = {}
 ---@return Highlights
 function M.get(palette, config)
   local c = palette
-  local groups = util.get_groups(c.groups, c)
 
   local transparent_bg = config.transparent and "NONE" or nil
 
   return {
-    ZenBg = { bg = transparent_bg or c.base },
+    ZenBg = { bg = transparent_bg or c.ui.bg },
 
     -- These affect the text area in zen mode
-    ZenNormal = { fg = c.text, bg = transparent_bg or c.base },
-    ZenNormalNC = { fg = c.text, bg = transparent_bg or c.base },
-    ZenCursorLine = { bg = transparent_bg or c.surface },
+    ZenNormal = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg },
+    ZenNormalNC = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg },
+    ZenCursorLine = { bg = transparent_bg or c.palette.surface },
 
     -- These affect the UI elements in zen mode
-    ZenStatusLine = { fg = c.muted, bg = transparent_bg or c.base },
-    ZenStatusLineNC = { fg = c.muted, bg = transparent_bg or c.base },
-    ZenWinBar = { fg = c.subtle, bg = transparent_bg or c.base },
-    ZenWinBarNC = { fg = c.muted, bg = transparent_bg or c.base },
-    ZenBorder = { fg = groups.border, bg = transparent_bg or c.base },
+    ZenStatusLine = { fg = c.palette.muted, bg = transparent_bg or c.ui.bg },
+    ZenStatusLineNC = { fg = c.palette.muted, bg = transparent_bg or c.ui.bg },
+    ZenWinBar = { fg = c.palette.subtle, bg = transparent_bg or c.ui.bg },
+    ZenWinBarNC = { fg = c.palette.muted, bg = transparent_bg or c.ui.bg },
+    ZenBorder = { fg = c.ui.border, bg = transparent_bg or c.ui.bg },
   }
 end
 
