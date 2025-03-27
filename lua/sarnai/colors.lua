@@ -127,6 +127,28 @@ M.base_palette = {
   yargui = "#d5b3e5",
 }
 
+---Base Palette for Ovol
+---@type BasePalette
+M.light_palette = {
+  -- Core base colors
+  base = "#dceae4",
+  surface = "#b6d2c7",
+  overlay = "#90bbaa",
+  muted = "#81b19e",
+  subtle = "#446f5e",
+  text = "#172620",
+
+  -- Core accent colors
+  sarnai = "#b93d4d",
+  anis = "#cc2929",
+  chatsalgan = "#da730c",
+  els = "#df9b23",
+  uvs = "#4c890f",
+  nuur = "#0a728c",
+  mus = "#12adad",
+  yargui = "#a353c6",
+}
+
 -- Generate a color palette from a base palette
 ---@param p BasePalette Base palette to generate from
 ---@return ColorPalette Full color palette with derived colors
@@ -207,9 +229,7 @@ end
 -- Function to get the ovol (light) theme
 ---@return ColorPalette
 function M.get_ovol()
-  local light_palette = util.to_light_theme(M.base_palette)
-
-  return M.generate_color_palette(light_palette)
+  return M.generate_color_palette(M.light_palette)
 end
 
 -- Get colors based on style

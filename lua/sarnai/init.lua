@@ -28,6 +28,10 @@ function M.load(opts)
     local cached = util.get(cache_key)
     highlights.set(cached.highlights)
     vim.g.colors_name = "sarnai-" .. opts.style
+
+    -- Set background option based on style
+    vim.o.background = opts.style == "ovol" and "light" or "dark"
+
     return cached.palette
   end
 
@@ -43,6 +47,9 @@ function M.load(opts)
   if vim.g.colors_name then
     vim.cmd("hi clear")
   end
+
+  -- Set the background option based on style
+  vim.o.background = opts.style == "ovol" and "light" or "dark"
 
   -- Set terminal colors if enabled
   vim.o.termguicolors = true
@@ -73,3 +80,4 @@ function M.clear_cache()
 end
 
 return M
+
