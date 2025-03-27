@@ -1,17 +1,18 @@
 local M = {}
 
----@param palette ColorPalette
+---@param colors ColorPalette
 ---@param opts SarnaiConfig
 ---@return Highlights
-function M.get(palette, opts)
-  local p = palette
+function M.get(colors, opts)
+  local p = colors.palette
+  local ui = colors.ui
 
   return {
-    TelescopeBorder         = { fg = p.ui.border, bg = p.ui.bg_float },
-    TelescopeNormal         = { fg = p.ui.fg, bg = p.ui.bg_float },
-    TelescopePromptBorder   = { fg = p.ui.accent, bg = p.ui.bg_float },
-    TelescopePromptTitle    = { fg = p.ui.accent, bg = p.ui.bg_float },
-    TelescopeResultsComment = { fg = p.palette.muted },
+    TelescopeBorder         = { fg = ui.border, bg = ui.bg_float },
+    TelescopeNormal         = { fg = ui.fg, bg = ui.bg_float },
+    TelescopePromptBorder   = { fg = ui.accent, bg = ui.bg_float },
+    TelescopePromptTitle    = { fg = ui.accent, bg = ui.bg_float },
+    TelescopeResultsComment = { fg = p.muted },
   }
 end
 

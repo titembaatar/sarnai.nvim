@@ -1,27 +1,29 @@
 local M = {}
 
----@param palette ColorPalette
+---@param colors ColorPalette
 ---@param opts SarnaiConfig
 ---@return Highlights
-function M.get(palette, opts)
-  local p = palette
+function M.get(colors, opts)
+  local p = colors.palette
+  local ui = colors.ui
+  local t = colors.terminal
 
   return {
-    BlinkCmpDoc                 = { fg = p.ui.fg, bg = p.ui.bg_float },
-    BlinkCmpDocBorder           = { fg = p.ui.border, bg = p.ui.bg_float },
-    BlinkCmpGhostText           = { fg = p.terminal.bright_black },
-    BlinkCmpKindCodeium         = { fg = p.palette.mus, bg = p.none },
-    BlinkCmpKindCopilot         = { fg = p.palette.mus, bg = p.none },
-    BlinkCmpKindDefault         = { fg = p.palette.subtle, bg = p.none },
-    BlinkCmpKindSupermaven      = { fg = p.palette.mus, bg = p.none },
-    BlinkCmpKindTabNine         = { fg = p.palette.mus, bg = p.none },
-    BlinkCmpLabel               = { fg = p.ui.fg, bg = p.none },
-    BlinkCmpLabelDeprecated     = { fg = p.palette.muted, bg = p.none, strikethrough = true },
-    BlinkCmpLabelMatch          = { fg = p.ui.accent, bg = p.none },
-    BlinkCmpMenu                = { fg = p.ui.fg, bg = p.ui.bg_float },
-    BlinkCmpMenuBorder          = { fg = p.ui.border, bg = p.ui.bg_float },
-    BlinkCmpSignatureHelp       = { fg = p.ui.fg, bg = p.ui.bg_float },
-    BlinkCmpSignatureHelpBorder = { fg = p.ui.border, bg = p.ui.bg_float },
+    BlinkCmpDoc                 = { fg = ui.fg, bg = ui.bg_float },
+    BlinkCmpDocBorder           = { fg = ui.border, bg = ui.bg_float },
+    BlinkCmpGhostText           = { fg = t.bright_black },
+    BlinkCmpKindCodeium         = { fg = p.mus, bg = colors.none },
+    BlinkCmpKindCopilot         = { fg = p.mus, bg = colors.none },
+    BlinkCmpKindDefault         = { fg = p.subtle, bg = colors.none },
+    BlinkCmpKindSupermaven      = { fg = p.mus, bg = colors.none },
+    BlinkCmpKindTabNine         = { fg = p.mus, bg = colors.none },
+    BlinkCmpLabel               = { fg = ui.fg, bg = colors.none },
+    BlinkCmpLabelDeprecated     = { fg = p.muted, bg = colors.none, strikethrough = true },
+    BlinkCmpLabelMatch          = { fg = ui.accent, bg = colors.none },
+    BlinkCmpMenu                = { fg = ui.fg, bg = ui.bg_float },
+    BlinkCmpMenuBorder          = { fg = ui.border, bg = ui.bg_float },
+    BlinkCmpSignatureHelp       = { fg = ui.fg, bg = ui.bg_float },
+    BlinkCmpSignatureHelpBorder = { fg = ui.border, bg = ui.bg_float },
   }
 end
 

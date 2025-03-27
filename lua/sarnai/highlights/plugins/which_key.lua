@@ -1,32 +1,35 @@
 local M = {}
 
----@param palette ColorPalette
+---@param colors ColorPalette
 ---@param opts SarnaiConfig
 ---@return Highlights
-function M.get(palette, opts)
-  local p = palette
+function M.get(colors, opts)
+  local p = colors.palette
+  local sem = colors.semantic
+  local syntax = colors.syntax
+  local ui = colors.ui
 
   local transparent_bg = opts.transparent and "NONE" or nil
 
   return {
-    WhichKey = { fg = p.syntax.functions },
-    WhichKeyBorder = { fg = p.ui.border, bg = transparent_bg or p.ui.bg },
-    WhichKeyDesc = { fg = p.ui.fg },
-    WhichKeyGroup = { fg = p.palette.mus },
-    WhichKeyIcon = { fg = p.palette.nuur },
-    WhichKeyIconAzure = { fg = p.syntax.functions },
-    WhichKeyIconBlue = { fg = p.semantic.info },
-    WhichKeyIconCyan = { fg = p.semantic.hint },
-    WhichKeyIconGreen = { fg = p.semantic.ok },
-    WhichKeyIconGrey = { fg = p.palette.subtle },
-    WhichKeyIconOrange = { fg = p.semantic.warn },
-    WhichKeyIconPurple = { fg = p.syntax.constant },
-    WhichKeyIconRed = { fg = p.semantic.error },
-    WhichKeyIconYellow = { fg = p.semantic.warn },
-    WhichKeyNormal = { fg = p.ui.fg, bg = p.ui.bg },
-    WhichKeySeparator = { fg = p.palette.muted },
-    WhichKeyTitle = { fg = p.ui.border },
-    WhichKeyValue = { fg = p.syntax.comment },
+    WhichKey = { fg = syntax.functions },
+    WhichKeyBorder = { fg = ui.border, bg = transparent_bg or ui.bg },
+    WhichKeyDesc = { fg = ui.fg },
+    WhichKeyGroup = { fg = p.mus },
+    WhichKeyIcon = { fg = p.nuur },
+    WhichKeyIconAzure = { fg = syntax.functions },
+    WhichKeyIconBlue = { fg = sem.info },
+    WhichKeyIconCyan = { fg = sem.hint },
+    WhichKeyIconGreen = { fg = sem.ok },
+    WhichKeyIconGrey = { fg = p.subtle },
+    WhichKeyIconOrange = { fg = sem.warn },
+    WhichKeyIconPurple = { fg = syntax.constant },
+    WhichKeyIconRed = { fg = sem.error },
+    WhichKeyIconYellow = { fg = sem.warn },
+    WhichKeyNormal = { fg = ui.fg, bg = ui.bg },
+    WhichKeySeparator = { fg = p.muted },
+    WhichKeyTitle = { fg = ui.border },
+    WhichKeyValue = { fg = syntax.comment },
   }
 end
 

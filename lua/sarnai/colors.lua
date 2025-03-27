@@ -73,6 +73,14 @@
 ---@field todo HEX TODOs in comments
 ---@field warning HEX Warning notes
 
+---@class RainbowPalette
+---@field h1 HEX h1 titles
+---@field h2 HEX h2 titles
+---@field h3 HEX h3 titles
+---@field h4 HEX h4 titles
+---@field h5 HEX h5 titles
+---@field h6 HEX h6 titles
+
 ---@class TerminalPalette
 ---@field black HEX Terminal black color
 ---@field bright_black HEX Terminal bright black color
@@ -98,6 +106,7 @@
 ---@field semantic SemanticPalette Semantic element colors
 ---@field git GitPalette Git element colors
 ---@field special SpecialPalette Special element colors
+---@field rainbow RainbowPalette Rainbow for markdown titles
 ---@field none string Special "NONE" value
 ---@field terminal TerminalPalette Terminal colors
 
@@ -212,6 +221,14 @@ function M.generate_color_palette(p)
       note = p.nuur,          -- Notes in comments
       todo = p.sarnai,        -- TODOs in comments
       warning = p.chatsalgan, -- Warning notes
+    },
+    rainbow = {
+      h1 = p.mus,
+      h2 = p.sarnai,
+      h3 = p.yargui,
+      h4 = p.uvs,
+      h5 = p.els,
+      h6 = p.nuur,
     },
     none = "NONE",
     terminal = util.get_terminal_colors(p),

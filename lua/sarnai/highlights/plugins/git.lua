@@ -1,22 +1,23 @@
 local M = {}
 
----@param palette ColorPalette
+---@param colors ColorPalette
 ---@param opts SarnaiConfig
 ---@return Highlights
-function M.get(palette, opts)
-  local p = palette
+function M.get(colors, opts)
+  local git = colors.git
+  local ui = colors.ui
 
   local transparent_bg = opts.transparent and "NONE" or nil
 
   return {
     -- Gitsigns
-    GitSignsAdd = { fg = p.git.git_add },
-    GitSignsChange = { fg = p.git.git_change },
-    GitSignsDelete = { fg = p.git.git_delete },
+    GitSignsAdd = { fg = git.git_add },
+    GitSignsChange = { fg = git.git_change },
+    GitSignsDelete = { fg = git.git_delete },
 
     -- LazyGit
-    LazyGitFloat = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg_float },
-    LazyGitBorder = { fg = p.ui.border, bg = transparent_bg or p.ui.bg_float },
+    LazyGitFloat = { fg = ui.fg, bg = transparent_bg or ui.bg_float },
+    LazyGitBorder = { fg = ui.border, bg = transparent_bg or ui.bg_float },
   }
 end
 
