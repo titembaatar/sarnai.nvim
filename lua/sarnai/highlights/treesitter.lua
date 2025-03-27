@@ -44,7 +44,7 @@ function M.get(palette, opts)
     ["@function.call"] = { fg = p.syntax.variable },                                 -- Function calls
     ["@function.method"] = { fg = p.palette.nuur },                                  -- Method definitions
     ["@function.method.call"] = { fg = p.palette.nuur },                             -- Method calls
-    ["@constructor"] = { fg = p.palette.mus },                                       -- Constructor calls and definitions
+    ["@constructor"] = { fg = p.palette.subtle },                                    -- Constructor calls and definitions
     ["@operator"] = { link = "Operator" },                                           -- Operators (+ - * / etc.)
 
     ["@keyword"] = { link = "Keyword" },                                             -- Keywords

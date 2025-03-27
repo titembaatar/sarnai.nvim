@@ -35,7 +35,7 @@ function M.get(palette, opts)
     WinSeparator = { link = "VertSplit" },
 
     -- Search highlighting
-    Search = { fg = p.ui.bg, bg = util.blend(p.ui.accent, p.ui.bg, 0.2) },
+    Search = { fg = p.ui.fg, bg = util.blend(p.ui.accent, p.ui.bg, 0.2) },
     IncSearch = { fg = p.ui.bg, bg = p.ui.accent },
 
     -- Visual mode
@@ -72,7 +72,7 @@ function M.get(palette, opts)
     DiffText = { bg = util.blend(p.git.git_text, p.ui.bg, 0.4) },
 
     -- Matching parenthesis
-    MatchParen = { fg = p.semantic.info, bg = util.blend(p.semantic.info, p.ui.bg, 0.2) },
+    MatchParen = { fg = p.ui.accent, bg = util.blend(p.ui.accent, p.ui.bg, 0.3), bold = styles.bold },
 
     -- Special characters
     NonText = { fg = p.palette.muted },

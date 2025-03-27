@@ -10,10 +10,10 @@ function M.get(palette, opts)
 
   return {
     WhichKey = { fg = p.syntax.functions },
-    WhichKeyBorder = { fg = p.ui.border, bg = transparent_bg or p.palette.surface },
+    WhichKeyBorder = { fg = p.ui.border, bg = transparent_bg or p.ui.bg },
     WhichKeyDesc = { fg = p.ui.fg },
     WhichKeyGroup = { fg = p.palette.mus },
-    WhichKeyIcon = { link = "@markup.link" },
+    WhichKeyIcon = { fg = p.palette.nuur },
     WhichKeyIconAzure = { fg = p.syntax.functions },
     WhichKeyIconBlue = { fg = p.semantic.info },
     WhichKeyIconCyan = { fg = p.semantic.hint },
@@ -23,7 +23,7 @@ function M.get(palette, opts)
     WhichKeyIconPurple = { fg = p.syntax.constant },
     WhichKeyIconRed = { fg = p.semantic.error },
     WhichKeyIconYellow = { fg = p.semantic.warn },
-    WhichKeyNormal = { fg = p.ui.fg },
+    WhichKeyNormal = { fg = p.ui.fg, bg = p.ui.bg },
     WhichKeySeparator = { fg = p.palette.muted },
     WhichKeyTitle = { fg = p.ui.border },
     WhichKeyValue = { fg = p.syntax.comment },

@@ -25,29 +25,29 @@ function M.get(palette, opts)
     MiniStatuslineInactive = { fg = p.palette.muted },
 
     -- mini.tabline (tabs)
-    MiniTablineCurrent = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg, bold = styles.bold },
-    MiniTablineVisible = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg },
-    MiniTablineHidden = { fg = p.palette.muted, bg = transparent_bg or p.ui.bg, italic = styles.italic },
+    MiniTablineCurrent = { fg = p.ui.bg, bg = transparent_bg or p.ui.accent, bold = styles.bold },
+    MiniTablineVisible = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg_float },
+    MiniTablineHidden = { fg = p.palette.subtle, bg = transparent_bg or p.ui.bg_float, italic = styles.italic },
     MiniTablineModifiedCurrent = { fg = p.ui.bg, bg = transparent_bg or p.palette.chatsalgan, bold = styles.bold },
     MiniTablineModifiedVisible = { fg = p.ui.bg, bg = transparent_bg or p.palette.chatsalgan },
     MiniTablineModifiedHidden = {
       fg = p.ui.bg,
-      bg = transparent_bg or util.blend(p.palette.chatsalgan, p.ui.bg, 0.9),
+      bg = transparent_bg or util.blend(p.palette.chatsalgan, p.ui.bg_float, 0.7),
       italic = styles.italic
     },
-    MiniTablineFill = { bg = transparent_bg or p.ui.bg_float },
+    MiniTablineFill = { bg = transparent_bg or p.ui.bg },
     MiniTablineTabpagesection = { bg = transparent_bg or p.ui.bg },
     MiniTablineTrunc = { bg = transparent_bg or p.ui.bg },
 
     -- mini.files (file browser)
-    MiniFilesBorder = { fg = p.ui.border },
-    MiniFilesBorderModified = { fg = p.palette.chatsalgan },
+    MiniFilesBorder = { fg = p.ui.border, bg = p.ui.bg_float },
+    MiniFilesBorderModified = { fg = p.palette.chatsalgan, bg = p.ui.bg_float },
     MiniFilesCursorLine = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg_popup },
-    MiniFilesDirectory = { fg = p.palette.mus, bold = styles.bold },
+    MiniFilesDirectory = { fg = p.palette.nuur, bold = styles.bold },
     MiniFilesFile = { fg = p.ui.fg },
     MiniFilesNormal = { fg = p.ui.fg, bg = p.ui.bg_float },
-    MiniFilesTitle = { fg = p.palette.muted, },
-    MiniFilesTitleFocused = { fg = p.ui.border, bold = styles.bold },
+    MiniFilesTitle = { fg = p.palette.muted, bg = p.ui.bg_float },
+    MiniFilesTitleFocused = { fg = p.ui.border, bg = p.ui.bg_float, bold = styles.bold },
 
     -- mini.hipatterns (pattern highlighting)
     MiniHipatternsFixme = { fg = p.ui.bg, bg = p.semantic.error, bold = styles.bold },
@@ -72,7 +72,7 @@ function M.get(palette, opts)
     MiniIndentscopeSymbol = { fg = p.palette.muted },
 
     -- mini.cursorword (highlight same words)
-    MiniCursorword = { fg = p.ui.fg, bg = util.blend(p.ui.accent, p.palette.base, 0.2), underline = false },
+    MiniCursorword = { bg = util.blend(p.ui.accent, p.palette.base, 0.05), underline = false },
 
     -- mini.trailspace (trailing whitespace)
     MiniTrailspace = { bg = util.blend(p.semantic.error, p.palette.base, 0.2) },

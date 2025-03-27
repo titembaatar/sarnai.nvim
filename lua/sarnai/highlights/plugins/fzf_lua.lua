@@ -4,37 +4,53 @@ local M = {}
 ---@param opts SarnaiConfig
 ---@return Highlights
 function M.get(palette, opts)
-  local c = palette
+  local p = palette
   local styles = opts.styles or {}
   local transparent_bg = opts.transparent and "NONE" or nil
 
   return {
     -- Main window highlights
-    FzfLuaNormal = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg_float },
-    FzfLuaBorder = { fg = c.ui.border, bg = transparent_bg or c.ui.bg_float },
-    FzfLuaTitle = { fg = c.ui.accent, bg = transparent_bg or c.ui.bg_float, bold = styles.bold },
-    FzfLuaTitleFlags = { fg = c.palette.anis, bg = transparent_bg or c.ui.bg_float },
+    FzfLuaNormal = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg_float },
+    FzfLuaBorder = { fg = p.ui.border, bg = transparent_bg or p.ui.bg_float },
+    FzfLuaTitle = { fg = p.ui.accent, bg = transparent_bg or p.ui.bg_float, bold = styles.bold },
+    FzfLuaTitleFlags = { fg = p.palette.anis, bg = transparent_bg or p.ui.bg_float },
 
     -- Preview window highlights
-    FzfLuaPreviewNormal = { fg = c.ui.fg, bg = transparent_bg or c.ui.bg_float },
-    FzfLuaPreviewBorder = { fg = c.ui.border, bg = transparent_bg or c.ui.bg_float },
-    FzfLuaPreviewTitle = { fg = c.ui.border, bg = transparent_bg or c.ui.bg_float, bold = styles.bold },
+    FzfLuaPreviewNormal = { fg = p.ui.fg, bg = transparent_bg or p.ui.bg_float },
+    FzfLuaPreviewBorder = { fg = p.palette.subtle, bg = transparent_bg or p.ui.bg_float },
+    FzfLuaPreviewTitle = { fg = p.palette.subtle, bg = transparent_bg or p.ui.bg_float, bold = styles.bold },
     FzfLuaCursor = { link = "IncSearch" },
-    FzfLuaCursorLine = { bg = c.palette.overlay },
-    FzfLuaSearch = { fg = c.palette.sarnai, bold = styles.bold },
+    FzfLuaCursorLine = { bg = p.palette.overlay },
+    FzfLuaSearch = { fg = p.palette.sarnai, bold = styles.bold },
 
     -- Scrollbar highlights
-    FzfLuaScrollBorderEmpty = { fg = c.palette.muted },
-    FzfLuaScrollBorderFull = { fg = c.palette.sarnai },
-    FzfLuaScrollFloatEmpty = { fg = c.palette.muted },
-    FzfLuaScrollFloatFull = { fg = c.palette.sarnai },
+    FzfLuaScrollBorderEmpty = { fg = p.palette.muted },
+    FzfLuaScrollBorderFull = { fg = p.palette.sarnai },
+    FzfLuaScrollFloatEmpty = { fg = p.palette.muted },
+    FzfLuaScrollFloatFull = { fg = p.palette.sarnai },
+
+    -- Buffer highlights
+    FzfLuaBufName = { fg = p.palette.nuur },
+    FzfLuaBufNr = { fg = p.palette.subtle },
+    FzfLuaBufFlagCur = { fg = p.palette.chatsalgan },
+    FzfLuaBufFlagAlt = { fg = p.palette.nuur },
+
+    -- Tab highlights
+    FzfLuaTabTitle = { fg = p.palette.mus },
+    FzfLuaTabMarker = { link = "FzfLuaBufNr" },
 
     -- Additional fzf-lua specific highlights
-    FzfLuaHeaderBind = { fg = c.palette.chatsalgan, bold = styles.bold },
-    FzfLuaHeaderText = { fg = c.palette.subtle },
-    FzfLuaPath = { fg = c.palette.nuur },
-    FzfLuaDirPart = { fg = c.ui.bg },
+    FzfLuaHeaderBind = { fg = p.palette.chatsalgan, bold = styles.bold },
+    FzfLuaHeaderText = { fg = p.palette.subtle },
+    FzfLuaPath = { fg = p.palette.nuur },
+    FzfLuaPathColNr = { fg = p.palette.nuur },
+    FzfLuaPathLineNr = { fg = p.palette.uvs },
+    FzfLuaDirPart = { fg = p.ui.bg },
+    FzfLuaDirIcon = { fg = p.palette.nuur },
     FzfLuaFilePart = { link = "Normal" },
+    FzfLuaLivePrompt = { fg = p.palette.yargui },
+    FzfLuaLiveSym = { fg = p.palette.yargui },
+    FzfLuaFzfInfo = { fg = p.semantic.info },
   }
 end
 
