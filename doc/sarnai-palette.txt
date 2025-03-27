@@ -1,0 +1,234 @@
+*sarnai-palette.txt*     Color palette details for Sarnai.nvim
+
+==============================================================================
+SARNAI COLOR PALETTE                                    *sarnai-palette-details*
+
+sarnai.nvim organizes colors into several palette categories to provide a
+comprehensive theme. This document breaks down the various color palettes
+and how they're used throughout the theme.
+
+==============================================================================
+COLOR ORGANIZATION                                   *sarnai-palette-structure*
+
+Sarnai's colors are organized into these main categories:
+
+1. Base Palette: Core background and foreground colors
+2. UI Palette: Colors for interface elements
+3. Syntax Palette: Colors for syntax highlighting
+4. Semantic Palette: Colors for diagnostic messages
+5. Git Palette: Colors for git statuses and diff changes
+6. Special Palette: Colors for special elements (links, TODOs, etc.)
+7. Rainbow Palette: Colors for hierarchical elements (markdown headings)
+8. Terminal Palette: Colors for terminal integration
+
+==============================================================================
+BASE PALETTE (KHAVAR - DARK)                          *sarnai-palette-khavar*
+
+  base        = "#172620"  Deep forest green for main background
+  surface     = "#21362d"  Slightly lighter background for UI elements
+  overlay     = "#2d493d"  Background for highlighted items
+  muted       = "#4e7e6b"  Subdued text for comments and disabled items
+  subtle      = "#90bbaa"  Secondary text for UI elements
+  text        = "#dfece7"  Primary text color
+
+Accent Colors:
+  sarnai      = "#f0c3cb"  Soft pink accent
+  anis        = "#ff6b6b"  Vibrant red
+  chatsalgan  = "#e5951a"  Warm orange
+  els         = "#cca24d"  Golden yellow
+  uvs         = "#80b946"  Grass green
+  nuur        = "#2b879e"  Ocean blue
+  mus         = "#9deaea"  Sky blue
+  yargui      = "#d5b3e5"  Soft purple
+
+==============================================================================
+BASE PALETTE (OVOL - LIGHT)                           *sarnai-palette-ovol*
+
+  base        = "#dceae4"  Soft mint background
+  surface     = "#b6d2c7"  Slightly darker mint for UI elements
+  overlay     = "#90bbaa"  Background for highlighted items
+  muted       = "#81b19e"  Muted text for comments
+  subtle      = "#446f5e"  Secondary text
+  text        = "#172620"  Primary text (deep forest green)
+
+Accent Colors:
+  sarnai      = "#b93d4d"  Deep rose accent
+  anis        = "#cc2929"  Strong red
+  chatsalgan  = "#da730c"  Burnt orange
+  els         = "#df9b23"  Rich amber
+  uvs         = "#4c890f"  Forest green
+  nuur        = "#0a728c"  Deep cyan
+  mus         = "#12adad"  Teal
+  yargui      = "#a353c6"  Rich purple
+
+==============================================================================
+UI PALETTE                                               *sarnai-palette-ui*
+
+Colors used for user interface elements:
+
+  bg          Main editor background                      (from base)
+  bg_float    Floating window/popup background            (from surface)
+  bg_popup    Selected/highlighted item background        (from overlay)
+  fg          Main text color                             (from text)
+  border      Border color for UI elements                (from sarnai)
+  accent      Primary accent color used throughout the UI (from sarnai)
+
+==============================================================================
+SYNTAX PALETTE                                       *sarnai-palette-syntax*
+
+Colors used for syntax highlighting:
+
+  punctuation  Delimiters, brackets, etc. (from subtle)
+  comment      Code comments              (from muted)
+  constant     Constants, numbers         (from els)
+  string       String literals            (from els)
+  functions    Function names             (from sarnai)
+  boolean      Boolean values             (from sarnai)
+  keyword      Keywords, control flow     (from nuur)
+  operator     Operators                  (from subtle)
+  type         Types, classes, interfaces (from mus)
+  variable     Variables                  (from text)
+
+==============================================================================
+SEMANTIC PALETTE                                   *sarnai-palette-semantic*
+
+Colors used for diagnostics and semantic meaning:
+
+  error       Error messages                    (from anis)
+  warn        Warning messages                  (from chatsalgan)
+  info        Information messages              (from nuur)
+  hint        Hints                             (from sarnai)
+  ok          Success messages                  (from uvs)
+
+  error_bg    Background for error highlights   (blend of anis and base)
+  warn_bg     Background for warning highlights (blend of chatsalgan and base)
+  info_bg     Background for info highlights    (blend of nuur and base)
+  hint_bg     Background for hint highlights    (blend of sarnai and base)
+  ok_bg       Background for success highlights (blend of uvs and base)
+
+==============================================================================
+GIT PALETTE                                           *sarnai-palette-git*
+
+Colors for git operations and diff changes:
+
+  git_add       Added content                   (from uvs)
+  git_change    Changed content                 (from els)
+  git_delete    Deleted content                 (from anis)
+  git_dirty     Unstaged changes                (from sarnai)
+  git_ignore    Ignored files                   (from muted)
+  git_merge     Merge conflicts                 (from yargui)
+  git_rename    Renamed content                 (from nuur)
+  git_text      Git commit messages             (from sarnai)
+
+  git_add_bg    Background for added content    (blend of uvs and base)
+  git_change_bg Background for changed content  (blend of els and base)
+  git_delete_bg Background for deleted content  (blend of anis and base)
+  git_dirty_bg  Background for unstaged changes (blend of sarnai and base)
+  git_ignore_bg Background for ignored files    (blend of muted and base)
+  git_merge_bg  Background for merge conflicts  (blend of yargui and base)
+  git_rename_bg Background for renamed content  (blend of nuur and base)
+  git_text_bg   Background for git text         (blend of sarnai and base)
+
+==============================================================================
+SPECIAL PALETTE                                     *sarnai-palette-special*
+
+Colors for special UI elements:
+
+  link        Links and URLs                  (from nuur)
+  special     Special characters and elements (from mus)
+  note        Notes in comments               (from nuur)
+  todo        TODO markers                    (from sarnai)
+  warning     Warning notes                   (from chatsalgan)
+
+==============================================================================
+RAINBOW PALETTE                                     *sarnai-palette-rainbow*
+
+Colors for hierarchical content like markdown headings:
+
+  h1          Level 1 headings (from mus)
+  h2          Level 2 headings (from sarnai)
+  h3          Level 3 headings (from yargui)
+  h4          Level 4 headings (from uvs)
+  h5          Level 5 headings (from els)
+  h6          Level 6 headings (from nuur)
+
+==============================================================================
+TERMINAL PALETTE                                   *sarnai-palette-terminal*
+
+Colors for terminal integration, derived from the base palette:
+
+  black/bright_black     (from base and surface)
+  white/bright_white     (from subtle and text)
+  red/bright_red         (from anis)
+  green/bright_green     (from uvs)
+  yellow/bright_yellow   (from els)
+  blue/bright_blue       (from nuur)
+  magenta/bright_magenta (from sarnai)
+  cyan/bright_cyan       (from mus)
+
+==============================================================================
+ACCESSING COLORS                                     *sarnai-palette-accessing*
+
+You can access and modify these colors in your configuration:
+
+>lua
+    require("sarnai").setup({
+      on_colors = function(colors)
+        -- Access base palette
+        colors.palette.sarnai = "#e5a3ab"
+
+        -- Access UI colors
+        colors.ui.border = "#aabbcc"
+
+        -- Access syntax colors
+        colors.syntax.keyword = "#d5b3e5"
+
+        -- Access semantic colors
+        colors.semantic.error = "#ff0000"
+
+        -- Access git colors
+        colors.git.git_add = "#00cc00"
+
+        -- Access special colors
+        colors.special.todo = "#ff88ff"
+
+        -- Access rainbow colors
+        colors.rainbow.h1 = "#88ffff"
+
+        -- Access terminal colors
+        colors.terminal.blue = "#0088ff"
+      end,
+    })
+<
+
+==============================================================================
+COLOR UTILITIES                                      *sarnai-palette-utilities*
+
+Sarnai provides color utilities you can use in the `on_colors` function:
+
+>lua
+    require("sarnai").setup({
+      on_colors = function(colors)
+        local util = require("sarnai.util")
+
+        -- Blend colors (foreground, background, alpha 0-1)
+        local blended = util.blend("#ff0000", "#000000", 0.5)
+
+        -- Darken a color
+        local darker = util.darken("#ff0000", 0.2)
+
+        -- Lighten a color
+        local lighter = util.lighten("#ff0000", 0.2)
+
+        -- Generate a color with HSLuv values
+        local color = util.hsluv(320, 80, 70) -- hue, saturation, lightness
+
+        -- Apply your modified colors
+        colors.semantic.error = darker
+        colors.semantic.hint = lighter
+      end,
+    })
+<
+
+==============================================================================
+vim:tw=78:ts=2:ft=help:norl:

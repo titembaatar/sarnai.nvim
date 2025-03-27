@@ -1,0 +1,330 @@
+*sarnai.txt*          A Neovim colorscheme inspired by Mongolian nature
+
+==============================================================================
+CONTENTS                                                       *sarnai-contents*
+
+    1. Introduction .......................... |sarnai-introduction|
+    2. Requirements .......................... |sarnai-requirements|
+    3. Installation .......................... |sarnai-installation|
+    4. Usage ................................. |sarnai-usage|
+    5. Configuration ......................... |sarnai-configuration|
+    6. Color Palette ......................... |sarnai-palette|
+    7. Supported Plugins ..................... |sarnai-plugins|
+    8. Customization ......................... |sarnai-customization|
+    9. Performance ........................... |sarnai-performance|
+   10. FAQ ................................... |sarnai-faq|
+
+==============================================================================
+1. INTRODUCTION                                           *sarnai-introduction*
+
+sarnai.nvim is a Neovim colorscheme inspired by the landscapes and flora
+of Mongolia. The name "Sarnai" means "rose" in Mongolian. The colors are
+a balance of earthy tones and vibrant flora accents.
+
+The colorscheme offers two distinct variants:
+  - Khavar (Dark): A soothing dark theme with forest green backgrounds
+  - Ovol (Light): A breeze light theme with mint backgrounds
+
+Both variants are designed to be comfortable for long coding
+sessions while providing enough contrast and readability.
+
+==============================================================================
+2. REQUIREMENTS                                          *sarnai-requirements*
+
+sarnai.nvim requires:
+
+  - Neovim 0.8.0 or higher
+  - Terminal with true color support
+  - `termguicolors` enabled
+
+For the best experience, the following are recommended:
+  - Neovim 0.9.0+
+  - Treesitter for enhanced syntax highlighting
+  - A Nerd Font for complete icon support
+
+==============================================================================
+3. INSTALLATION                                          *sarnai-installation*
+
+Using lazy.nvim (recommended):
+>lua
+    {
+      "titembaatar/sarnai.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+      },
+    }
+<
+
+Using packer.nvim:
+>lua
+    use {
+      "titembaatar/sarnai.nvim",
+      config = function()
+        require("sarnai").setup({
+          -- your configuration comes here
+        })
+      end
+    }
+<
+
+Using vim-plug:
+>vim
+    Plug 'titembaatar/sarnai.nvim'
+<
+
+==============================================================================
+4. USAGE                                                      *sarnai-usage*
+
+After installation, you can set the colorscheme using:
+
+>lua
+    -- In your init.lua
+    vim.cmd.colorscheme("sarnai")       -- Default (khavar/dark)
+    -- or
+    vim.cmd.colorscheme("sarnai-khavar") -- Explicitly dark theme
+    -- or
+    vim.cmd.colorscheme("sarnai-ovol")   -- Light theme
+<
+
+>vim
+    " In your init.vim
+    colorscheme sarnai       " Default (khavar/dark)
+    " or
+    colorscheme sarnai-khavar " Explicitly dark theme
+    " or
+    colorscheme sarnai-ovol   " Light theme
+<
+
+==============================================================================
+5. CONFIGURATION                                      *sarnai-configuration*
+
+sarnai.nvim can be configured through the setup function:
+
+>lua
+    require("sarnai").setup({
+      -- The theme style: "khavar" (dark) or "ovol" (light)
+      style = "khavar",
+
+      -- Enable transparent background
+      transparent = false,
+
+      -- Set terminal colors
+      terminal_colors = true,
+
+      -- Configure syntax highlighting styles
+      styles = {
+        -- Set to false to disable a style globally
+        italic = true,
+        bold = true,
+        underline = true,
+
+        -- Specific syntax elements
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = {},
+        variables = {},
+      },
+
+      -- Plugin integrations
+      plugins = {
+        -- Enable all plugins by default (when not using lazy.nvim)
+        all = true,
+
+        -- Auto-detect plugins via lazy.nvim
+        auto = true,
+
+        -- Override specific plugins
+        -- mini = true,
+        -- trouble = true,
+      },
+
+      -- Enable caching for better performance
+      cache = true,
+
+      -- Override colors
+      on_colors = function(colors)
+        -- Change any colors here
+        -- colors.palette.sarnai = "#f0c3cb"
+      end,
+
+      -- Override highlights
+      on_highlights = function(highlights, colors)
+        -- Change any highlight groups here
+        -- highlights.Comment = { fg = colors.palette.muted, italic = true }
+      end,
+    })
+<
+
+For more detailed configuration options, see |sarnai-customization|.
+
+==============================================================================
+6. COLOR PALETTE                                           *sarnai-palette*
+
+sarnai.nvim uses a rich color organization with multiple palette types:
+
+1. Base Palette: Core background and text colors
+2. UI Palette: Colors for UI elements and interfaces
+3. Syntax Palette: Colors for syntax highlighting
+4. Semantic Palette: Colors for diagnostics, errors, warnings, etc.
+5. Git Palette: Colors for git operations and statuses
+6. Special Palette: Colors for special elements like links and TODOs
+7. Rainbow Palette: Colors for markdown headings
+8. Terminal Palette: Colors for terminal integration
+
+For a detailed breakdown of all color values, see |sarnai-palette-details|.
+
+==============================================================================
+7. SUPPORTED PLUGINS                                       *sarnai-plugins*
+
+sarnai.nvim provides enhanced highlighting for:
+
+  - fzf-lua (fuzzy finder)
+  - telescope.nvim (fuzzy finder)
+  - mini.nvim modules (statusline, files, comments, etc.)
+  - blink.cmp (completion)
+  - gitsigns.nvim (git integration)
+  - which-key.nvim (keybindings)
+  - snacks.nvim (dashboard, notifications)
+  - zen-mode.nvim (focus mode)
+  - trouble.nvim (diagnostics viewer)
+  - nvim-dap (debugging)
+
+Plugin highlights are automatically enabled if the plugin is detected via
+lazy.nvim, or you can manually configure which plugins to highlight.
+
+==============================================================================
+8. CUSTOMIZATION                                       *sarnai-customization*
+
+You can customize sarnai.nvim in several ways:
+
+1. Changing the theme variant:
+>lua
+    require("sarnai").setup({
+      style = "ovol", -- Use the light theme
+    })
+<
+
+2. Enabling transparent background:
+>lua
+    require("sarnai").setup({
+      transparent = true,
+    })
+<
+
+3. Customizing syntax styles:
+>lua
+    require("sarnai").setup({
+      styles = {
+        -- Disable all italic
+        italic = false,
+        -- Enable bold for functions
+        functions = { bold = true },
+        -- Custom comment styling
+        comments = { italic = true, bold = false },
+      },
+    })
+<
+
+4. Overriding specific colors:
+>lua
+    require("sarnai").setup({
+      on_colors = function(colors)
+        -- Modify base palette colors
+        colors.palette.sarnai = "#e5a3ab"
+
+        -- Modify UI colors
+        colors.ui.border = "#f0c3cb"
+
+        -- Modify syntax colors
+        colors.syntax.keyword = "#d5b3e5"
+
+        -- Modify semantic colors
+        colors.semantic.error = "#ff5555"
+      end,
+    })
+<
+
+5. Overriding highlight groups:
+>lua
+    require("sarnai").setup({
+      on_highlights = function(highlights, colors)
+        -- Override comment highlights
+        highlights.Comment = {
+          fg = colors.palette.muted,
+          bg = colors.none,
+          italic = true,
+          bold = false
+        }
+
+        -- Custom function highlighting
+        highlights.Function = {
+          fg = colors.palette.sarnai,
+          bold = true
+        }
+      end,
+    })
+<
+
+==============================================================================
+9. PERFORMANCE                                           *sarnai-performance*
+
+sarnai.nvim includes some performance optimizations:
+
+1. Highlight Caching:
+   The theme caches highlight definitions to speed up theme switching and
+   reload times. This is enabled by default.
+
+2. Plugin Detection:
+   Automatically detects installed plugins using lazy.nvim to only load
+   the necessary highlight groups.
+
+If you need to clear the cache (after making changes):
+
+>lua
+    require("sarnai").clear_cache()
+<
+
+You can disable caching if needed:
+
+>lua
+    require("sarnai").setup({
+      cache = false,
+    })
+<
+
+==============================================================================
+10. FAQ                                                         *sarnai-faq*
+
+Q: How do I completely disable italic or bold styles?
+A: You can disable all styles using:
+>lua
+    require("sarnai").setup({
+      styles = {
+        italic = false,
+        bold = false,
+        underline = false,
+      },
+    })
+<
+
+Q: How do I fix colors looking wrong in my terminal?
+A: Make sure your terminal supports true colors and you have
+   `termguicolors` enabled in your Neovim config. For some terminals,
+   you might need to set the TERM environment variable correctly.
+
+Q: Can I use Sarnai with plugins not in the supported list?
+A: Yes, Sarnai provides sensible defaults for most plugins. You can also
+   add custom highlight definitions using the `on_highlights` function.
+
+Q: How can I preview how my changes will look?
+A: You have two options:
+     1. Call `require("sarnai").clear_cache()` before reloading the colorscheme
+     2. Set `cache = false` in your config to bypass the cache
+   Once satisfied with your customizations, you can keep cache enabled for
+   better performance.
+
+==============================================================================
+vim:tw=78:ts=2:ft=help:norl:
