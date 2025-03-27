@@ -29,12 +29,24 @@
 ---@field comment HEX Comments
 ---@field constant HEX Constants, numbers
 ---@field string HEX Strings
----@field functions HEX Functions, methods
+---@field _function HEX Functions, methods
 ---@field boolean HEX Boolean
----@field keyword HEX Keywords
+---@field keyword HEX Generic keywords
+---@field control HEX Control flow keywords (if, for, while)
+---@field import HEX Import/include keywords
+---@field storage HEX Storage keywords (static, const)
+---@field _return HEX Return keyword
 ---@field operator HEX Operators
 ---@field type HEX Types, classes
+---@field builtin HEX Built-in functions, types
+---@field macro HEX Macro functions and preprocessor
+---@field method HEX Method definitions and calls
+---@field property HEX Object properties
+---@field parameter HEX Function parameters
 ---@field variable HEX Variables
+---@field escape HEX Escape sequences in strings
+---@field regex HEX Regular expressions
+---@field decorator HEX Decorators, attributes
 
 ---@class SemanticPalette
 ---@field error HEX Errors
@@ -69,6 +81,8 @@
 ---@class SpecialPalette
 ---@field link HEX Links, URLs
 ---@field special HEX Special elements
+---@field symbol HEX Special symbols
+---@field character HEX Special characters
 ---@field note HEX Notes in comments
 ---@field todo HEX TODOs in comments
 ---@field warning HEX Warning notes
@@ -174,16 +188,37 @@ function M.generate_color_palette(p)
       accent = p.sarnai     -- Primary accent color
     },
     syntax = {
+      -- Basic syntax elements
       punctuation = p.subtle, -- Punctuation, delimiters
       comment = p.muted,      -- Comments
       constant = p.els,       -- Constants, numbers
       string = p.els,         -- Strings
-      functions = p.sarnai,   -- Functions, methods
-      boolean = p.sarnai,     -- Booleans
-      keyword = p.nuur,       -- Keywords
-      operator = p.subtle,    -- Operators
-      type = p.mus,           -- Types, classes
+      boolean = p.chatsalgan, -- Booleans
       variable = p.text,      -- Variables
+
+      -- Function-related
+      _function = p.sarnai, -- Generic functions, methods
+      method = p.sarnai,    -- Method definitions and calls
+      builtin = p.anis,     -- Built-in functions
+      macro = p.chatsalgan, -- Macro functions, preprocessor
+
+      -- Keyword-related
+      keyword = p.nuur,                         -- Generic keywords
+      control = util.blend(p.nuur, p.mus, 0.5), -- Control flow keywords
+      import = p.yargui,                        -- Import/include keywords
+      storage = p.nuur,                         -- Storage keywords
+      _return = p.nuur,                         -- Return keyword
+
+      -- Type-related
+      type = p.mus,     -- Types, classes
+      property = p.mus, -- Object properties
+
+      -- Other syntax elements
+      operator = p.subtle,  -- Operators
+      parameter = p.yargui, -- Function parameters
+      escape = p.anis,      -- Escape sequences in strings
+      regex = p.els,        -- Regular expressions
+      decorator = p.yargui, -- Decorators, attributes
     },
     semantic = {
       error = p.anis,                                   -- Errors
@@ -216,11 +251,13 @@ function M.generate_color_palette(p)
       git_text_bg = util.blend(p.sarnai, p.base, 0.15),  -- Git text (commit messages, etc.) background
     },
     special = {
-      link = p.nuur,          -- Links, URLs
-      special = p.mus,        -- Special elements
-      note = p.nuur,          -- Notes in comments
-      todo = p.sarnai,        -- TODOs in comments
-      warning = p.chatsalgan, -- Warning notes
+      link = p.nuur,                                -- Links, URLs
+      special = p.mus,                              -- Special elements
+      symbol = util.blend(p.mus, p.els, 0.5),       -- Special symbols
+      character = util.blend(p.mus, p.sarnai, 0.5), -- Special characters
+      note = p.nuur,                                -- Notes in comments
+      todo = p.sarnai,                              -- TODOs in comments
+      warning = p.chatsalgan,                       -- Warning notes
     },
     rainbow = {
       h1 = p.mus,
@@ -261,3 +298,4 @@ function M.get_colors(style)
 end
 
 return M
+

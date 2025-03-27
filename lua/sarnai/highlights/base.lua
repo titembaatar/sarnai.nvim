@@ -83,7 +83,7 @@ function M.get(colors, opts)
 
     -- Special characters
     NonText = { fg = p.muted },
-    SpecialKey = { fg = p.mus },
+    SpecialKey = { fg = syntax.escape },
 
     -- Spell checking
     SpellBad = { sp = sem.error, undercurl = true },
@@ -100,39 +100,39 @@ function M.get(colors, opts)
 
     Constant = { fg = syntax.constant },
     String = { fg = syntax.string },
-    Character = { link = "String" },
+    Character = { fg = special.character },
     Number = { fg = syntax.constant },
     Boolean = { fg = syntax.boolean },
-    Float = { link = "Number" },
+    Float = { fg = syntax.constant },
 
     Identifier = { fg = syntax.variable, style = styles.variables },
-    Function = { fg = syntax.functions, style = styles.functions },
+    Function = { fg = syntax._function, style = styles.functions },
 
     Statement = { fg = syntax.keyword, style = styles.keywords },
-    Conditional = { link = "Statement" },
-    Repeat = { link = "Statement" },
-    Label = { link = "Statement" },
+    Conditional = { fg = syntax.control, style = styles.keywords },
+    Repeat = { fg = syntax.control, style = styles.keywords },
+    Label = { fg = syntax.keyword, style = styles.keywords },
     Operator = { fg = syntax.operator },
-    Keyword = { link = "Statement" },
-    Exception = { link = "Statement" },
+    Keyword = { fg = syntax.keyword, style = styles.keywords },
+    Exception = { fg = syntax.control, style = styles.keywords },
 
-    PreProc = { fg = p.yargui },
-    Include = { link = "PreProc" },
-    Define = { link = "PreProc" },
-    Macro = { link = "PreProc" },
-    PreCondit = { link = "PreProc" },
+    PreProc = { fg = syntax.macro },
+    Include = { fg = syntax.import },
+    Define = { fg = syntax.macro },
+    Macro = { fg = syntax.macro, bold = styles.bold },
+    PreCondit = { fg = syntax.macro, italic = styles.italic },
 
     Type = { fg = syntax.type },
-    StorageClass = { link = "Type" },
-    Structure = { link = "Type" },
-    Typedef = { link = "Type" },
+    StorageClass = { fg = syntax.storage, bold = styles.bold },
+    Structure = { fg = syntax.type, bold = styles.bold },
+    Typedef = { fg = syntax.type, italic = styles.italic },
 
     Special = { fg = special.special },
-    SpecialChar = { link = "Special" },
-    Tag = { link = "Special" },
+    SpecialChar = { fg = special.character },
+    Tag = { fg = special.special },
     Delimiter = { fg = syntax.punctuation },
-    SpecialComment = { fg = p.yargui, style = styles.comments },
-    Debug = { link = "Special" },
+    SpecialComment = { fg = syntax.comment, italic = true, bold = styles.bold },
+    Debug = { fg = sem.error, bold = styles.bold },
 
     Underlined = { underline = styles.underline },
 
@@ -143,12 +143,12 @@ function M.get(colors, opts)
     Title = { fg = ui.border, bold = styles.bold },
 
     healthError = { fg = sem.error },
-    healthSuccess = { fg = sem.info },
+    healthSuccess = { fg = sem.ok },
     healthWarning = { fg = sem.warn },
 
-    htmlArg = { fg = p.yargui },
+    htmlArg = { fg = syntax.property },
     htmlBold = { bold = styles.bold },
-    htmlEndTag = { fg = p.subtle },
+    htmlEndTag = { fg = syntax.punctuation },
     htmlH1 = { link = "markdownH1" },
     htmlH2 = { link = "markdownH2" },
     htmlH3 = { link = "markdownH3" },
@@ -156,11 +156,11 @@ function M.get(colors, opts)
     htmlH5 = { link = "markdownH5" },
     htmlItalic = { italic = styles.italic },
     htmlLink = { link = "markdownUrl" },
-    htmlTag = { fg = p.subtle },
-    htmlTagN = { fg = p.text },
-    htmlTagName = { fg = p.mus },
+    htmlTag = { fg = syntax.punctuation },
+    htmlTagN = { fg = syntax.variable },
+    htmlTagName = { fg = syntax.type },
 
-    markdownDelimiter = { fg = p.subtle },
+    markdownDelimiter = { fg = syntax.punctuation },
     markdownH1 = { fg = r.h1, bold = styles.bold },
     markdownH1Delimiter = { link = "markdownH1" },
     markdownH2 = { fg = r.h2, bold = styles.bold },
@@ -176,17 +176,17 @@ function M.get(colors, opts)
     markdownLinkText = { link = "markdownUrl" },
     markdownUrl = { fg = special.link, sp = special.link, underline = true },
 
-    mkdCode = { fg = p.mus, italic = styles.italic },
-    mkdCodeDelimiter = { fg = p.sarnai },
-    mkdCodeEnd = { fg = p.mus },
-    mkdCodeStart = { fg = p.mus },
-    mkdFootnotes = { fg = p.mus },
-    mkdID = { fg = p.mus, underline = true },
+    mkdCode = { fg = syntax.string, italic = styles.italic },
+    mkdCodeDelimiter = { fg = syntax.punctuation },
+    mkdCodeEnd = { fg = syntax.string },
+    mkdCodeStart = { fg = syntax.string },
+    mkdFootnotes = { fg = syntax.variable },
+    mkdID = { fg = syntax.constant, underline = true },
     mkdInlineURL = { link = "markdownUrl" },
     mkdLink = { link = "markdownUrl" },
     mkdLinkDef = { link = "markdownUrl" },
-    mkdListItemLine = { fg = p.text },
-    mkdRule = { fg = p.subtle },
+    mkdListItemLine = { fg = syntax.variable },
+    mkdRule = { fg = syntax.punctuation },
     mkdURL = { link = "markdownUrl" },
   }
 
@@ -194,3 +194,4 @@ function M.get(colors, opts)
 end
 
 return M
+
