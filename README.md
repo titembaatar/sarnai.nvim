@@ -121,16 +121,17 @@ require("sarnai").setup({
 
 Sarnai.nvim provides highlighting for:
 
-- [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fuzzy finder)
-- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder)
-- [mini.nvim](https://github.com/echasnovski/mini.nvim) (statusline, files, comments, etc.)
 - [blink.cmp](https://github.com/saghen/blink.cmp) (completion)
+- [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fuzzy finder)
 - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) (git integration)
-- [which-key.nvim](https://github.com/folke/which-key.nvim) (keybindings)
-- [snacks.nvim](https://github.com/folke/snacks.nvim) (dashboard, notifications)
-- [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) (focus mode)
-- [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics viewer)
+- [mini.nvim](https://github.com/echasnovski/mini.nvim) (statusline, files, comments, etc.)
 - [nvim-dap](https://github.com/mfussenegger/nvim-dap) (debugging)
+- [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) (markdown)
+- [snacks.nvim](https://github.com/folke/snacks.nvim) (dashboard, notifications)
+- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder)
+- [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics viewer)
+- [which-key.nvim](https://github.com/folke/which-key.nvim) (keybindings)
+- [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) (focus mode)
 
 ## 🤝 Contributing
 

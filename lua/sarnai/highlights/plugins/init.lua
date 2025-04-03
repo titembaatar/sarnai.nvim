@@ -5,15 +5,16 @@ local util = require("sarnai.util")
 -- Define plugin mapping table with proper type annotation
 ---@type table<string, string>
 M.plugins = {
-  ["which-key.nvim"] = "which_key",
-  ["mini.nvim"]      = "mini",
-  ["blink.cmp"]      = "blink_cmp",
-  ["fzf-lua"]        = "fzf_lua",
-  ["telescope.nvim"] = "telescope",
-  ["gitsigns.nvim"]  = "git",
-  ["snacks.nvim"]    = "snacks",
-  ["trouble.nvim"]   = "trouble",
-  ["nvim-dap"]       = "dap",
+  ["blink.cmp"]            = "blink_cmp",
+  ["fzf-lua"]              = "fzf_lua",
+  ["gitsigns.nvim"]        = "git",
+  ["mini.nvim"]            = "mini",
+  ["nvim-dap"]             = "dap",
+  ["render-markdown.nvim"] = "render_markdown",
+  ["snacks.nvim"]          = "snacks",
+  ["telescope.nvim"]       = "telescope",
+  ["trouble.nvim"]         = "trouble",
+  ["which-key.nvim"]       = "which_key",
 }
 
 ---@param palette ColorPalette
