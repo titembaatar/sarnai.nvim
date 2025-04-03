@@ -12,12 +12,12 @@ function M.get(colors, opts)
   local transparent_bg = opts.transparent and "NONE" or nil
 
   return {
-    WhichKey = { fg = syntax.functions },
+    WhichKey = { fg = syntax._function },
     WhichKeyBorder = { fg = ui.border, bg = transparent_bg or ui.bg },
     WhichKeyDesc = { fg = ui.fg },
     WhichKeyGroup = { fg = p.mus },
     WhichKeyIcon = { fg = p.nuur },
-    WhichKeyIconAzure = { fg = syntax.functions },
+    WhichKeyIconAzure = { fg = syntax._function },
     WhichKeyIconBlue = { fg = sem.info },
     WhichKeyIconCyan = { fg = sem.hint },
     WhichKeyIconGreen = { fg = sem.ok },
