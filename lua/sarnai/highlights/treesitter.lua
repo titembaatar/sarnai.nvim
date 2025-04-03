@@ -90,6 +90,7 @@ function M.get(colors, opts)
     ["@markup.raw"] = { fg = syntax.string },                                                                -- Raw markup blocks (inline code, etc.)
     ["@markup.raw.block.markdown"] = { fg = syntax.string, bg = transparent_bg or util.darken(ui.bg, 0.1) }, -- Code blocks (```code```)
     ["@markup.raw.block.language"] = { fg = syntax.keyword, bold = styles.bold },                            -- Language tag in code blocks (```python)
+    ["@markup.raw.markdown_inline"] = { bg = util.darken(p.base, 0.1), fg = p.nuur },
     ["@markup.list"] = { fg = syntax.keyword },                                                              -- List markers
     ["@markup.list.checked"] = { fg = sem.ok },                                                              -- Checked list markers
     ["@markup.list.unchecked"] = { fg = syntax.variable },                                                   -- Unchecked list markers
@@ -174,4 +175,3 @@ function M.get(colors, opts)
 end
 
 return M
-
