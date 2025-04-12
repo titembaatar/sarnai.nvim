@@ -40,8 +40,13 @@ function M.is_plugin_enabled(lazy_name, module_name, config)
     end
 
     -- Special case for mini.nvim
-    if lazy_name == "mini.nvim" and vim.tbl_contains(vim.api.nvim_get_runtime_path(), "mini.nvim") then
-      return true
+    if lazy_name == "mini.nvim" then
+      local rtp = vim.opt.runtimepath:get()
+      for _, path in ipairs(rtp) do
+        if path:match("mini%.nvim") then
+          return true
+        end
+      end
     end
   end
 
@@ -55,4 +60,3 @@ function M.is_plugin_enabled(lazy_name, module_name, config)
 end
 
 return M
-
