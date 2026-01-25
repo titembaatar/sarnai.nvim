@@ -5,7 +5,7 @@ SARNAI COLOR PALETTE                                    *sarnai-palette-details*
 
 sarnai.nvim organizes colors into several palette categories to provide a
 comprehensive theme. This document breaks down the various color palettes
-and how they're used throughout the theme.
+and how they are used throughout the theme.
 
 ==============================================================================
 COLOR ORGANIZATION                                   *sarnai-palette-structure*
@@ -83,7 +83,7 @@ Colors used for syntax highlighting:
   constant     Constants, numbers         (from els)
   string       String literals            (from els)
   functions    Function names             (from sarnai)
-  boolean      Boolean values             (from sarnai)
+  boolean      Boolean values             (from chatsalgan)
   keyword      Keywords, control flow     (from nuur)
   operator     Operators                  (from subtle)
   type         Types, classes, interfaces (from mus)
@@ -172,33 +172,33 @@ ACCESSING COLORS                                     *sarnai-palette-accessing*
 You can access and modify these colors in your configuration:
 
 >lua
-    require("sarnai").setup({
-      on_colors = function(colors)
-        -- Access base palette
-        colors.palette.sarnai = "#e5a3ab"
+	require("sarnai").setup({
+		on_colors = function(colors)
+			-- Access base palette
+			colors.palette.sarnai = "#e5a3ab"
 
-        -- Access UI colors
-        colors.ui.border = "#aabbcc"
+			-- Access UI colors
+			colors.ui.border = "#aabbcc"
 
-        -- Access syntax colors
-        colors.syntax.keyword = "#d5b3e5"
+			-- Access syntax colors
+			colors.syntax.keyword = "#d5b3e5"
 
-        -- Access semantic colors
-        colors.semantic.error = "#ff0000"
+			-- Access semantic colors
+			colors.semantic.error = "#ff0000"
 
-        -- Access git colors
-        colors.git.git_add = "#00cc00"
+			-- Access git colors
+			colors.git.git_add = "#00cc00"
 
-        -- Access special colors
-        colors.special.todo = "#ff88ff"
+			-- Access special colors
+			colors.special.todo = "#ff88ff"
 
-        -- Access rainbow colors
-        colors.rainbow.h1 = "#88ffff"
+			-- Access rainbow colors
+			colors.rainbow.h1 = "#88ffff"
 
-        -- Access terminal colors
-        colors.terminal.blue = "#0088ff"
-      end,
-    })
+			-- Access terminal colors
+			colors.terminal.blue = "#0088ff"
+		end,
+	})
 <
 
 ==============================================================================
@@ -207,27 +207,27 @@ COLOR UTILITIES                                      *sarnai-palette-utilities*
 Sarnai provides color utilities you can use in the `on_colors` function:
 
 >lua
-    require("sarnai").setup({
-      on_colors = function(colors)
-        local util = require("sarnai.util")
+	require("sarnai").setup({
+		on_colors = function(colors)
+			local util = require("sarnai.util")
 
-        -- Blend colors (foreground, background, alpha 0-1)
-        local blended = util.blend("#ff0000", "#000000", 0.5)
+			-- Blend colors (foreground, background, alpha 0-1)
+			local blended = util.blend("#ff0000", "#000000", 0.5)
 
-        -- Darken a color
-        local darker = util.darken("#ff0000", 0.2)
+			-- Darken a color
+			local darker = util.darken("#ff0000", 0.2)
 
-        -- Lighten a color
-        local lighter = util.lighten("#ff0000", 0.2)
+			-- Lighten a color
+			local lighter = util.lighten("#ff0000", 0.2)
 
-        -- Generate a color with HSLuv values
-        local color = util.hsluv(320, 80, 70) -- hue, saturation, lightness
+			-- Generate a color with HSLuv values
+			local color = util.hsluv(320, 80, 70)
 
-        -- Apply your modified colors
-        colors.semantic.error = darker
-        colors.semantic.hint = lighter
-      end,
-    })
+			-- Apply your modified colors
+			colors.semantic.error = darker
+			colors.semantic.hint = lighter
+		end,
+	})
 <
 
 ==============================================================================
