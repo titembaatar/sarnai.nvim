@@ -2,6 +2,8 @@ local util = require("sarnai.util")
 
 local M = {}
 
+M.url="https://github.com/nvim-mini/mini.nvim"
+
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
 ---@return Highlights

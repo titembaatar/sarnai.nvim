@@ -1,5 +1,7 @@
 local M = {}
 
+M.url="https://github.com/Saghen/blink.cmp"
+
 ---@param colors ColorPalette
 ---@return Highlights
 function M.get(colors)

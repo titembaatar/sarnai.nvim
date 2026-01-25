@@ -1,5 +1,7 @@
 local M = {}
 
+M.url = "https://github.com/folke/trouble.nvim"
+
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
 ---@return Highlights
