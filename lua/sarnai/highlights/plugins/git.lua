@@ -1,24 +1,24 @@
+--[[
+I do not use this plugin anymore.
+Therefore I will not maintain this file.
+Do not open an issue if something break.
+Thank you.
+--]]
 local M = {}
 
+M.url="https://github.com/lewis6991/gitsigns.nvim"
+
 ---@param colors ColorPalette
----@param opts SarnaiConfig
 ---@return Highlights
-function M.get(colors, opts)
-  local git = colors.git
-  local ui = colors.ui
+function M.get(colors)
+	local git = colors.git
 
-  local transparent_bg = opts.transparent and "NONE" or nil
-
-  return {
-    -- Gitsigns
-    GitSignsAdd = { fg = git.git_add },
-    GitSignsChange = { fg = git.git_change },
-    GitSignsDelete = { fg = git.git_delete },
-
-    -- LazyGit
-    LazyGitFloat = { fg = ui.fg, bg = transparent_bg or ui.bg_float },
-    LazyGitBorder = { fg = ui.border, bg = transparent_bg or ui.bg_float },
-  }
+	return {
+		-- Gitsigns
+		GitSignsAdd    = { fg = git.git_add },
+		GitSignsChange = { fg = git.git_change },
+		GitSignsDelete = { fg = git.git_delete },
+	}
 end
 
 return M
