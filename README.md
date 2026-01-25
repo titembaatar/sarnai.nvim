@@ -2,65 +2,57 @@
 <h6 align="center">ᠰᠠᠷᠠᠨᠠᠢ</h6>
 <br/>
 <p align="center">
-  <a href="https://github.com/titembaatar/sarnai.nvim"><img src="https://img.shields.io/badge/SARNAI-NEOVIM-c7958d?style=for-the-badge&logo=github"></a>
-  <a href="https://github.com/titembaatar/sarnai/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-9d4a40?style=for-the-badge"></a>
+  <a href="https://codeberg.org/titembaatar/sarnai.nvim"><img src="https://img.shields.io/badge/SARNAI-NEOVIM-c7958d?style=for-the-badge&logo=github"></a>
+  <a href="https://codeberg.org/titembaatar/sarnai/blob/main/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-9d4a40?style=for-the-badge"></a>
 </p>
 
 > **This is the Neovim colorscheme repository for `sarnai`.**
-> The theme repository (including palettes, integrations, etc...) is at:
-> 👉 **[titembaatar/sarnai](https://github.com/titembaatar/sarnai)**
+> The theme repository (including palettes, integration, etc...) is at:
+> **[titembaatar/sarnai](https://codeberg.org/titembaatar/sarnai)**
 
-## ✨ Features
+## Features
 
-- Two variants: 🌸 **Khavar** (dark) and ❄️  **Ovol** (light)
+- Dark `**Khavar**` and light `**Ovol**` variants
 - Aim to reduce eye strain
 - Treesitter integration
-- Plugin ecosystem compatibility
-- Customizable
-- Caching for improved performance
+- Some plugin compatibility
+- Customisable
+- Caching
 
-## 📥 Installation
-
+## Installation
 ### Using [lazy.nvim](https://github.com/folke/lazy.nvim)
-
 ```lua
 {
-  "titembaatar/sarnai.nvim",
+  url = "https://codeberg.org/titembaatar/sarnai.nvim.git",
   lazy = false,
   priority = 1000,
   opts = {
     -- your configuration comes here
     -- leave it empty to use the default settings
-    style = "khavar", -- khavar or ovol
+    style = "khavar",    -- khavar or ovol
     transparent = false, -- true enables transparent background
   },
 }
 ```
 
-## 📸 Screenshots
-
-### Khavar (Dark Theme)
+## Screenshots
+### Dark `Khavar`
 ![Khavar Theme](assets/khavar.png)
 
-### Ovol (Light Theme)
+### Light `Ovol`
 ![Ovol Theme](assets/ovol.png)
 
-## 🎨 Usage
-
-After installation, you can set the colorscheme using:
+## Usage
+After installation, you can set the colorscheme using in your `init.lua`
 
 ```lua
--- In your init.lua
-vim.cmd.colorscheme("sarnai")       -- Default (khavar/dark)
--- or
+vim.cmd.colorscheme("sarnai")        -- Default (khavar/dark)
 vim.cmd.colorscheme("sarnai-khavar") -- Explicitly dark theme
--- or
 vim.cmd.colorscheme("sarnai-ovol")   -- Light theme
 ```
 
-## ⚙️ Configuration
-
-Sarnai.nvim comes with these defaults:
+## Configuration
+`sarnai.nvim` comes with these defaults:
 
 ```lua
 require("sarnai").setup({
@@ -87,7 +79,7 @@ require("sarnai").setup({
     variables = {},
   },
 
-  -- Plugin integrations
+  -- Plugin integration
   plugins = {
     -- Enable all plugins by default (when not using lazy.nvim)
     all = true,
@@ -117,26 +109,35 @@ require("sarnai").setup({
 })
 ```
 
-## 🌟 Supported Plugins
+## Supported Plugins
+`sarnai.nvim` provides highlighting for the following plugins.
 
-Sarnai.nvim provides highlighting for:
-
+### Up to date
 - [blink.cmp](https://github.com/saghen/blink.cmp) (completion)
+- [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics viewer)
+- [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) (markdown)
+- [snacks.nvim](https://github.com/folke/snacks.nvim) (collection of QoL plugins)
+  - snacks.dashboard
+  - snacks.notifier
+- [mini.nvim](https://github.com/echasnovski/mini.nvim) (collection of modules)
+  - mini.surround
+  - mini.diff
+  - mini.files
+  - mini.cursorword
+  - mini.hipatterns
+  - mini.indentscope
+  - mini.statusline
+  - mini.tabline
+
+### No longer maintained
+- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder)
 - [fzf-lua](https://github.com/ibhagwan/fzf-lua) (fuzzy finder)
 - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) (git integration)
-- [mini.nvim](https://github.com/echasnovski/mini.nvim) (statusline, files, comments, etc.)
 - [nvim-dap](https://github.com/mfussenegger/nvim-dap) (debugging)
-- [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) (markdown)
-- [snacks.nvim](https://github.com/folke/snacks.nvim) (dashboard, notifications)
-- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) (fuzzy finder)
-- [trouble.nvim](https://github.com/folke/trouble.nvim) (diagnostics viewer)
 - [which-key.nvim](https://github.com/folke/which-key.nvim) (keybindings)
-- [zen-mode.nvim](https://github.com/folke/zen-mode.nvim) (focus mode)
 
-## 🤝 Contributing
+## Contributing
+This theme is personal so I will not contribute to add highlights to plugins
+I do not use. However, feel free to make a pull request for that.
+Regarding issues, report them, and I will take a look into it if time allows.
 
-Contributions are welcome! Feel free to report issues, suggest features, or submit pull requests.
-
-## 📜 License
-
-MIT License
