@@ -7,7 +7,7 @@ end
 
 ---@param name string
 ---@return boolean
-function M.is_plugin_loaded(name)
+function M.is_loaded(name)
 	local ok, _ = pcall(require, name:gsub("%.nvim$", ""):gsub("-", "."))
 	return ok
 end
@@ -16,7 +16,7 @@ end
 ---@param module_name string
 ---@param config SarnaiConfig
 ---@return boolean
-function M.is_plugin_enabled(lazy_name, module_name, config)
+function M.is_enabled(lazy_name, module_name, config)
 	local plugins = config.plugins or {}
 
 	if plugins[module_name] ~= nil then
@@ -47,7 +47,7 @@ function M.is_plugin_enabled(lazy_name, module_name, config)
 		return true
 	end
 
-	return M.is_plugin_loaded(lazy_name)
+	return M.is_loaded(lazy_name)
 end
 
 return M

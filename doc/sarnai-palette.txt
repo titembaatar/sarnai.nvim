@@ -209,19 +209,20 @@ Sarnai provides color utilities you can use in the `on_colors` function:
 >lua
 	require("sarnai").setup({
 		on_colors = function(colors)
-			local util = require("sarnai.util")
+			local color = require("sarnai.util.color")
+			local hsluv = require("sarnai.util.hsluv")
 
 			-- Blend colors (foreground, background, alpha 0-1)
-			local blended = util.blend("#ff0000", "#000000", 0.5)
+			local blended = color.blend("#ff0000", "#000000", 0.5)
 
 			-- Darken a color
-			local darker = util.darken("#ff0000", 0.2)
+			local darker = color.darken("#ff0000", 0.2)
 
 			-- Lighten a color
-			local lighter = util.lighten("#ff0000", 0.2)
+			local lighter = color.lighten("#ff0000", 0.2)
 
 			-- Generate a color with HSLuv values
-			local color = util.hsluv(320, 80, 70)
+			local color = hsluv.hsluv(320, 80, 70)
 
 			-- Apply your modified colors
 			colors.semantic.error = darker

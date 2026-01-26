@@ -1,4 +1,4 @@
-local util = require("sarnai.util")
+local color = require("sarnai.util.color")
 
 local M = {}
 
@@ -42,7 +42,7 @@ function M.get(colors, opts)
 		MiniFilesCursorLine     = { fg = ui.fg, bg = transparent_bg or ui.bg_popup },
 
 		-- mini.cursorword
-		MiniCursorword = { bg = util.blend(ui.accent, p.base, 0.1), underline = false },
+		MiniCursorword = { bg = color.blend(ui.accent, p.base, 0.1), underline = false },
 
 		-- mini.hipatterns
 		MiniHipatternsFixme      = { fg = ui.bg, bg = sem.error, bold = styles.bold },
@@ -72,13 +72,13 @@ function M.get(colors, opts)
 		MiniTablineHidden          = { fg = p.subtle, bg = transparent_bg or ui.bg_float, italic = styles.italic },
 		MiniTablineModifiedCurrent = { fg = ui.bg, bg = transparent_bg or p.chatsalgan, bold = styles.bold },
 		MiniTablineModifiedVisible = { fg = ui.bg, bg = transparent_bg or p.chatsalgan },
-		MiniTablineModifiedHidden  = { fg = ui.bg, bg = transparent_bg or util.blend(p.chatsalgan, ui.bg_float, 0.7), italic = styles.italic },
+		MiniTablineModifiedHidden  = { fg = ui.bg, bg = transparent_bg or color.blend(p.chatsalgan, ui.bg_float, 0.7), italic = styles.italic },
 		MiniTablineFill            = { bg = transparent_bg or ui.bg },
 		MiniTablineTabpagesection  = { bg = transparent_bg or ui.bg },
 		MiniTablineTrunc           = { bg = transparent_bg or ui.bg },
 
 		-- mini.trailspace
-		MiniTrailspace = { bg = util.blend(sem.error, p.base, 0.2) },
+		MiniTrailspace = { bg = color.blend(sem.error, p.base, 0.2) },
 	}
 end
 

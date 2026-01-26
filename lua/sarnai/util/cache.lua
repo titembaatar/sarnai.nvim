@@ -9,15 +9,15 @@ M._cache = {}
 
 ---@param opts SarnaiConfig
 ---@return string
-function M.get_cache_key(opts)
+function M.generate(opts)
 	local parts = {
 		"style=" .. (opts.style or "khavar"),
 		"transparent=" .. tostring(opts.transparent or false),
 	}
 
 	if opts.styles then
-		for group, style in pairs(opts.styles) do
-			parts[#parts + 1] = group .. "=" .. vim.inspect(style)
+		for k, v in pairs(opts.styles) do
+			parts[#parts + 1] = k .. "=" .. vim.inspect(v)
 		end
 	end
 
@@ -56,7 +56,7 @@ end
 
 ---@param key string Cache key
 ---@return boolean
-function M.has(key)
+function M.exists(key)
 	return M._cache[key] ~= nil
 end
 

@@ -23,7 +23,7 @@ local M = {}
 
 ---@param palette BasePalette
 ---@return TerminalColors
-function M.get_terminal_colors(palette)
+function M.get_colors(palette)
 	return {
 		black          = palette.base,
 		bright_black   = palette.surface,
@@ -45,7 +45,7 @@ function M.get_terminal_colors(palette)
 end
 
 ---@param palette ColorPalette
-function M.set_terminal_colors(palette)
+function M.set_colors(palette)
 	if not palette.terminal then return end
 
 	local t = palette.terminal

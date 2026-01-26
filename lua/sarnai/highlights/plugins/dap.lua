@@ -4,7 +4,7 @@ Therefore I will not maintain this file.
 Do not open an issue if something break.
 Thank you.
 --]]
-local util = require("sarnai.util")
+local color = require("sarnai.util.color")
 
 local M = {}
 
@@ -17,7 +17,7 @@ function M.get(colors)
 	local ui = colors.ui
 
 	return {
-		DapStoppedLine = { bg = util.blend(sem.warn, ui.bg, 0.1) },
+		DapStoppedLine = { bg = color.blend(sem.warn, ui.bg, 0.1) },
 	}
 end
 

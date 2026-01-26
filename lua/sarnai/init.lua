@@ -1,6 +1,7 @@
 local config = require("sarnai.config")
 local colors = require("sarnai.colors")
-local util = require("sarnai.util")
+local cache = require("sarnai.util.cache")
+local terminal = require("sarnai.util.terminal")
 local highlights = require("sarnai.highlights")
 
 local M = {}
@@ -15,20 +16,22 @@ end
 function M.load(opts)
 	opts = vim.tbl_deep_extend("force", M.options or config.defaults, opts or {})
 
-	local use_cache = opts.cache ~= false
-	local cache_key = use_cache and util.get_cache_key(opts) or nil
+	local is_cache = opts.cache ~= false
+	local cache_key = is_cache and cache.generate(opts) or nil
 
-	if use_cache and cache_key and util.has(cache_key) then
-		local cached = util.get(cache_key)
+	if is_cache and cache_key and cache.exists(cache_key) then
+		local stored = cache.get(cache_key)
 
-		highlights.set(cached.highlights)
 		vim.g.colors_name = "sarnai-" .. opts.style
 		vim.o.background = opts.style == "ovol" and "light" or "dark"
 
-		return cached.palette
+		if stored ~= nil then
+			highlights.set(stored.highlights)
+			return stored.palette
+		end
 	end
 
-	local palette = colors.get_colors(opts.style)
+	local palette = colors.get(opts.style)
 
 	if opts.on_colors and type(opts.on_colors) == "function" then
 		opts.on_colors(palette)
@@ -42,7 +45,7 @@ function M.load(opts)
 
 	vim.o.termguicolors = true
 	if opts.terminal_colors ~= false then
-		util.set_terminal_colors(palette)
+		terminal.set_colors(palette)
 	end
 
 	local hl = highlights.get(palette, opts)
@@ -51,15 +54,15 @@ function M.load(opts)
 
 	vim.g.colors_name = "sarnai-" .. opts.style
 
-	if use_cache and cache_key then
-		util.store(cache_key, hl, palette)
+	if is_cache and cache_key then
+		cache.store(cache_key, hl, palette)
 	end
 
 	return palette
 end
 
 function M.clear_cache()
-	util.clear()
+	cache.clear()
 end
 
 return M

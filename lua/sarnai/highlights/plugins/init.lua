@@ -1,8 +1,5 @@
 local M = {}
 
-local util = require("sarnai.util")
-
--- Define plugin mapping table with proper type annotation
 ---@type table<string, string>
 M.plugins = {
 	-- In use
@@ -33,7 +30,7 @@ function M.get(palette, config)
 	for lazy_name, module_name in pairs(M.plugins) do
 		if loaded[module_name] then goto continue end
 
-		if util.is_plugin_enabled(lazy_name, module_name, config) then
+		if require("sarnai.util.plugins").is_enabled(lazy_name, module_name, config) then
 			local success, plugin_highlights = pcall(require, "sarnai.highlights.plugins." .. module_name)
 
 			if success and type(plugin_highlights.get) == "function" then

@@ -1,4 +1,4 @@
-local util = require("sarnai.util")
+local color = require("sarnai.util.color")
 local M = {}
 
 ---@param colors ColorPalette
@@ -91,9 +91,9 @@ function M.get(colors, opts)
 		["@markup.link.text.markdown"] = { fg = syntax.string },
 
 		["@markup.raw"]                 = { fg = syntax.string },
-		["@markup.raw.block.markdown"]  = { fg = syntax.string, bg = transparent_bg or util.darken(ui.bg, 0.1) },
+		["@markup.raw.block.markdown"]  = { fg = syntax.string, bg = transparent_bg or color.darken(ui.bg, 0.1) },
 		["@markup.raw.block.language"]  = { fg = syntax.keyword, bold = styles.bold },
-		["@markup.raw.markdown_inline"] = { bg = util.darken(p.base, 0.1), fg = p.nuur },
+		["@markup.raw.markdown_inline"] = { bg = color.darken(p.base, 0.1), fg = p.nuur },
 
 		["@markup.list"]                    = { fg = syntax.keyword },
 		["@markup.list.checked"]            = { fg = sem.ok },

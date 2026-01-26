@@ -124,11 +124,11 @@
 ---@field none string Special "NONE" value
 ---@field terminal TerminalPalette Terminal colors
 
-local util = require("sarnai.util")
+local color = require("sarnai.util.color")
+local terminal = require("sarnai.util.terminal")
 
 local M = {}
 
----Base Palette
 ---@type BasePalette
 M.base_palette = {
 	-- Core base colors
@@ -150,7 +150,6 @@ M.base_palette = {
 	yargui     = "#d5b3e5",
 }
 
----Base Palette for Ovol
 ---@type BasePalette
 M.light_palette = {
 	-- Core base colors
@@ -172,92 +171,91 @@ M.light_palette = {
 	yargui     = "#a353c6",
 }
 
--- Generate a color palette from a base palette
----@param p BasePalette Base palette to generate from
----@return ColorPalette Full color palette with derived colors
-function M.generate_color_palette(p)
+---@param p BasePalette
+---@return ColorPalette Full
+function M.generate_palette(p)
 	---@type ColorPalette
 	local colors = {
 		palette = p,
 		ui = {
-			bg       = p.base,    -- Main editor background
-			bg_float = p.surface, -- Floating window/popup background
-			bg_popup = p.overlay, -- Selected/highlighted item background
-			fg       = p.text,    -- Main text color
-			border   = p.sarnai,  -- Border color
-			accent   = p.sarnai,  -- Primary accent color
+			bg       = p.base,
+			bg_float = p.surface,
+			bg_popup = p.overlay,
+			fg       = p.text,
+			border   = p.sarnai,
+			accent   = p.sarnai,
 		},
 		syntax = {
 			-- Basic syntax elements
-			punctuation = p.subtle,     -- Punctuation, delimiters
-			comment     = p.muted,      -- Comments
-			constant    = p.els,        -- Constants, numbers
-			string      = p.els,        -- Strings
-			boolean     = p.chatsalgan, -- Booleans
-			variable    = p.text,       -- Variables
+			punctuation = p.subtle,
+			comment     = p.muted,
+			constant    = p.els,
+			string      = p.els,
+			boolean     = p.chatsalgan,
+			variable    = p.text,
 
 			-- Function-related
-			_function = p.sarnai,     -- Generic functions, methods
-			method    = p.sarnai,     -- Method definitions and calls
-			builtin   = p.anis,       -- Built-in functions
-			macro     = p.chatsalgan, -- Macro functions, preprocessor
+			_function = p.sarnai,
+			method    = p.sarnai,
+			builtin   = p.anis,
+			macro     = p.chatsalgan,
 
 			-- Keyword-related
-			keyword = p.nuur,                         -- Generic keywords
-			control = util.blend(p.nuur, p.mus, 0.5), -- Control flow keywords
-			import  = p.yargui,                       -- Import/include keywords
-			storage = p.nuur,                         -- Storage keywords
-			_return = p.nuur,                         -- Return keyword
+			keyword = p.nuur,
+			control = color.blend(p.nuur, p.mus, 0.5),
+			import  = p.yargui,
+			storage = p.nuur,
+			_return = p.nuur,
 
 			-- Type-related
-			type     = p.mus, -- Types, classes
-			property = p.mus, -- Object properties
+			type     = p.mus,
+			property = p.mus,
 
 			-- Other syntax elements
-			operator  = p.subtle, -- Operators
-			parameter = p.yargui, -- Function parameters
-			escape    = p.anis,   -- Escape sequences in strings
-			regex     = p.els,    -- Regular expressions
-			decorator = p.yargui, -- Decorators, attributes
+			operator  = p.subtle,
+			parameter = p.yargui,
+			escape    = p.anis,
+			regex     = p.els,
+			decorator = p.yargui,
 		},
 		semantic = {
-			error    = p.anis,       -- Errors
-			warn     = p.chatsalgan, -- Warnings
-			info     = p.nuur,       -- Information
-			hint     = p.sarnai,     -- Hints
-			ok       = p.uvs,        -- Success/OK
-			error_bg = util.blend(p.anis, p.base, 0.15),       -- Error background
-			warn_bg  = util.blend(p.chatsalgan, p.base, 0.15), -- Warning background
-			info_bg  = util.blend(p.nuur, p.base, 0.15),       -- Info background
-			hint_bg  = util.blend(p.sarnai, p.base, 0.15),     -- Hint background
-			ok_bg    = util.blend(p.uvs, p.base, 0.15),        -- Success background
+			error    = p.anis,
+			warn     = p.chatsalgan,
+			info     = p.nuur,
+			hint     = p.sarnai,
+			ok       = p.uvs,
+			error_bg = color.blend(p.anis, p.base, 0.15),
+			warn_bg  = color.blend(p.chatsalgan, p.base, 0.15),
+			info_bg  = color.blend(p.nuur, p.base, 0.15),
+			hint_bg  = color.blend(p.sarnai, p.base, 0.15),
+			ok_bg    = color.blend(p.uvs, p.base, 0.15),
 		},
 		git = {
-			git_add       = p.uvs,    -- Added content
-			git_change    = p.els,    -- Changed content
-			git_delete    = p.anis,   -- Deleted content
-			git_dirty     = p.sarnai, -- Dirty/unstaged changes
-			git_ignore    = p.muted,  -- Ignored files
-			git_merge     = p.yargui, -- Merge conflicts
-			git_rename    = p.nuur,   -- Renamed content
-			git_text      = p.sarnai, -- Git text (commit messages, etc.)
-			git_add_bg    = util.blend(p.uvs, p.base, 0.15),    -- Added content background
-			git_change_bg = util.blend(p.els, p.base, 0.15),    -- Changed content background
-			git_delete_bg = util.blend(p.anis, p.base, 0.15),   -- Deleted content background
-			git_dirty_bg  = util.blend(p.sarnai, p.base, 0.15), -- Dirty/unstaged changes background
-			git_ignore_bg = util.blend(p.muted, p.base, 0.15),  -- Ignored files background
-			git_merge_bg  = util.blend(p.yargui, p.base, 0.15), -- Merge conflicts background
-			git_rename_bg = util.blend(p.nuur, p.base, 0.15),   -- Renamed content background
-			git_text_bg   = util.blend(p.sarnai, p.base, 0.15), -- Git text (commit messages, etc.) background
+			git_add       = p.uvs,
+			git_change    = p.els,
+			git_delete    = p.anis,
+			git_dirty     = p.sarnai,
+			git_ignore    = p.muted,
+			git_merge     = p.yargui,
+			git_rename    = p.nuur,
+			git_text      = p.sarnai,
+			git_add_bg    = color.blend(p.uvs, p.base, 0.15),
+			git_change_bg = color.blend(p.els, p.base, 0.15),
+			git_delete_bg = color.blend(p.anis, p.base, 0.15),
+			git_dirty_bg  = color.blend(p.sarnai, p.base, 0.15),
+			git_ignore_bg = color.blend(p.muted, p.base, 0.15),
+			git_merge_bg  = color.blend(p.yargui, p.base, 0.15),
+			git_rename_bg = color.blend(p.nuur, p.base, 0.15),
+			git_text_bg   = color.blend(p.sarnai, p.base, 0.15),
 		},
 		special = {
-			link      = p.nuur,                           -- Links, URLs
-			special   = p.mus,                            -- Special elements
-			symbol    = util.blend(p.mus, p.els, 0.5),    -- Special symbols
-			character = util.blend(p.mus, p.sarnai, 0.5), -- Special characters
-			note      = p.nuur,                           -- Notes in comments
-			todo      = p.sarnai,                         -- TODOs in comments
-			warning   = p.chatsalgan,                     -- Warning notes
+			link      = p.nuur,
+			special   = p.mus,
+			symbol    = color.blend(p.mus, p.els, 0.5),
+			character = color.blend(p.mus, p.sarnai, 0.5),
+			note      = p.nuur,
+			todo      = p.sarnai,
+			warning   = p.chatsalgan,
 		},
 		rainbow = {
 			h1 = p.mus,
@@ -268,28 +266,25 @@ function M.generate_color_palette(p)
 			h6 = p.nuur,
 		},
 		none = "NONE",
-		terminal = util.get_terminal_colors(p),
+		terminal = terminal.get_colors(p),
 	}
 
 	return colors
 end
 
--- Function to get the khavar (dark) theme
 ---@return ColorPalette
 function M.get_khavar()
-	return M.generate_color_palette(M.base_palette)
+	return M.generate_palette(M.base_palette)
 end
 
--- Function to get the ovol (light) theme
 ---@return ColorPalette
 function M.get_ovol()
-	return M.generate_color_palette(M.light_palette)
+	return M.generate_palette(M.light_palette)
 end
 
--- Get colors based on style
 ---@param style Style
 ---@return ColorPalette
-function M.get_colors(style)
+function M.get(style)
 	if style == "ovol" then
 		return M.get_ovol()
 	end
