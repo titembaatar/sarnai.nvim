@@ -3,7 +3,7 @@ local M = {}
 M.url="https://github.com/Saghen/blink.cmp"
 
 ---@param colors ColorPalette
----@return Highlights
+---@return Groups
 function M.get(colors)
 	local p = colors.palette
 	local ui = colors.ui

@@ -9,7 +9,7 @@ local M = {}
 M.url="https://github.com/lewis6991/gitsigns.nvim"
 
 ---@param colors ColorPalette
----@return Highlights
+---@return Groups
 function M.get(colors)
 	local git = colors.git
 

@@ -1,10 +1,10 @@
----@class HighlightsCache
----@field highlights Highlights
+---@class GroupsCache
+---@field groups Groups
 ---@field palette ColorPalette
 
 local M = {}
 
----@type table<string, HighlightsCache>
+---@type table<string, GroupsCache>
 M._cache = {}
 
 ---@param opts SarnaiConfig
@@ -39,7 +39,7 @@ function M.generate(opts)
 end
 
 ---@param key string Cache key
----@param highlights Highlights
+---@param highlights Groups
 ---@param palette ColorPalette
 function M.store(key, highlights, palette)
 	M._cache[key] = {
@@ -49,7 +49,7 @@ function M.store(key, highlights, palette)
 end
 
 ---@param key string Cache key
----@return HighlightsCache|nil
+---@return GroupsCache|nil
 function M.get(key)
 	return M._cache[key]
 end

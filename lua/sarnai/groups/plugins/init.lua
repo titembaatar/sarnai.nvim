@@ -19,10 +19,10 @@ M.plugins = {
 
 ---@param palette ColorPalette
 ---@param config SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(palette, config)
-	---@type Highlights
-	local highlights = {}
+	---@type Groups
+	local groups = {}
 
 	---@type table<string, boolean>
 	local loaded = {}
@@ -34,7 +34,7 @@ function M.get(palette, config)
 			local success, plugin_highlights = pcall(require, "sarnai.highlights.plugins." .. module_name)
 
 			if success and type(plugin_highlights.get) == "function" then
-				highlights = vim.tbl_deep_extend("force", highlights, plugin_highlights.get(palette, config))
+				groups = vim.tbl_deep_extend("force", groups, plugin_highlights.get(palette, config))
 				loaded[module_name] = true
 			end
 		end
@@ -42,7 +42,7 @@ function M.get(palette, config)
 		::continue::
 	end
 
-	return highlights
+	return groups
 end
 
 return M

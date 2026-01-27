@@ -10,7 +10,7 @@ M.url="https://github.com/folke/which-key.nvim"
 
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(colors, opts)
 	local p = colors.palette
 	local sem = colors.semantic

@@ -1,10 +1,10 @@
-local color = require("sarnai.util.color")
+local Util = require("sarnai.util")
 
 local M = {}
 
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(colors, opts)
 	local p = colors.palette
 	local ui = colors.ui
@@ -50,7 +50,7 @@ function M.get(colors, opts)
 
 		LspReferenceText  = { bg = p.surface },
 		LspReferenceRead  = { link = "LspReferenceText" },
-		LspReferenceWrite = { bg = color.blend(special.link, ui.bg, 0.2) },
+		LspReferenceWrite = { bg = Util.blend(special.link, ui.bg, 0.2) },
 
 		LspCodeLens          = { fg = p.muted },
 		LspCodeLensSeparator = { fg = p.muted },
@@ -68,7 +68,7 @@ function M.get(colors, opts)
 		LightBulbFloatWin = { link = "LightBulb" },
 
 		LspRenameTitle = { fg = sem.hint, bold = styles.bold },
-		LspRenameMatch = { bg = color.blend(sem.hint, ui.bg, 0.2) },
+		LspRenameMatch = { bg = Util.blend(sem.hint, ui.bg, 0.2) },
 
 		CmpItemAbbr           = { fg = p.subtle },
 		CmpItemAbbrDeprecated = { fg = p.subtle, strikethrough = true },

@@ -1,34 +1,34 @@
----@alias Highlights table<string, table>
+---@alias Groups table<string, table>
 
 local M = {}
 
 ---@param palette ColorPalette
 ---@param config SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(palette, config)
-	local highlights = {}
+	local groups = {}
 
-	highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.base").get(palette, config))
-	highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.lsp").get(palette, config))
-	highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.treesitter").get(palette, config))
-	highlights = vim.tbl_deep_extend("force", highlights, require("sarnai.highlights.plugins").get(palette, config))
+	groups = vim.tbl_deep_extend("force", groups, require("sarnai.groups.base").get(palette, config))
+	groups = vim.tbl_deep_extend("force", groups, require("sarnai.groups.lsp").get(palette, config))
+	groups = vim.tbl_deep_extend("force", groups, require("sarnai.groups.treesitter").get(palette, config))
+	groups = vim.tbl_deep_extend("force", groups, require("sarnai.groups.plugins").get(palette, config))
 
 	if config.on_highlights and type(config.on_highlights) == "function" then
-		config.on_highlights(highlights, palette)
+		config.on_highlights(groups, palette)
 	end
 
-	return highlights
+	return groups
 end
 
----@param highlights Highlights
-function M.set(highlights)
+---@param groups Groups
+function M.set(groups)
 	if vim.g.colors_name then
 		vim.cmd("hi clear")
 	end
 
 	vim.o.termguicolors = true
 
-	for group, opts in pairs(highlights) do
+	for group, opts in pairs(groups) do
 		if type(opts) ~= "table" then
 			vim.notify(
 				"Invalid highlight options for group " .. group .. ": " .. tostring(opts),
