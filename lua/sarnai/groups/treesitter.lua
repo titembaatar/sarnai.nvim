@@ -1,4 +1,5 @@
 local Util = require("sarnai.util")
+
 local M = {}
 
 ---@param colors ColorPalette
