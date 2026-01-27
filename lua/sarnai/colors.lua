@@ -1,4 +1,4 @@
----@alias Style "khavar" | "ovol"
+---@alias Style "khavar" | "ovol" | nil
 
 ---@class BasePalette
 ---@field base HEX Main background color
