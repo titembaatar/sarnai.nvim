@@ -46,12 +46,12 @@ end
 
 ---@param palette ColorPalette
 function M.set_colors(palette)
-	if not palette.terminal then return end
-
 	local t = palette.terminal
-	if type(t) ~= "table" then return end
-
 	local none = palette.none or "NONE"
+
+	if not palette.terminal or type(t) ~= "table" then
+		return
+	end
 
 	vim.g.terminal_color_0  = t.black or none
 	vim.g.terminal_color_1  = t.red or none
