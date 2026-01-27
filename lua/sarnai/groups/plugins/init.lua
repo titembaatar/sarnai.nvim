@@ -10,77 +10,50 @@ M.plugins = {
 	["trouble.nvim"]         = "trouble",
 
 	-- Stopped maintenance
-	["fzf-lua"]        = "fzf_lua",
-	["gitsigns.nvim"]  = "git",
-	["nvim-dap"]       = "dap",
-	["telescope.nvim"] = "telescope",
-	["which-key.nvim"] = "which_key",
+	["fzf-lua"]              = "fzf_lua",
+	["gitsigns.nvim"]        = "git",
+	["nvim-dap"]             = "dap",
+	["telescope.nvim"]       = "telescope",
+	["which-key.nvim"]       = "which_key",
 }
 
----@param lazy_name string
----@param module_name string
----@param config SarnaiConfig
----@return boolean
-function M.is_enabled(lazy_name, module_name, config)
-	local plugins = config.plugins or {}
+---@param colors ColorPalette
+---@param opts SarnaiConfig
+---@return Groups
+function M.get(colors, opts)
+	local plugins = {}
 
-	if plugins[module_name] ~= nil then
-		return plugins[module_name]
-	end
-
-	local is_lazy = package.loaded["lazy"] ~= nil
-
-	if plugins.auto ~= false and is_lazy then
-		local loaded_plugins = {}
-		for _, p in ipairs(require("lazy").plugins()) do
-			loaded_plugins[p.name] = true
+	if opts.plugins.all then
+		for _, group in pairs(M.plugins) do
+			plugins[group] = true
 		end
-
-		if loaded_plugins[lazy_name] then
-			return true
-		end
-
-		if lazy_name == "mini.nvim" then
-			local rtp = vim.opt.runtimepath:get()
-			for _, path in ipairs(rtp) do
-				if path:match("mini%.nvim") then
-					return true
-				end
+	elseif opts.plugins.auto and package.loaded.lazy then
+		local lazy_plugins = require("lazy.core.config").plugins
+		for plugin, group in pairs(M.plugins) do
+			if lazy_plugins[plugin] then
+				plugins[group] = true
 			end
 		end
 	end
 
-	if plugins.all ~= false and not is_lazy then
-		return true
+	for plugin, group in pairs(M.plugins) do
+		local use = opts.plugins[group]
+		use = use == nil and opts.plugins[plugin] or use
+		if use ~= nil then
+			plugins[group] = use
+		end
 	end
 
-	local ok, _ = pcall(require, lazy_name:gsub("%.nvim$", ""):gsub("-", "."))
-	return ok
-end
-
----@param palette ColorPalette
----@param config SarnaiConfig
----@return Groups
-function M.get(palette, config)
-	---@type Groups
 	local groups = {}
 
-	---@type table<string, boolean>
-	local loaded = {}
-
-	for lazy_name, module_name in pairs(M.plugins) do
-		if loaded[module_name] then goto continue end
-
-		if M.is_enabled(lazy_name, module_name, config) then
-			local success, plugin_highlights = pcall(require, "sarnai.groups.plugins." .. module_name)
-
-			if success and type(plugin_highlights.get) == "function" then
-				groups = vim.tbl_deep_extend("force", groups, plugin_highlights.get(palette, config))
-				loaded[module_name] = true
+	for plugin_module, enabled in pairs(plugins) do
+		if enabled then
+			local ok, plugin = pcall(require, "sarnai.groups.plugins." .. plugin_module)
+			if ok and type(plugin.get) == "function" then
+				local group = plugin.get(colors, opts)
+				groups = vim.tbl_extend("force", groups, group)
 			end
 		end
-
-		::continue::
 	end
 
 	return groups
