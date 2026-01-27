@@ -39,11 +39,11 @@ function M.generate(opts)
 end
 
 ---@param key string Cache key
----@param highlights Groups
+---@param groups Groups
 ---@param palette ColorPalette
-function M.store(key, highlights, palette)
-	M._cache[key] = {
-		highlights = highlights,
+function M.store(key, groups, palette)
+	M.cache[key] = {
+		highlights = groups,
 		palette = palette
 	}
 end
@@ -61,7 +61,7 @@ function M.exists(key)
 end
 
 function M.clear()
-	M._cache = {}
+	M.cache = {}
 end
 
 return M
