@@ -17,6 +17,47 @@ M.plugins = {
 	["which-key.nvim"] = "which_key",
 }
 
+---@param lazy_name string
+---@param module_name string
+---@param config SarnaiConfig
+---@return boolean
+function M.is_enabled(lazy_name, module_name, config)
+	local plugins = config.plugins or {}
+
+	if plugins[module_name] ~= nil then
+		return plugins[module_name]
+	end
+
+	local is_lazy = package.loaded["lazy"] ~= nil
+
+	if plugins.auto ~= false and is_lazy then
+		local loaded_plugins = {}
+		for _, p in ipairs(require("lazy").plugins()) do
+			loaded_plugins[p.name] = true
+		end
+
+		if loaded_plugins[lazy_name] then
+			return true
+		end
+
+		if lazy_name == "mini.nvim" then
+			local rtp = vim.opt.runtimepath:get()
+			for _, path in ipairs(rtp) do
+				if path:match("mini%.nvim") then
+					return true
+				end
+			end
+		end
+	end
+
+	if plugins.all ~= false and not is_lazy then
+		return true
+	end
+
+	local ok, _ = pcall(require, lazy_name:gsub("%.nvim$", ""):gsub("-", "."))
+	return ok
+end
+
 ---@param palette ColorPalette
 ---@param config SarnaiConfig
 ---@return Groups
@@ -30,8 +71,8 @@ function M.get(palette, config)
 	for lazy_name, module_name in pairs(M.plugins) do
 		if loaded[module_name] then goto continue end
 
-		if require("lua.sarnai.util.plugin").is_enabled(lazy_name, module_name, config) then
-			local success, plugin_highlights = pcall(require, "sarnai.highlights.plugins." .. module_name)
+		if M.is_enabled(lazy_name, module_name, config) then
+			local success, plugin_highlights = pcall(require, "sarnai.groups.plugins." .. module_name)
 
 			if success and type(plugin_highlights.get) == "function" then
 				groups = vim.tbl_deep_extend("force", groups, plugin_highlights.get(palette, config))
