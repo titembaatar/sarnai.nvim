@@ -124,8 +124,8 @@
 ---@field none string Special "NONE" value
 ---@field terminal TerminalPalette Terminal colors
 
-local color = require("sarnai.util.color")
-local terminal = require("sarnai.util.terminal")
+local Util = require("sarnai.util")
+local Term = require("sarnai.terminal")
 
 local M = {}
 
@@ -202,7 +202,7 @@ function M.generate_palette(p)
 
 			-- Keyword-related
 			keyword = p.nuur,
-			control = color.blend(p.nuur, p.mus, 0.5),
+			control = Util.blend(p.nuur, p.mus, 0.5),
 			import  = p.yargui,
 			storage = p.nuur,
 			_return = p.nuur,
@@ -224,11 +224,11 @@ function M.generate_palette(p)
 			info     = p.nuur,
 			hint     = p.sarnai,
 			ok       = p.uvs,
-			error_bg = color.blend(p.anis, p.base, 0.15),
-			warn_bg  = color.blend(p.chatsalgan, p.base, 0.15),
-			info_bg  = color.blend(p.nuur, p.base, 0.15),
-			hint_bg  = color.blend(p.sarnai, p.base, 0.15),
-			ok_bg    = color.blend(p.uvs, p.base, 0.15),
+			error_bg = Util.blend(p.anis, p.base, 0.15),
+			warn_bg  = Util.blend(p.chatsalgan, p.base, 0.15),
+			info_bg  = Util.blend(p.nuur, p.base, 0.15),
+			hint_bg  = Util.blend(p.sarnai, p.base, 0.15),
+			ok_bg    = Util.blend(p.uvs, p.base, 0.15),
 		},
 		git = {
 			git_add       = p.uvs,
@@ -239,20 +239,20 @@ function M.generate_palette(p)
 			git_merge     = p.yargui,
 			git_rename    = p.nuur,
 			git_text      = p.sarnai,
-			git_add_bg    = color.blend(p.uvs, p.base, 0.15),
-			git_change_bg = color.blend(p.els, p.base, 0.15),
-			git_delete_bg = color.blend(p.anis, p.base, 0.15),
-			git_dirty_bg  = color.blend(p.sarnai, p.base, 0.15),
-			git_ignore_bg = color.blend(p.muted, p.base, 0.15),
-			git_merge_bg  = color.blend(p.yargui, p.base, 0.15),
-			git_rename_bg = color.blend(p.nuur, p.base, 0.15),
-			git_text_bg   = color.blend(p.sarnai, p.base, 0.15),
+			git_add_bg    = Util.blend(p.uvs, p.base, 0.15),
+			git_change_bg = Util.blend(p.els, p.base, 0.15),
+			git_delete_bg = Util.blend(p.anis, p.base, 0.15),
+			git_dirty_bg  = Util.blend(p.sarnai, p.base, 0.15),
+			git_ignore_bg = Util.blend(p.muted, p.base, 0.15),
+			git_merge_bg  = Util.blend(p.yargui, p.base, 0.15),
+			git_rename_bg = Util.blend(p.nuur, p.base, 0.15),
+			git_text_bg   = Util.blend(p.sarnai, p.base, 0.15),
 		},
 		special = {
 			link      = p.nuur,
 			special   = p.mus,
-			symbol    = color.blend(p.mus, p.els, 0.5),
-			character = color.blend(p.mus, p.sarnai, 0.5),
+			symbol    = Util.blend(p.mus, p.els, 0.5),
+			character = Util.blend(p.mus, p.sarnai, 0.5),
 			note      = p.nuur,
 			todo      = p.sarnai,
 			warning   = p.chatsalgan,
@@ -266,7 +266,7 @@ function M.generate_palette(p)
 			h6 = p.nuur,
 		},
 		none = "NONE",
-		terminal = terminal.get_colors(p),
+		terminal = Term.get_colors(p),
 	}
 
 	return colors
