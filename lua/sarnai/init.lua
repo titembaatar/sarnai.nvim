@@ -1,37 +1,37 @@
-local config = require("sarnai.config")
-local colors = require("sarnai.colors")
-local cache = require("sarnai.util.cache")
-local terminal = require("sarnai.util.terminal")
-local highlights = require("sarnai.highlights")
+local Config = require("sarnai.config")
+local Colors = require("sarnai.colors")
+local Cache = require("sarnai.cache")
+local Term = require("sarnai.terminal")
+local Groups = require("sarnai.groups")
 
 local M = {}
 
 ---@param opts? SarnaiConfig
 function M.setup(opts)
-	M.options = vim.tbl_deep_extend("force", config.defaults, opts or {})
+	M.options = vim.tbl_deep_extend("force", Config.defaults, opts or {})
 end
 
 ---@param opts? SarnaiConfig
 ---@return ColorPalette
 function M.load(opts)
-	opts = vim.tbl_deep_extend("force", M.options or config.defaults, opts or {})
+	opts = vim.tbl_deep_extend("force", M.options or Config.defaults, opts or {})
 
 	local is_cache = opts.cache ~= false
-	local cache_key = is_cache and cache.generate(opts) or nil
+	local cache_key = is_cache and Cache.generate(opts) or nil
 
-	if is_cache and cache_key and cache.exists(cache_key) then
-		local stored = cache.get(cache_key)
+	if is_cache and cache_key and Cache.exists(cache_key) then
+		local stored = Cache.get(cache_key)
 
 		vim.g.colors_name = "sarnai-" .. opts.style
 		vim.o.background = opts.style == "ovol" and "light" or "dark"
 
 		if stored ~= nil then
-			highlights.set(stored.highlights)
+			Groups.set(stored)
 			return stored.palette
 		end
 	end
 
-	local palette = colors.get(opts.style)
+	local palette = Colors.get(opts.style)
 
 	if opts.on_colors and type(opts.on_colors) == "function" then
 		opts.on_colors(palette)
@@ -45,24 +45,24 @@ function M.load(opts)
 
 	vim.o.termguicolors = true
 	if opts.terminal_colors ~= false then
-		terminal.set_colors(palette)
+		Term.set_colors(palette)
 	end
 
-	local hl = highlights.get(palette, opts)
+	local hl = Groups.get(palette, opts)
 
-	highlights.set(hl)
+	Groups.set(hl)
 
 	vim.g.colors_name = "sarnai-" .. opts.style
 
 	if is_cache and cache_key then
-		cache.store(cache_key, hl, palette)
+		Cache.store(cache_key, hl, palette)
 	end
 
 	return palette
 end
 
 function M.clear_cache()
-	cache.clear()
+	Cache.clear()
 end
 
 return M

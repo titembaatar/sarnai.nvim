@@ -1,10 +1,10 @@
-local color = require("sarnai.util.color")
+local Util = require("sarnai.util")
 
 local M = {}
 
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(colors, opts)
 	local p = colors.palette
 	local ui = colors.ui
@@ -20,7 +20,7 @@ function M.get(colors, opts)
 	local highlights = {
 		-- Core UI elements
 		Normal      = { fg = ui.fg, bg = transparent_bg or ui.bg },
-		NormalNC    = { fg = p.subtle, bg = transparent_bg or color.darken(ui.bg, 0.1) },
+		NormalNC    = { fg = p.subtle, bg = transparent_bg or Util.darken(ui.bg, 0.1) },
 		NormalFloat = { fg = ui.fg, bg = transparent_bg or ui.bg_float },
 
 		-- Line numbers
@@ -30,7 +30,7 @@ function M.get(colors, opts)
 		-- Cursor
 		Cursor       = { fg = ui.bg, bg = ui.fg },
 		CursorIM     = { link = "Cursor" },
-		CursorLine   = { bg = transparent_bg or color.lighten(ui.bg, 0.05) },
+		CursorLine   = { bg = transparent_bg or Util.lighten(ui.bg, 0.05) },
 		CursorColumn = { link = "CursorLine" },
 
 		-- Status line
@@ -38,11 +38,11 @@ function M.get(colors, opts)
 		StatusLineNC = { fg = p.muted, bg = ui.bg },
 
 		-- Window separators
-		VertSplit    = { fg = color.darken(ui.bg, 0.1) },
+		VertSplit    = { fg = Util.darken(ui.bg, 0.1) },
 		WinSeparator = { link = "VertSplit" },
 
 		-- Search highlighting
-		Search    = { fg = ui.fg, bg = color.blend(ui.accent, ui.bg, 0.2) },
+		Search    = { fg = ui.fg, bg = Util.blend(ui.accent, ui.bg, 0.2) },
 		IncSearch = { fg = ui.bg, bg = ui.accent },
 
 		-- Visual mode
@@ -72,13 +72,13 @@ function M.get(colors, opts)
 		Question   = { fg = sem.info },
 
 		-- Diff
-		DiffAdd    = { bg = color.blend(git.git_add, ui.bg, 0.2) },
-		DiffChange = { bg = color.blend(git.git_change, ui.bg, 0.2) },
-		DiffDelete = { bg = color.blend(git.git_delete, ui.bg, 0.2) },
-		DiffText   = { bg = color.blend(git.git_text, ui.bg, 0.4) },
+		DiffAdd    = { bg = Util.blend(git.git_add, ui.bg, 0.2) },
+		DiffChange = { bg = Util.blend(git.git_change, ui.bg, 0.2) },
+		DiffDelete = { bg = Util.blend(git.git_delete, ui.bg, 0.2) },
+		DiffText   = { bg = Util.blend(git.git_text, ui.bg, 0.4) },
 
 		-- Matching parenthesis
-		MatchParen = { fg = ui.accent, bg = color.blend(ui.accent, ui.bg, 0.3), bold = styles.bold },
+		MatchParen = { fg = ui.accent, bg = Util.blend(ui.accent, ui.bg, 0.3), bold = styles.bold },
 
 		-- Special characters
 		NonText    = { fg = p.muted },

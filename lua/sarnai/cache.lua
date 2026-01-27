@@ -5,7 +5,7 @@
 local M = {}
 
 ---@type table<string, GroupsCache>
-M._cache = {}
+M.cache = {}
 
 ---@param opts SarnaiConfig
 ---@return string
@@ -43,7 +43,7 @@ end
 ---@param palette ColorPalette
 function M.store(key, groups, palette)
 	M.cache[key] = {
-		highlights = groups,
+		groups = groups,
 		palette = palette
 	}
 end
@@ -51,13 +51,13 @@ end
 ---@param key string Cache key
 ---@return GroupsCache|nil
 function M.get(key)
-	return M._cache[key]
+	return M.cache[key]
 end
 
 ---@param key string Cache key
 ---@return boolean
 function M.exists(key)
-	return M._cache[key] ~= nil
+	return M.cache[key] ~= nil
 end
 
 function M.clear()
