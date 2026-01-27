@@ -21,11 +21,11 @@
 
 ---@class SarnaiConfig
 ---@field style Style # "khavar" (dark) or "ovol" (light)
----@field transparent boolean # transparent backgrounds
----@field terminal_colors boolean
----@field styles table<string, boolean|StyleConfig>
----@field plugins PluginsConfig
----@field cache boolean
+---@field transparent? boolean # transparent backgrounds
+---@field terminal_colors? boolean
+---@field styles? table<string, boolean|StyleConfig>
+---@field plugins? PluginsConfig
+---@field cache? boolean
 ---@field on_colors? fun(colors: ColorPalette): nil # override colors
 ---@field on_highlights? fun(highlights: table, colors: ColorPalette): nil # override highlights
 
