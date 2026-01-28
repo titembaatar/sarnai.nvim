@@ -12,7 +12,7 @@
 
 ## Features
 
-- Dark `**Khavar**` and light `**Ovol**` variants
+- Dark `Khavar` and light `Ovol` variants
 - Aim to reduce eye strain
 - Treesitter integration
 - Some plugin compatibility
@@ -46,7 +46,7 @@
 After installation, you can set the colorscheme using in your `init.lua`
 
 ```lua
-vim.cmd.colorscheme("sarnai")        -- Default (khavar/dark)
+vim.cmd.colorscheme("sarnai")        -- Default (follows `vim.o.background`)
 vim.cmd.colorscheme("sarnai-khavar") -- Explicitly dark theme
 vim.cmd.colorscheme("sarnai-ovol")   -- Light theme
 ```
@@ -88,8 +88,7 @@ require("sarnai").setup({
     auto = true,
 
     -- Override specific plugins
-    -- mini = true,
-    -- trouble = true,
+    -- trouble = false,
   },
 
   -- Enable caching for better performance
@@ -97,14 +96,18 @@ require("sarnai").setup({
 
   -- Override colors
   on_colors = function(colors)
-    -- Example: Customize the pink accent
+    -- Example: Customize the pink palette colors
     -- colors.palette.sarnai = "#e5a3ab"
+    -- Example: Customize the syntax boolean elements
+    -- colors.syntax.boolean = "#ff0000"
   end,
 
-  -- Override highlights
-  on_highlights = function(highlights, colors)
+  -- Override highlights groups
+  on_highlights = function(groups, colors)
     -- Example: Custom comment styling
-    -- highlights.Comment = { fg = colors.palette.muted, italic = true }
+    -- groups.Comment = { fg = colors.palette.muted, italic = true }
+    -- Example: Custom mini.statusline highlights
+    -- groups.MiniStatuslineModeInsert  = { bg = colors.palette.yargui },
   end,
 })
 ```
