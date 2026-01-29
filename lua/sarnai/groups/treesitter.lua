@@ -6,15 +6,14 @@ local M = {}
 ---@param opts SarnaiConfig
 ---@return Groups
 function M.get(colors, opts)
+	local styles = opts.styles or {}
+	local transparent_bg = opts.transparent and "NONE" or nil
 	local p = colors.palette
-	local git = colors.git
+	local ui = colors.ui
 	local sem = colors.semantic
 	local special = colors.special
 	local syntax = colors.syntax
-	local ui = colors.ui
-
-	local styles = opts.styles or {}
-	local transparent_bg = opts.transparent and "NONE" or nil
+	local git = colors.git
 
 	return {
 		-- Treesitter syntax groups
@@ -149,7 +148,7 @@ function M.get(colors, opts)
 		["@lsp.type.comment"]       = { link = "@comment" },
 		["@lsp.type.decorator"]     = { link = "@attribute" },
 		["@lsp.type.enum"]          = { link = "@type" },
-		["@lsp.type.enumMember"]    = {link = "@constant" },
+		["@lsp.type.enumMember"]    = { link = "@constant" },
 		["@lsp.type.function"]      = { link = "@function" },
 		["@lsp.type.interface"]     = { link = "@type" },
 		["@lsp.type.keyword"]       = { link = "@keyword" },

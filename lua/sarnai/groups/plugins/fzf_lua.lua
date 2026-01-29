@@ -12,12 +12,11 @@ M.url="https://github.com/ibhagwan/fzf-lua"
 ---@param opts SarnaiConfig
 ---@return Groups
 function M.get(colors, opts)
+	local styles = opts.styles or {}
+	local transparent_bg = opts.transparent and "NONE" or nil
 	local p = colors.palette
 	local ui = colors.ui
 	local sem = colors.semantic
-
-	local styles = opts.styles or {}
-	local transparent_bg = opts.transparent and "NONE" or nil
 
 	return {
 		-- Main window highlights

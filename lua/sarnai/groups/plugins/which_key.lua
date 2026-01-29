@@ -12,12 +12,11 @@ M.url="https://github.com/folke/which-key.nvim"
 ---@param opts SarnaiConfig
 ---@return Groups
 function M.get(colors, opts)
+	local transparent_bg = opts.transparent and "NONE" or nil
 	local p = colors.palette
+	local ui = colors.ui
 	local sem = colors.semantic
 	local syntax = colors.syntax
-	local ui = colors.ui
-
-	local transparent_bg = opts.transparent and "NONE" or nil
 
 	return {
 		WhichKey           = { fg = syntax._function },

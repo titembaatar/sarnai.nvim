@@ -6,8 +6,8 @@
 ---@field strikethrough? boolean
 
 ---@class PluginsConfig
----@field all boolean # Enable all plugins when not using lazy.nvim
----@field auto boolean # Use lazy.nvim to enable plugins
+---@field all boolean
+---@field auto boolean
 ---@field mini? boolean
 ---@field trouble? boolean
 ---@field which_key? boolean
@@ -20,14 +20,14 @@
 ---@field snacks? boolean
 
 ---@class SarnaiConfig
----@field style Style # "khavar" (dark) or "ovol" (light)
----@field transparent? boolean # transparent backgrounds
+---@field style Style
+---@field transparent? boolean
 ---@field terminal_colors? boolean
 ---@field styles? table<string, boolean|StyleConfig>
 ---@field plugins? PluginsConfig
 ---@field cache? boolean
----@field on_colors? fun(colors: ColorPalette): nil # override colors
----@field on_highlights? fun(highlights: table, colors: ColorPalette): nil # override highlights
+---@field on_colors? fun(colors: ColorPalette): nil
+---@field on_highlights? fun(highlights: table, colors: ColorPalette): nil
 
 local M = {}
 

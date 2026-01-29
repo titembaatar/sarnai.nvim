@@ -6,13 +6,12 @@ local M = {}
 ---@param opts SarnaiConfig
 ---@return Groups
 function M.get(colors, opts)
+	local styles = opts.styles or {}
+	local transparent_bg = opts.transparent and "NONE" or nil
 	local p = colors.palette
 	local ui = colors.ui
 	local sem = colors.semantic
 	local special = colors.special
-
-	local styles = opts.styles or {}
-	local transparent_bg = opts.transparent and "NONE" or nil
 
 	return {
 		DiagnosticError = { fg = sem.error },
@@ -57,7 +56,7 @@ function M.get(colors, opts)
 
 		LspInlayHint = { fg = p.muted, bg = transparent_bg or ui.bg, italic = styles.italic },
 
-		LspSignatureActiveParameter = {fg = sem.warn, bg = transparent_bg or sem.warn_bg},                                                                                       -- Active parameter in signature help
+		LspSignatureActiveParameter = {fg = sem.warn, bg = transparent_bg or sem.warn_bg},
 
 		NormalFloat = { fg = ui.fg, bg = transparent_bg or ui.bg_float },
 		FloatBorder = { fg = ui.border, bg = transparent_bg or ui.bg_float },

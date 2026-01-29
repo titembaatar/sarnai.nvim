@@ -6,144 +6,100 @@ local M = {}
 ---@param opts SarnaiConfig
 ---@return Groups
 function M.get(colors, opts)
-	local p = colors.palette
-	local ui = colors.ui
-	local git = colors.git
-	local r = colors.rainbow
-	local sem = colors.semantic
-	local syntax = colors.syntax
-	local special = colors.special
-
 	local styles = opts.styles or {}
 	local transparent_bg = opts.transparent and "NONE" or nil
+	local p = colors.palette
+	local ui = colors.ui
+	local sem = colors.semantic
+	local special = colors.special
+	local syntax = colors.syntax
+	local git = colors.git
+	local r = colors.rainbow
 
-	local highlights = {
-		-- Core UI elements
-		Normal      = { fg = ui.fg, bg = transparent_bg or ui.bg },
-		NormalNC    = { fg = p.subtle, bg = transparent_bg or Util.darken(ui.bg, 0.1) },
-		NormalFloat = { fg = ui.fg, bg = transparent_bg or ui.bg_float },
-
-		-- Line numbers
-		LineNr       = { fg = p.muted },
-		CursorLineNr = { fg = ui.accent },
-
-		-- Cursor
-		Cursor       = { fg = ui.bg, bg = ui.fg },
-		CursorIM     = { link = "Cursor" },
-		CursorLine   = { bg = transparent_bg or Util.lighten(ui.bg, 0.05) },
-		CursorColumn = { link = "CursorLine" },
-
-		-- Status line
-		StatusLine   = { fg = ui.fg, bg = ui.bg },
-		StatusLineNC = { fg = p.muted, bg = ui.bg },
-
-		-- Window separators
-		VertSplit    = { fg = Util.darken(ui.bg, 0.1) },
-		WinSeparator = { link = "VertSplit" },
-
-		-- Search highlighting
-		Search    = { fg = ui.fg, bg = Util.blend(ui.accent, ui.bg, 0.2) },
-		IncSearch = { fg = ui.bg, bg = ui.accent },
-
-		-- Visual mode
-		Visual    = { bg = p.overlay },
-		VisualNOS = { link = "Visual" },
-
-		-- Folding
-		Folded     = { fg = ui.fg, bg = colors.none },
-		FoldColumn = { fg = p.muted },
-
-		-- Tab line
-		TabLine     = { fg = p.subtle, bg = p.surface },
-		TabLineFill = { bg = ui.bg },
-		TabLineSel  = { fg = ui.fg, bg = p.overlay },
-		SignColumn  = { fg = ui.fg, bg = colors.none },
-
-		-- Popup menu
-		Pmenu      = { fg= p.subtle, bg = ui.bg_float },
-		PmenuSel   = { fg = ui.fg, bg = ui.bg_popup },
-		PmenuSbar  = { bg = ui.bg_float },
-		PmenuThumb = { bg = ui.bg_popup },
-
-		-- Messages
-		ErrorMsg   = { fg = sem.error },
-		WarningMsg = { fg = sem.warn },
-		MoreMsg    = { fg = sem.ok },
-		Question   = { fg = sem.info },
-
-		-- Diff
-		DiffAdd    = { bg = Util.blend(git.git_add, ui.bg, 0.2) },
-		DiffChange = { bg = Util.blend(git.git_change, ui.bg, 0.2) },
-		DiffDelete = { bg = Util.blend(git.git_delete, ui.bg, 0.2) },
-		DiffText   = { bg = Util.blend(git.git_text, ui.bg, 0.4) },
-
-		-- Matching parenthesis
-		MatchParen = { fg = ui.accent, bg = Util.blend(ui.accent, ui.bg, 0.3), bold = styles.bold },
-
-		-- Special characters
-		NonText    = { fg = p.muted },
-		SpecialKey = { fg = syntax.escape },
-
-		-- Spell checking
-		SpellBad   = { sp = sem.error, undercurl = true },
-		SpellCap   = { sp = sem.warn, undercurl = true },
-		SpellLocal = { sp = sem.ok, undercurl = true },
-		SpellRare  = { sp = sem.info, undercurl = true },
-
-		-- Window bar
-		WinBar   = { fg = p.subtle, bg = p.surface },
-		WinBarNC = { fg = p.muted, bg = ui.bg },
-
-		-- Syntax highlighting
-		Comment = { fg = syntax.comment, style = styles.comments },
-
-		Constant  = { fg = syntax.constant },
-		String    = { fg = syntax.string },
-		Character = { fg = special.character },
-		Number    = { fg = syntax.constant },
-		Boolean   = { fg = syntax.boolean },
-		Float     = { fg = syntax.constant },
-
-		Identifier = { fg = syntax.variable, style = styles.variables },
-		Function   = { fg = syntax._function, style = styles.functions },
-
-		Statement   = { fg = syntax.keyword, style = styles.keywords },
-		Conditional = { fg = syntax.control, style = styles.keywords },
-		Repeat      = { fg = syntax.control, style = styles.keywords },
-		Label       = { fg = syntax.keyword, style = styles.keywords },
-		Operator    = { fg = syntax.operator },
-		Keyword     = { fg = syntax.keyword, style = styles.keywords },
-		Exception   = { fg = syntax.control, style = styles.keywords },
-
-		PreProc   = { fg = syntax.macro },
-		Include   = { fg = syntax.import },
-		Define    = { fg = syntax.macro },
-		Macro     = { fg = syntax.macro, bold = styles.bold },
-		PreCondit = { fg = syntax.macro, italic = styles.italic },
-
-		Type         = { fg = syntax.type },
-		StorageClass = { fg = syntax.storage, bold = styles.bold },
-		Structure    = { fg = syntax.type, bold = styles.bold },
-		Typedef      = { fg = syntax.type, italic = styles.italic },
-
+	return {
+		Normal         = {fg = ui.fg, bg = transparent_bg or ui.bg },
+		NormalNC       = {fg = p.subtle, bg = transparent_bg or Util.darken(ui.bg, 0.1) },
+		NormalFloat    = {fg = ui.fg, bg = transparent_bg or ui.bg_float },
+		LineNr         = { fg = p.muted },
+		CursorLineNr   = { fg = ui.accent },
+		Cursor         = { fg = ui.bg, bg = ui.fg },
+		CursorIM       = { link = "Cursor" },
+		CursorLine     = { bg = transparent_bg or Util.lighten(ui.bg, 0.05) },
+		CursorColumn   = { link = "CursorLine" },
+		StatusLine     = { fg = ui.fg, bg = ui.bg },
+		StatusLineNC   = { fg = p.muted, bg = ui.bg },
+		VertSplit      = { fg = Util.darken(ui.bg, 0.1) },
+		WinSeparator   = { link = "VertSplit" },
+		Search         = { fg = ui.fg, bg = Util.blend(ui.accent, ui.bg, 0.2) },
+		IncSearch      = { fg = ui.bg, bg = ui.accent },
+		Visual         = { bg = p.overlay },
+		VisualNOS      = { link = "Visual" },
+		Folded         = { fg = ui.fg, bg = colors.none },
+		FoldColumn     = { fg = p.muted },
+		TabLine        = { fg = p.subtle, bg = p.surface },
+		TabLineFill    = { bg = ui.bg },
+		TabLineSel     = { fg = ui.fg, bg = p.overlay },
+		SignColumn     = { fg = ui.fg, bg = colors.none },
+		Pmenu          = { fg= p.subtle, bg = ui.bg_float },
+		PmenuSel       = { fg = ui.fg, bg = ui.bg_popup },
+		PmenuSbar      = { bg = ui.bg_float },
+		PmenuThumb     = { bg = ui.bg_popup },
+		ErrorMsg       = { fg = sem.error },
+		WarningMsg     = { fg = sem.warn },
+		MoreMsg        = { fg = sem.ok },
+		Question       = { fg = sem.info },
+		DiffAdd        = { bg = Util.blend(git.git_add, ui.bg, 0.2) },
+		DiffChange     = { bg = Util.blend(git.git_change, ui.bg, 0.2) },
+		DiffDelete     = { bg = Util.blend(git.git_delete, ui.bg, 0.2) },
+		DiffText       = { bg = Util.blend(git.git_text, ui.bg, 0.4) },
+		MatchParen     = { fg = ui.accent, bg = Util.blend(ui.accent, ui.bg, 0.3), bold = styles.bold },
+		NonText        = { fg = p.muted },
+		SpecialKey     = { fg = syntax.escape },
+		SpellBad       = { sp = sem.error, undercurl = true },
+		SpellCap       = { sp = sem.warn, undercurl = true },
+		SpellLocal     = { sp = sem.ok, undercurl = true },
+		SpellRare      = { sp = sem.info, undercurl = true },
+		WinBar         = { fg= p.subtle, bg = p.surface },
+		WinBarNC       = { fg= p.muted, bg = ui.bg },
+		Comment        = { fg = syntax.comment, style = styles.comments },
+		Constant       = { fg = syntax.constant },
+		String         = { fg = syntax.string },
+		Character      = { fg = special.character },
+		Number         = { fg = syntax.constant },
+		Boolean        = { fg = syntax.boolean },
+		Float          = { fg = syntax.constant },
+		Identifier     = { fg = syntax.variable, style = styles.variables },
+		Function       = { fg = syntax._function, style = styles.functions },
+		Statement      = { fg = syntax.keyword, style = styles.keywords },
+		Conditional    = { fg = syntax.control, style = styles.keywords },
+		Repeat         = { fg = syntax.control, style = styles.keywords },
+		Label          = { fg = syntax.keyword, style = styles.keywords },
+		Operator       = { fg = syntax.operator },
+		Keyword        = { fg = syntax.keyword, style = styles.keywords },
+		Exception      = { fg = syntax.control, style = styles.keywords },
+		PreProc        = { fg = syntax.macro },
+		Include        = { fg = syntax.import },
+		Define         = { fg = syntax.macro },
+		Macro          = { fg = syntax.macro, bold = styles.bold },
+		PreCondit      = { fg = syntax.macro, italic = styles.italic },
+		Type           = { fg = syntax.type },
+		StorageClass   = { fg = syntax.storage, bold = styles.bold },
+		Structure      = { fg = syntax.type, bold = styles.bold },
+		Typedef        = { fg = syntax.type, italic = styles.italic },
 		Special        = { fg = special.special },
 		SpecialChar    = { fg = special.character },
 		Tag            = { fg = special.special },
 		Delimiter      = { fg = syntax.punctuation },
 		SpecialComment = { fg = syntax.comment, italic = true, bold = styles.bold },
 		Debug          = { fg = sem.error, bold = styles.bold },
-
-		Underlined = { underline = styles.underline },
-
-		Bold   = { bold = styles.bold },
-		Italic = { italic = styles.italic },
-
-		FloatBorder = { fg = ui.border },
-		Title       = { fg = ui.border, bold = styles.bold },
-
-		healthError   = { fg = sem.error },
-		healthSuccess = { fg = sem.ok },
-		healthWarning = { fg = sem.warn },
+		Underlined     = { underline = styles.underline },
+		Bold           = { bold= styles.bold },
+		Italic         = { italic = styles.italic },
+		FloatBorder    = { fg = ui.border },
+		Title          = { fg = ui.border, bold = styles.bold },
+		healthError    = { fg = sem.error },
+		healthSuccess  = { fg = sem.ok },
+		healthWarning  = { fg = sem.warn },
 
 		htmlArg     = { fg = syntax.property },
 		htmlBold    = { bold = styles.bold },
@@ -188,8 +144,6 @@ function M.get(colors, opts)
 		mkdRule          = { fg = syntax.punctuation },
 		mkdURL           = { link = "markdownUrl" },
 	}
-
-	return highlights
 end
 
 return M

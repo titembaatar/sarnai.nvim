@@ -13,8 +13,8 @@ M.url="https://github.com/mfussenegger/nvim-dap"
 ---@param colors ColorPalette
 ---@return Groups
 function M.get(colors)
-	local sem = colors.semantic
 	local ui = colors.ui
+	local sem = colors.semantic
 
 	return {
 		DapStoppedLine = { bg = Util.blend(sem.warn, ui.bg, 0.1) },

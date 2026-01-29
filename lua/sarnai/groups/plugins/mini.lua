@@ -8,14 +8,13 @@ M.url="https://github.com/nvim-mini/mini.nvim"
 ---@param opts SarnaiConfig
 ---@return Groups
 function M.get(colors, opts)
-	local p = colors.palette
-	local git = colors.git
-	local sem = colors.semantic
-	local special = colors.special
-	local ui = colors.ui
-
 	local styles = opts.styles or {}
 	local transparent_bg = opts.transparent and "NONE" or nil
+	local p = colors.palette
+	local ui = colors.ui
+	local special = colors.special
+	local sem = colors.semantic
+	local git = colors.git
 
 	return {
 		-- mini.surround
