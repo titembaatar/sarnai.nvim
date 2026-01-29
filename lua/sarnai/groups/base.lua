@@ -17,9 +17,9 @@ function M.get(colors, opts)
 	local r = colors.rainbow
 
 	return {
-		Normal         = {fg = ui.fg, bg = transparent_bg or ui.bg },
-		NormalNC       = {fg = p.subtle, bg = transparent_bg or Util.darken(ui.bg, 0.1) },
-		NormalFloat    = {fg = ui.fg, bg = transparent_bg or ui.bg_float },
+		Normal         = { fg = ui.fg, bg = transparent_bg or ui.bg },
+		NormalNC       = { fg = p.subtle, bg = transparent_bg or Util.darken(ui.bg, 0.1) },
+		NormalFloat    = { fg = ui.fg, bg = transparent_bg or ui.bg_float },
 		LineNr         = { fg = p.muted },
 		CursorLineNr   = { fg = ui.accent },
 		Cursor         = { fg = ui.bg, bg = ui.fg },
