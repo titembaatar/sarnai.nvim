@@ -266,7 +266,7 @@ function M.generate_palette(p)
 			h6 = p.nuur,
 		},
 		none = "NONE",
-		terminal = Term.get_colors(p),
+		terminal = Term.get(p),
 	}
 
 	return colors

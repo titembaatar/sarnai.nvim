@@ -23,7 +23,7 @@ local M = {}
 
 ---@param palette BasePalette
 ---@return TerminalColors
-function M.get_colors(palette)
+function M.get(palette)
 	return {
 		black          = palette.base,
 		bright_black   = palette.surface,
@@ -44,14 +44,12 @@ function M.get_colors(palette)
 	}
 end
 
----@param palette ColorPalette
-function M.set_colors(palette)
-	local t = palette.terminal
-	local none = palette.none or "NONE"
+---@param colors ColorPalette
+function M.setup(colors)
+	local t = colors.terminal
+	local none = colors.none or "NONE"
 
-	if not palette.terminal or type(t) ~= "table" then
-		return
-	end
+	if not colors.terminal or type(t) ~= "table" then return end
 
 	vim.g.terminal_color_0  = t.black or none
 	vim.g.terminal_color_1  = t.red or none
