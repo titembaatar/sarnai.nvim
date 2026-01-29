@@ -15,10 +15,10 @@ end
 function M.load(opts)
 	opts = vim.tbl_deep_extend("force", M.options or Config.defaults, opts or {})
 
-	local palette = Colors.get(opts.style)
+	local c = Colors.get(opts.style)
 
 	if opts.on_colors and type(opts.on_colors) == "function" then
-		opts.on_colors(palette)
+		opts.on_colors(c)
 	end
 
 	if vim.g.colors_name then vim.cmd("hi clear") end
@@ -26,14 +26,14 @@ function M.load(opts)
 	vim.o.background = opts.style == "ovol" and "light" or "dark"
 
 	if vim.o.termguicolors and opts.terminal_colors then
-		Term.set_colors(palette)
+		Term.setup(c)
 	end
 
-	Groups.setup(palette, opts)
+	Groups.setup(c, opts)
 
 	vim.g.colors_name = "sarnai-" .. opts.style
 
-	return palette
+	return c
 end
 
 return M
