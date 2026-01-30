@@ -78,16 +78,32 @@ SYNTAX PALETTE                                       *sarnai-palette-syntax*
 
 Colors used for syntax highlighting:
 
-  punctuation  Delimiters, brackets, etc. (from subtle)
-  comment      Code comments              (from muted)
-  constant     Constants, numbers         (from els)
-  string       String literals            (from els)
-  functions    Function names             (from sarnai)
-  boolean      Boolean values             (from chatsalgan)
-  keyword      Keywords, control flow     (from nuur)
-  operator     Operators                  (from subtle)
-  type         Types, classes, interfaces (from mus)
-  variable     Variables                  (from text)
+  punctuation  Delimiters, brackets, etc.    (from subtle)
+  comment      Code comments                 (from muted)
+  constant     Constants, numbers            (from els)
+  string       String literals               (from els)
+  boolean      Boolean values                (from chatsalgan)
+  variable     Variables                     (from text)
+
+  _function    Function names                (from sarnai)
+  method       Method definitions and calls  (from sarnai)
+  builtin      Built-in functions, types     (from anis)
+  macro        Macro functions               (from chatsalgan)
+
+  keyword      Generic keywords              (from nuur)
+  control      Control flow (if, for, while) (blend of nuur and mus)
+  import       Import/include keywords       (from yargui)
+  storage      Storage (static, const)       (from nuur)
+  _return      Return keyword                (from nuur)
+
+  type         Types, classes, interfaces    (from mus)
+  property     Object properties             (from mus)
+
+  operator     Operators                     (from subtle)
+  parameter    Function parameters           (from yargui)
+  escape       Escape sequences in strings   (from anis)
+  regex        Regular expressions           (from els)
+  decorator    Decorators, attributes        (from yargui)
 
 ==============================================================================
 SEMANTIC PALETTE                                   *sarnai-palette-semantic*
@@ -136,6 +152,8 @@ Colors for special UI elements:
 
   link        Links and URLs                  (from nuur)
   special     Special characters and elements (from mus)
+  symbol      Special symbols                 (blend of mus and els)
+  character   Special characters              (blend of mus and sarnai)
   note        Notes in comments               (from nuur)
   todo        TODO markers                    (from sarnai)
   warning     Warning notes                   (from chatsalgan)
@@ -209,24 +227,23 @@ Sarnai provides color utilities you can use in the `on_colors` function:
 >lua
 	require("sarnai").setup({
 		on_colors = function(colors)
-			local color = require("sarnai.util.color")
-			local hsluv = require("sarnai.util.hsluv")
+			local Util = require("sarnai.util")
 
 			-- Blend colors (foreground, background, alpha 0-1)
-			local blended = color.blend("#ff0000", "#000000", 0.5)
+			local blended = Util.blend("#ff0000", "#000000", 0.5)
 
 			-- Darken a color
-			local darker = color.darken("#ff0000", 0.2)
+			local darker = Util.darken("#ff0000", 0.2)
 
 			-- Lighten a color
-			local lighter = color.lighten("#ff0000", 0.2)
-
-			-- Generate a color with HSLuv values
-			local color = hsluv.hsluv(320, 80, 70)
+			local lighter = Util.lighten("#ff0000", 0.2)
 
 			-- Apply your modified colors
 			colors.semantic.error = darker
 			colors.semantic.hint = lighter
+
+			-- Or directly
+			colors.syntax.keywork = Util.blend("#ff0000", "#000000", 0.5)
 		end,
 	})
 <

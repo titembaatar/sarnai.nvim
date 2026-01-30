@@ -89,16 +89,18 @@ sarnai.nvim can be configured through the setup function:
 
 		-- Configure syntax highlighting styles
 		styles = {
-			-- Set to false to disable a style globally
-			italic = true,
-			bold = true,
-			underline = true,
+		-- Set to false to disable a style globally
+		italic = true,
+		bold = true,
+		underline = true,
+		undercurl = true,
+		strikethrough = true,
 
-			-- Specific syntax elements
-			comments = { italic = true },
-			keywords = { italic = true },
-			functions = {},
-			variables = {},
+		-- Specific syntax elements
+		comments = { italic = true },
+		keywords = {},
+		functions = {},
+		variables = {},
 		},
 
 		-- Plugin integrations
@@ -152,22 +154,36 @@ For a detailed breakdown of all color values, see |sarnai-palette-details|.
 ==============================================================================
 7. SUPPORTED PLUGINS                                       *sarnai-plugins*
 
-sarnai.nvim provides enhanced highlighting for:
-	- mini.nvim modules
+sarnai.nvim provides highlighting for (up to date):
 	- blink.cmp
 	- snacks.nvim
+	- mini.nvim modules
+	- render-markdown.nvim
 	- trouble.nvim
 
-sarnai.nvim also provided (no longer maintained) highlighting for:
+sarnai.nvim also provides (no longer maintained) highlighting for:
 	- fzf-lua
 	- telescope.nvim
 	- gitsigns.nvim
 	- which-key.nvim
-	- zen-mode.nvim
 	- nvim-dap
 
 Plugin highlights are automatically enabled if the plugin is detected via
 lazy.nvim, or you can manually configure which plugins to highlight.
+
+Supported mini.nvim modules:
+	- mini.surround
+	- mini.diff
+	- mini.files
+	- mini.cursorword
+	- mini.hipatterns
+	- mini.indentscope
+	- mini.statusline
+	- mini.tabline
+
+Supported snacks.nvim modules:
+	- snacks.dashboard
+	- snacks.notifier
 
 ==============================================================================
 8. CUSTOMIZATION                                       *sarnai-customization*
@@ -266,37 +282,6 @@ You can disable caching if needed:
 >lua
 	require("sarnai").setup({ cache = false, })
 <
-
-==============================================================================
-10. FAQ                                                         *sarnai-faq*
-
-Q: How do I completely disable italic or bold styles?
-A: You can disable all styles using:
->lua
-	require("sarnai").setup({
-		styles = {
-			italic = false,
-			bold = false,
-			underline = false,
-		},
-	})
-<
-
-Q: How do I fix colors looking wrong in my terminal?
-A: Make sure your terminal supports true colors and you have
-   `termguicolors` enabled in your Neovim config. For some terminals,
-   you might need to set the TERM environment variable correctly.
-
-Q: Can I use Sarnai with plugins not in the supported list?
-A: Yes, Sarnai provides sensible defaults for most plugins. You can also
-   add custom highlight definitions using the `on_highlights` function.
-
-Q: How can I preview how my changes will look?
-A: You have two options:
-     1. Call `require("sarnai").clear_cache()` before reloading the colorscheme
-     2. Set `cache = false` in your config to bypass the cache
-   Once satisfied with your customizations, you can keep cache enabled for
-   better performance.
 
 ==============================================================================
 vim:tw=78:ts=2:ft=help:norl:
