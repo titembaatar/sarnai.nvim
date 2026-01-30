@@ -125,7 +125,6 @@
 ---@field terminal TerminalPalette Terminal colors
 
 local Util = require("sarnai.util")
-local Term = require("sarnai.terminal")
 
 local M = {}
 
@@ -265,7 +264,7 @@ function M.generate_palette(p)
 			h5 = p.els,
 			h6 = p.nuur,
 		},
-		terminal = Term.get(p),
+		terminal = require("sarnai.terminal").get(p),
 		none = "NONE",
 	}
 
