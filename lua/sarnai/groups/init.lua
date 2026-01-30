@@ -33,7 +33,7 @@ function M.get(colors, opts)
 			o.bold          = (opts.styles.bold and s.bold) or false
 			o.underline     = (opts.styles.underline and s.underline) or false
 			o.undercurl     = (opts.styles.undercurl and s.undercurl) or false
-			o.strikethrough = (opts.styles.strikethough and s.strikethrough) or false
+			o.strikethrough = (opts.styles.strikethrough and s.strikethrough) or false
 			o.style         = nil
 		end
 	end
