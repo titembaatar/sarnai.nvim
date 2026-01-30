@@ -130,7 +130,7 @@ local Term = require("sarnai.terminal")
 local M = {}
 
 ---@type BasePalette
-M.base_palette = {
+M.dark_palette = {
 	-- Core base colors
 	base    = "#172620",
 	surface = "#21362d",
@@ -265,31 +265,30 @@ function M.generate_palette(p)
 			h5 = p.els,
 			h6 = p.nuur,
 		},
-		none = "NONE",
 		terminal = Term.get(p),
+		none = "NONE",
 	}
 
 	return colors
 end
 
+---@param opts SarnaiConfig
 ---@return ColorPalette
-function M.get_khavar()
-	return M.generate_palette(M.base_palette)
-end
+function M.get(opts)
+	local style = opts.style
+	local colors = {}
 
----@return ColorPalette
-function M.get_ovol()
-	return M.generate_palette(M.light_palette)
-end
-
----@param style Style
----@return ColorPalette
-function M.get(style)
 	if style == "ovol" then
-		return M.get_ovol()
+		colors = M.generate_palette(M.light_palette)
+	else
+		colors = M.generate_palette(M.dark_palette)
 	end
 
-	return M.get_khavar()
+	if opts.on_colors and type(opts.on_colors) == "function" then
+		opts.on_colors(colors)
+	end
+
+	return colors
 end
 
 return M
