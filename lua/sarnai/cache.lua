@@ -1,67 +1,59 @@
----@class GroupsCache
+---@class SarnaiCache
+---@field version string
+---@field config table
+---@field colors ColorPalette
 ---@field groups Groups
----@field palette ColorPalette
 
-local M = {}
+local Util = require("sarnai.util")
 
----@type table<string, GroupsCache>
-M.cache = {}
+local M
+
+
+-- From folke/tokyonight with some modifications
+local uv = vim.uv or vim.loop
+
+---@param key Style
+function M.file(key)
+  return vim.fn.stdpath("cache") .. "/sarnai-" .. key .. ".json"
+end
+
+---@param key Style
+function M.read(key)
+  ---@type boolean, SarnaiCache
+  local ok, ret = pcall(function()
+    return vim.json.decode(Util.read(M.file(key)), { luanil = {
+      object = true,
+      array = true,
+    } })
+  end)
+  return ok and ret or nil
+end
+
+---@param key Style
+---@param data SarnaiCache
+function M.write(key, data)
+  pcall(Util.write, M.file(key), vim.json.encode(data))
+end
 
 ---@param opts SarnaiConfig
----@return string
-function M.generate(opts)
-	local parts = {
-		"style=" .. (opts.style or "khavar"),
-		"transparent=" .. tostring(opts.transparent or false),
-	}
+---@return ColorPalette, Groups
+function M.setup(opts)
+	local key = opts.style
+	local cached = M.read(key)
 
-	if opts.styles then
-		for k, v in pairs(opts.styles) do
-			parts[#parts + 1] = k .. "=" .. vim.inspect(v)
-		end
+	if cached then
+		return cached.colors, cached.groups
 	end
 
-	if opts.plugins then
-		local plugins_str = "plugins="
-		for k, v in pairs(opts.plugins) do
-			if type(v) == "boolean" then
-				plugins_str = plugins_str .. k .. "=" .. tostring(v) .. ","
-			end
-		end
-		parts[#parts + 1] = plugins_str
-	end
-
-	if opts.on_colors or opts.on_highlights then
-		parts[#parts + 1] = "custom=true"
-	end
-
-	return table.concat(parts, ",")
-end
-
----@param key string Cache key
----@param groups Groups
----@param palette ColorPalette
-function M.store(key, groups, palette)
-	M.cache[key] = {
-		groups = groups,
-		palette = palette
-	}
-end
-
----@param key string Cache key
----@return GroupsCache|nil
-function M.get(key)
-	return M.cache[key]
-end
-
----@param key string Cache key
----@return boolean
-function M.exists(key)
-	return M.cache[key] ~= nil
+	return {}, {}
 end
 
 function M.clear()
-	M.cache = {}
+  for _, style in ipairs({ "khavar", "ovol" }) do
+    uv.fs_unlink(M.file(style))
+  end
 end
 
 return M
+
+

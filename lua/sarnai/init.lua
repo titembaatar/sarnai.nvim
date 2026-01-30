@@ -5,13 +5,31 @@ local Groups = require("sarnai.groups")
 
 local M = {}
 
+M.version = "1.0.0"
 
 ---@param opts? SarnaiConfig
 function M.load(opts)
 	opts = require("sarnai.config").extend(opts)
 
-	local c = Colors.get(opts)
-	local g = Groups.get(c, opts)
+	local c, g = {}, {}
+
+	if opts.cache then
+		c, g = require("sarnai.cache").setup(opts)
+	end
+
+	if not c or not g then
+		c, g = Colors.get(opts), Groups.get(c, opts)
+
+		if opts.cache then
+			require("sarnai.cache").write(opts.style, {
+				version = M.version,
+				config = opts,
+				colors = c,
+				groups = g,
+			})
+		end
+	end
+
 	Groups.setup(g)
 	if vim.o.termguicolors and opts.terminal_colors then
 		Term.setup(c)
