@@ -1,8 +1,6 @@
 ---@alias HEX string
 ---@alias RGB {r: number, g: number, b: number}
 
-local hsluv = require("sarnai.util.hsluv")
-
 local M = {}
 
 ---@param hex HEX
@@ -53,32 +51,24 @@ function M.lighten(hex, amount)
 	return M.blend("#ffffff", hex, amount)
 end
 
----@param h number
----@param s number
----@param l number
----@return HEX
-function M.hsluv(h, s, l)
-	h = h % 360
-	s = math.max(0, math.min(100, s))
-	l = math.max(0, math.min(100, l))
-
-	return hsluv.hsluv_to_hex(h, s, l)
+---From folke/tokyonight
+---@param file string
+function M.read(file)
+  local fd = assert(io.open(file, "r"))
+  ---@type string
+  local data = fd:read("*a")
+  fd:close()
+  return data
 end
 
----@param hex HEX
----@return HEX
-function M.invert_color(hex)
-	local color = hsluv.hex_to_hsluv(hex)
-
-	color.l = 100 - color.l
-
-	if color.l > 80 then
-		color.s = math.max(10, color.s * 0.8)
-	elseif color.l < 20 then
-		color.s = math.max(20, color.s * 1.2)
-	end
-
-	return hsluv.hsluv_to_hex_obj(color)
+---From folke/tokyonight
+---@param file string
+---@param contents string
+function M.write(file, contents)
+  vim.fn.mkdir(vim.fn.fnamemodify(file, ":h"), "p")
+  local fd = assert(io.open(file, "w+"))
+  fd:write(contents)
+  fd:close()
 end
 
 return M

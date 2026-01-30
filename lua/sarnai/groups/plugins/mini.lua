@@ -1,4 +1,4 @@
-local color = require("sarnai.util.color")
+local Util = require("sarnai.util")
 
 local M = {}
 
@@ -6,16 +6,15 @@ M.url="https://github.com/nvim-mini/mini.nvim"
 
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(colors, opts)
-	local p = colors.palette
-	local git = colors.git
-	local sem = colors.semantic
-	local special = colors.special
-	local ui = colors.ui
-
 	local styles = opts.styles or {}
 	local transparent_bg = opts.transparent and "NONE" or nil
+	local p = colors.palette
+	local ui = colors.ui
+	local special = colors.special
+	local sem = colors.semantic
+	local git = colors.git
 
 	return {
 		-- mini.surround
@@ -42,7 +41,7 @@ function M.get(colors, opts)
 		MiniFilesCursorLine     = { fg = ui.fg, bg = transparent_bg or ui.bg_popup },
 
 		-- mini.cursorword
-		MiniCursorword = { bg = color.blend(ui.accent, p.base, 0.1), underline = false },
+		MiniCursorword = { bg = Util.blend(ui.accent, p.base, 0.1), underline = false },
 
 		-- mini.hipatterns
 		MiniHipatternsFixme      = { fg = ui.bg, bg = sem.error, bold = styles.bold },
@@ -72,13 +71,13 @@ function M.get(colors, opts)
 		MiniTablineHidden          = { fg = p.subtle, bg = transparent_bg or ui.bg_float, italic = styles.italic },
 		MiniTablineModifiedCurrent = { fg = ui.bg, bg = transparent_bg or p.chatsalgan, bold = styles.bold },
 		MiniTablineModifiedVisible = { fg = ui.bg, bg = transparent_bg or p.chatsalgan },
-		MiniTablineModifiedHidden  = { fg = ui.bg, bg = transparent_bg or color.blend(p.chatsalgan, ui.bg_float, 0.7), italic = styles.italic },
+		MiniTablineModifiedHidden  = { fg = ui.bg, bg = transparent_bg or Util.blend(p.chatsalgan, ui.bg_float, 0.7), italic = styles.italic },
 		MiniTablineFill            = { bg = transparent_bg or ui.bg },
 		MiniTablineTabpagesection  = { bg = transparent_bg or ui.bg },
 		MiniTablineTrunc           = { bg = transparent_bg or ui.bg },
 
 		-- mini.trailspace
-		MiniTrailspace = { bg = color.blend(sem.error, p.base, 0.2) },
+		MiniTrailspace = { bg = Util.blend(sem.error, p.base, 0.2) },
 	}
 end
 

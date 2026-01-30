@@ -17,41 +17,39 @@
 ---	bright_cyan:    HEX,
 ---	}
 
-local color = require("sarnai.util.color")
+local Util = require("sarnai.util")
 
 local M = {}
 
 ---@param palette BasePalette
 ---@return TerminalColors
-function M.get_colors(palette)
+function M.get(palette)
 	return {
 		black          = palette.base,
 		bright_black   = palette.surface,
 		white          = palette.subtle,
 		bright_white   = palette.text,
 		red            = palette.anis,
-		bright_red     = color.lighten(palette.anis, 0.2),
+		bright_red     = Util.lighten(palette.anis, 0.2),
 		green          = palette.uvs,
-		bright_green   = color.lighten(palette.uvs, 0.2),
+		bright_green   = Util.lighten(palette.uvs, 0.2),
 		yellow         = palette.els,
-		bright_yellow  = color.lighten(palette.els, 0.2),
+		bright_yellow  = Util.lighten(palette.els, 0.2),
 		blue           = palette.nuur,
-		bright_blue    = color.lighten(palette.nuur, 0.2),
+		bright_blue    = Util.lighten(palette.nuur, 0.2),
 		magenta        = palette.sarnai,
-		bright_magenta = color.lighten(palette.sarnai, 0.2),
+		bright_magenta = Util.lighten(palette.sarnai, 0.2),
 		cyan           = palette.mus,
-		bright_cyan    = color.lighten(palette.mus, 0.2),
+		bright_cyan    = Util.lighten(palette.mus, 0.2),
 	}
 end
 
----@param palette ColorPalette
-function M.set_colors(palette)
-	if not palette.terminal then return end
+---@param colors ColorPalette
+function M.setup(colors)
+	local t = colors.terminal
+	local none = colors.none or "NONE"
 
-	local t = palette.terminal
-	if type(t) ~= "table" then return end
-
-	local none = palette.none or "NONE"
+	if not colors.terminal or type(t) ~= "table" then return end
 
 	vim.g.terminal_color_0  = t.black or none
 	vim.g.terminal_color_1  = t.red or none

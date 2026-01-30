@@ -1,3 +1,1 @@
-local sarnai = require("sarnai")
-sarnai.load({ style = "khavar" })
-return sarnai
+require("sarnai").load({ style = "khavar" })

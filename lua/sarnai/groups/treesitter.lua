@@ -1,19 +1,19 @@
-local color = require("sarnai.util.color")
+local Util = require("sarnai.util")
+
 local M = {}
 
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(colors, opts)
+	local styles = opts.styles or {}
+	local transparent_bg = opts.transparent and "NONE" or nil
 	local p = colors.palette
-	local git = colors.git
+	local ui = colors.ui
 	local sem = colors.semantic
 	local special = colors.special
 	local syntax = colors.syntax
-	local ui = colors.ui
-
-	local styles = opts.styles or {}
-	local transparent_bg = opts.transparent and "NONE" or nil
+	local git = colors.git
 
 	return {
 		-- Treesitter syntax groups
@@ -91,9 +91,9 @@ function M.get(colors, opts)
 		["@markup.link.text.markdown"] = { fg = syntax.string },
 
 		["@markup.raw"]                 = { fg = syntax.string },
-		["@markup.raw.block.markdown"]  = { fg = syntax.string, bg = transparent_bg or color.darken(ui.bg, 0.1) },
+		["@markup.raw.block.markdown"]  = { fg = syntax.string, bg = transparent_bg or Util.darken(ui.bg, 0.1) },
 		["@markup.raw.block.language"]  = { fg = syntax.keyword, bold = styles.bold },
-		["@markup.raw.markdown_inline"] = { bg = color.darken(p.base, 0.1), fg = p.nuur },
+		["@markup.raw.markdown_inline"] = { bg = Util.darken(p.base, 0.1), fg = p.nuur },
 
 		["@markup.list"]                    = { fg = syntax.keyword },
 		["@markup.list.checked"]            = { fg = sem.ok },
@@ -148,7 +148,7 @@ function M.get(colors, opts)
 		["@lsp.type.comment"]       = { link = "@comment" },
 		["@lsp.type.decorator"]     = { link = "@attribute" },
 		["@lsp.type.enum"]          = { link = "@type" },
-		["@lsp.type.enumMember"]    = {link = "@constant" },
+		["@lsp.type.enumMember"]    = { link = "@constant" },
 		["@lsp.type.function"]      = { link = "@function" },
 		["@lsp.type.interface"]     = { link = "@type" },
 		["@lsp.type.keyword"]       = { link = "@keyword" },

@@ -1,18 +1,17 @@
-local color = require("sarnai.util.color")
+local Util = require("sarnai.util")
 
 local M = {}
 
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(colors, opts)
+	local styles = opts.styles or {}
+	local transparent_bg = opts.transparent and "NONE" or nil
 	local p = colors.palette
 	local ui = colors.ui
 	local sem = colors.semantic
 	local special = colors.special
-
-	local styles = opts.styles or {}
-	local transparent_bg = opts.transparent and "NONE" or nil
 
 	return {
 		DiagnosticError = { fg = sem.error },
@@ -50,14 +49,14 @@ function M.get(colors, opts)
 
 		LspReferenceText  = { bg = p.surface },
 		LspReferenceRead  = { link = "LspReferenceText" },
-		LspReferenceWrite = { bg = color.blend(special.link, ui.bg, 0.2) },
+		LspReferenceWrite = { bg = Util.blend(special.link, ui.bg, 0.2) },
 
 		LspCodeLens          = { fg = p.muted },
 		LspCodeLensSeparator = { fg = p.muted },
 
 		LspInlayHint = { fg = p.muted, bg = transparent_bg or ui.bg, italic = styles.italic },
 
-		LspSignatureActiveParameter = {fg = sem.warn, bg = transparent_bg or sem.warn_bg},                                                                                       -- Active parameter in signature help
+		LspSignatureActiveParameter = {fg = sem.warn, bg = transparent_bg or sem.warn_bg},
 
 		NormalFloat = { fg = ui.fg, bg = transparent_bg or ui.bg_float },
 		FloatBorder = { fg = ui.border, bg = transparent_bg or ui.bg_float },
@@ -68,7 +67,7 @@ function M.get(colors, opts)
 		LightBulbFloatWin = { link = "LightBulb" },
 
 		LspRenameTitle = { fg = sem.hint, bold = styles.bold },
-		LspRenameMatch = { bg = color.blend(sem.hint, ui.bg, 0.2) },
+		LspRenameMatch = { bg = Util.blend(sem.hint, ui.bg, 0.2) },
 
 		CmpItemAbbr           = { fg = p.subtle },
 		CmpItemAbbrDeprecated = { fg = p.subtle, strikethrough = true },

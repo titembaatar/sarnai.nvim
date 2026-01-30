@@ -6,8 +6,8 @@
 ---@field strikethrough? boolean
 
 ---@class PluginsConfig
----@field all boolean # Enable all plugins when not using lazy.nvim
----@field auto boolean # Use lazy.nvim to enable plugins
+---@field all boolean
+---@field auto boolean
 ---@field mini? boolean
 ---@field trouble? boolean
 ---@field which_key? boolean
@@ -20,14 +20,14 @@
 ---@field snacks? boolean
 
 ---@class SarnaiConfig
----@field style Style # "khavar" (dark) or "ovol" (light)
----@field transparent boolean # transparent backgrounds
----@field terminal_colors boolean
----@field styles table<string, boolean|StyleConfig>
----@field plugins PluginsConfig
----@field cache boolean
----@field on_colors? fun(colors: ColorPalette): nil # override colors
----@field on_highlights? fun(highlights: table, colors: ColorPalette): nil # override highlights
+---@field style Style
+---@field transparent? boolean
+---@field terminal_colors? boolean
+---@field styles? table<string, boolean|StyleConfig>
+---@field plugins? PluginsConfig
+---@field cache? boolean
+---@field on_colors? fun(colors: ColorPalette): nil
+---@field on_highlights? fun(highlights: table, colors: ColorPalette): nil
 
 local M = {}
 
@@ -40,8 +40,10 @@ M.defaults = {
 		italic = true,
 		bold = true,
 		underline = true,
+		undercurl = true,
+		strikethrough = true,
 		comments = { italic = true },
-		keywords = { italic = true },
+		keywords = {},
 		functions = {},
 		variables = {},
 	},
@@ -51,5 +53,18 @@ M.defaults = {
 	},
 	cache = true,
 }
+
+---@type SarnaiConfig
+M.options = nil
+
+---@param options? SarnaiConfig
+function M.setup(options)
+  M.options = vim.tbl_deep_extend("force", {}, M.defaults, options or {})
+end
+
+---@param opts? SarnaiConfig
+function M.extend(opts)
+  return opts and vim.tbl_deep_extend("force", {}, M.options, opts) or M.options
+end
 
 return M

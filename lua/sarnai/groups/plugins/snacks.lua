@@ -4,11 +4,11 @@ M.url="https://github.com/folke/snacks.nvim"
 
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
----@return Highlights
+---@return Groups
 function M.get(colors, opts)
 	local p = colors.palette
-	local sem = colors.semantic
 	local ui = colors.ui
+	local sem = colors.semantic
 
 	return {
 		-- Dashboard
