@@ -11,7 +11,8 @@ M.groups = {
 
 ---@param colors ColorPalette
 ---@param opts SarnaiConfig
-function M.setup(colors, opts)
+---@return Groups
+function M.get(colors, opts)
 	local groups = {}
 
 	for _, group_module in ipairs(M.groups) do
@@ -25,22 +26,28 @@ function M.setup(colors, opts)
 		opts.on_highlights(groups, colors)
 	end
 
-	for group, options in pairs(groups) do
-		if options.style and type(options.style) == "table" then
-			local style = options.style
-
-			options.italic        = (opts.styles.italic and style.italic) or false
-			options.bold          = (opts.styles.bold and style.bold) or false
-			options.underline     = (opts.styles.underline and style.underline) or false
-			options.undercurl     = (opts.styles.undercurl and style.undercurl) or false
-			options.strikethrough = (opts.styles.strikethough and style.strikethrough) or false
-			options.style         = nil
+	for _, o in pairs(groups) do
+		if o.style and type(o) == "table" then
+			local s = o.style
+			o.italic        = (opts.styles.italic and s.italic) or false
+			o.bold          = (opts.styles.bold and s.bold) or false
+			o.underline     = (opts.styles.underline and s.underline) or false
+			o.undercurl     = (opts.styles.undercurl and s.undercurl) or false
+			o.strikethrough = (opts.styles.strikethough and s.strikethrough) or false
+			o.style         = nil
 		end
+	end
 
-		if options.link and type(options.link) == "string" then
-			vim.api.nvim_set_hl(0, group, { link = options.link })
+	return groups
+end
+
+---@param groups Groups
+function M.setup(groups)
+	for g, o in pairs(groups) do
+		if o.link and type(o.link) == "string" then
+			vim.api.nvim_set_hl(0, g, { link = o.link })
 		else
-			vim.api.nvim_set_hl(0, group, options)
+			vim.api.nvim_set_hl(0, g, o)
 		end
 	end
 end
