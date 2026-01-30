@@ -6,8 +6,7 @@
 
 local Util = require("sarnai.util")
 
-local M
-
+local M = {}
 
 -- From folke/tokyonight with some modifications
 local uv = vim.uv or vim.loop
@@ -35,17 +34,38 @@ function M.write(key, data)
   pcall(Util.write, M.file(key), vim.json.encode(data))
 end
 
+---@param cached SarnaiCache
 ---@param opts SarnaiConfig
----@return ColorPalette, Groups
-function M.setup(opts)
+---@param version string
+---@return boolean
+function M.is_valid(cached, opts, version)
+	if not cached or not cached.config or not cached.version then
+		return false
+	end
+
+	if cached.version ~= version then
+		return false
+	end
+
+	local cache_cfg = cached.config
+	return cache_cfg.style == opts.style
+		and cache_cfg.transparent == opts.transparent
+		and cache_cfg.terminal_colors == opts.terminal_colors
+		and vim.deep_equal(cache_cfg.styles, opts.styles)
+end
+
+---@param opts SarnaiConfig
+---@param version string
+---@return ColorPalette, Groups, boolean -- colors, groups, was_cached
+function M.setup(opts, version)
 	local key = opts.style
 	local cached = M.read(key)
 
-	if cached then
-		return cached.colors, cached.groups
+	if cached and M.is_valid(cached, opts, version) then
+		return cached.colors, cached.groups, true
 	end
 
-	return {}, {}
+	return {}, {}, false
 end
 
 function M.clear()
@@ -55,5 +75,4 @@ function M.clear()
 end
 
 return M
-
 
