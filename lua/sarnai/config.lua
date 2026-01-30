@@ -40,8 +40,10 @@ M.defaults = {
 		italic = true,
 		bold = true,
 		underline = true,
+		undercurl = true,
+		strikethrough = true,
 		comments = { italic = true },
-		keywords = { italic = true },
+		keywords = {},
 		functions = {},
 		variables = {},
 	},
@@ -51,5 +53,18 @@ M.defaults = {
 	},
 	cache = true,
 }
+
+---@type SarnaiConfig
+M.options = nil
+
+---@param options? SarnaiConfig
+function M.setup(options)
+  M.options = vim.tbl_deep_extend("force", {}, M.defaults, options or {})
+end
+
+---@param opts? SarnaiConfig
+function M.extend(opts)
+  return opts and vim.tbl_deep_extend("force", {}, M.options, opts) or M.options
+end
 
 return M
