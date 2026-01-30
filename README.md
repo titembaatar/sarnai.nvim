@@ -71,10 +71,12 @@ require("sarnai").setup({
     italic = true,
     bold = true,
     underline = true,
+    undercurl = true,
+    strikethrough = true,
 
     -- Specific syntax elements
     comments = { italic = true },
-    keywords = { italic = true },
+    keywords = {},
     functions = {},
     variables = {},
   },
