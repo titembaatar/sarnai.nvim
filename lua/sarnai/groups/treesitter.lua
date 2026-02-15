@@ -35,6 +35,7 @@ function M.get(colors, opts)
 		["@character.special"] = { fg = special.character },
 
 		["@boolean"]      = { link = "Boolean" },
+		["@constant"]     = { link = "Constant" },
 		["@number"]       = { link = "Number" },
 		["@number.float"] = { link = "Float" },
 		["@float"]        = { link = "Float" },

@@ -188,7 +188,7 @@ function M.generate_palette(p)
 			-- Basic syntax elements
 			punctuation = p.subtle,
 			comment     = p.muted,
-			constant    = p.els,
+			constant    = p.chatsalgan,
 			string      = p.els,
 			boolean     = p.chatsalgan,
 			variable    = p.text,
@@ -197,7 +197,7 @@ function M.generate_palette(p)
 			_function = p.sarnai,
 			method    = p.sarnai,
 			builtin   = p.anis,
-			macro     = p.chatsalgan,
+			macro     = p.anis,
 
 			-- Keyword-related
 			keyword = p.nuur,
